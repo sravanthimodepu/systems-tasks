@@ -1,0 +1,398 @@
+#+Title: Systems Tasks List
+#+Author: Sravanthi
+#+Date: [2018-08-03 Fri]
+
+* Introduction
+  This document contains the list of tasks for a system engineer at
+  vlead.
+* List od Tasks
+  - backup-config-files
+  - Ernet
+  - SSL certificates
+  - vlead-projects/aws-invoices
+  - Outreach-portal
+  - Feedback-portal
+  - Analytics   
+* Admin Tasks
+  - Custom in gmail groups??
+  - Gmail a/c
+  - Ldap
+  - Github
+  - Gitlab
+  - bitbucket 
+  - Public/private domain
+  - *AWS*
+** Passwords
+   - Login to base1
+   - Enter into 12151 container 
+     #+BEGIN_EXAMPLE
+     vzctl enter 12151
+     su -
+     #+END_EXAMPLE
+   - sqiltepassword.txt - base machines passwords
+   - To open password.txt give the encrypted key.
+* Create vlabs gmail account
+** User details
+   - Ask a users to give their details such as
+   - Name
+   - Phone Number
+   - Gmail account
+   - Github & Gitlab handles	
+** Vlabs gmail account 
+   - Login to vlabs admin account
+   - Select admin from the menu
+   - Select users option in Admin console
+   - Click on "+" button to create user.
+   - Enter user information details and set password.
+   - To delete a user, choose user and suspend. 
+** Add user in vlead mailing groups
+   - Select groups in Admin console
+   - Choose a group, click on manage users in group
+   - Enter user mail id and add.
+   - To remove user from the group, select user and click on =Remove
+     memeber=.
+** List of vlead Mailing groups  
+   - vlead-staff@vlabs.ac.in
+   - vlead-employees@vlabs.ac.in
+   - systems@vlabs.ac.in 
+   - support@vlabs.ac.in 
+   - engineers@vlabs.ac.in
+* LDAP(Lightweight Directory Access Protocol) account creation  
+** Ldap credentials access 
+   - GLPi
+   - Base machines
+   - Redmine
+   - community
+** Create ldap account for a user
+   - Login to LDAP server on base3 with ldap user credentials.
+     #+BEGIN_EXAMPLE
+     ssh modepusravanthi@10.4.12.23
+     sudo su -
+     vzctl enter 13165
+     su -
+     #+END_EXAMPLE
+   - Change directory to ldif_files(LDAP Data Interchange Format).
+   - LDIF conveys directory content as a set of records, one record
+     for each object.
+   - create a file  =ldif_files/add_user_with_password.ldif= and add the below lines to it:
+     #+BEGIN_EXAMPLE
+     dn: cn=<user-name>,ou=people,dc=virtual-labs,dc=ac,dc=in  
+     objectClass: inetOrgPerson
+     objectClass: posixAccount
+     objectClass: shadowAccount
+     cn: <user-name>
+     sn: <last-name>
+     gn: <first-name>
+     mail: <email-id>
+     ou: people
+     displayName: <user-name>
+     telephoneNumber: <mobile-number>
+     postalAddress:  IIIT-H 
+     #Posix and Shadow account related attributes
+     uid: <user-name>
+     uidNumber: <some UID number above 500>
+     gidNumber: <some GID number above 500> (same for all the user as it is group id)
+     homeDirectory: /home/<user-name>
+     loginShell: /bin/bash
+     gecos: <user-name>
+     userPassword: <slappasswd generated SSHA hash>
+     shadowLastChange: 0
+     shadowMax: -1
+     shadowWarning: 999999
+     #+END_EXAMPLE
+   - set password for the created user with the below command:
+     #+BEGIN_EXAMPLE
+     slappasswd
+     #+END_EXAMPLE
+   - It generates the password for the user.  
+   - Edit the add_user_with_password.ldif file, paste the generate
+     password into userPassword place.
+   - Add the user with LDAP
+     #+BEGIN_EXAMPLE
+     ldapadd -x -D 'cn=root,dc=virtual-labs,dc=ac,dc=in' -W -f add_user_with_password.ldif
+     #+END_EXAMPLE
+   - Remove user from group
+   - Reset password
+** Remove user from ldap
+   - To remove a user's ldif file use below command and replace the
+     text within < > with the LDAP user¡¯s information.
+     #+BEGIN_EXAMPLE
+     ldapdelete -x -D "cn=root,dc=virtual-labs,dc=ac,dc=in" -W "cn=<user-name>,ou=people,dc=virtual-labs,dc=ac,dc=in"
+     #+END_EXAMPLE
+** Add user in Ldap admin group
+    - Create a file =ldif_files/user-to-admin-group.ldif-<data>=
+    - Add the below lines to the file:
+      #+BEGIN_EXAMPLE
+      dn: cn=admin,ou=groups,dc=virtual-labs,dc=ac,dc=in
+      changetype: modify
+      add: memberuid
+      memberuid: medhamsh
+      #+END_EXAMPLE
+    - Save the file and use the below command to add a user to admin group:
+      #+BEGIN_EXAMPLE
+      ldapadd -x -D 'cn=root,dc=virtual-labs,dc=ac,dc=in' -W -f add_user_into-admin-group.ldif
+      #+END_EXAMPLE
+** Remove user from vlead admin group
+   - Create a file =ldif_files/remove_user_from-admin-group.ldif=. Add
+     below lines and save the file.
+     #+BEGIN_EXAMPLE
+     dn: cn=admin,ou=groups,dc=virtual-labs,dc=ac,dc=in
+     changetype: modify
+     delete: memberuid
+     memberuid: <user-id>
+     #+END_EXAMPLE
+   - Run the following command to remove user from admin group
+     #+BEGIN_EXAMPLE
+     ldapmodify -x -D "cn=root,dc=virtual-labs, dc=ac, dc=in" -W -f remove_user_group.ldif
+     #+END_EXAMPLE
+   - Enter LDAP password to remove user  
+** Reset password
+   - create a file =ldif_files/reset_user_password.ldif=. Add below
+     lines and save the file
+     #+BEGIN_EXAMPLE
+     dn: cn=<user-name>,ou=people,dc=virtual-labs,dc=ac,dc=in  
+     changetype: modify
+     replace: userPassword
+     userPassword: <slappasswd generated SSHA hash>
+     #+END_EXAMPLE  
+   - Use below command to modify the user
+     #+BEGIN_EXAMPLE
+     ldapmodify -x -D "cn=root,dc=virtual-labs,dc=ac,dc=in" -W -f ldif_files/reset_user_password.ldif
+     #+END_EXAMPLE
+   - Enter ldap password (from passwords.txt)
+   - Use below command to generate a new password
+     #+BEGIN_EXAMPLE
+     slappasswd
+     #+END_EXAMPLE
+   - Edit the reset_user_password.ldif file, paste the generate
+     password into userPassword place.
+** Modify user  
+    - Give github & gitlab access as vlead-staff & vlead organization
+* Close the fixed issues 
+    - Closing unnecessary/ fixed issues from gitlab systems-operations
+      repository.
+    - If the issue is fixed, close the issue. 
+* Access to common folders
+* OS installation
+    - Configuration of a machine/system
+    - Partition  
+    - Installing Packages 
+* Deployment
+    - First deploy the lab on base4(testing environment) through ADS. It creates
+      a container on base4, we can check the given lab url.
+    - If everything works fine then deploy the lab on
+      base1(staging/production) using ADS.
+    - It creates an AMI, Instance, volume and snapshot at AWS with the
+      size, ID, type, IP address.
+ 
+** Through ADS on base1, base4, production
+   - Clone repository  
+   - VM creation - template, IP,hostname
+   - Install dependenices throudh labspec.json
+   - copy repo from ads to contianer
+   - make
+   - remove default index.html from /var/www/html
+   - copy build to /var/www/html
+** Production
+   - Login to ssh-tunnel with the below command:
+     #+BEGIN_EXAMPLE
+     ssh user@ssh-tunnel.vlabs.ac.in
+     sudo su -
+     #+END_EXAMPLE
+   - 
+   - ssh -i aa1.pem vlead@ansible.vlabs.ac.in
+   - cd git/systems-model/build/aws-code
+   - vim roles/common_vars/vars/main.yml and Add/Delete public/private/reverse proxy entries
+   - ansible playbook -i hosts private/public/reverse-proxy.yml files.
+   - login to base3 - ssh ldap@10.4.12.23
+   - vzctl enter public-dns
+   - vim /var/named/virtual-labs.conf
+   - Add public entry (domain name)
+   - reload named  
+   - ssh root@reverseproxy.vlabs.ac.in
+   - vim /etc/httpd/conf.d/virtual-hosts.conf
+   - service httpd relaod
+   - ssh root@public-dns
+   - vi /var/named/vlabs.ac.in.forward/ virtual-labs.ac.in.forward
+   - login to base3, enter into ns1-pub  
+     - vi /var/named/vlabs.ac.in.forward/ virtual-labs.ac.in.forward
+* Creating an OPenVZ container
+    - One should install OpenVZ on centos/ubuntu.
+    - Commands to create and start openvz container:
+      #+BEGIN_EXAMPLE
+      vzctl create <CTID> --ostemplate <ubuntu-14.04-X86_64> --ipaddress <10.4.12.30> --hostname <xxx.vlabs.ac.in>
+      vzctl start <CTID>
+      vzctl enter <CTID>
+      #+END_EXAMPLE
+    - Commands to delete a container
+      #+BEGIN_EXAMPLE
+      vzctl stop <CTID>
+      vzctl destroy <CTID>
+      #+END_EXAMPLE
+* ADS
+    - Download ads vagrantbox 
+    - Add downloaded vagrantbox to the vagrantbox list
+    - create a folder and do =vagrant init= inside the folder.
+    - It generate a =Vagrantfile=  
+    - Open vagrant file and update =config.vim.box= as the the folder
+      name which was created earlier.
+    - Uncomment the =private_network= line the the same file.
+    - Save and exit from the file.
+    - Change directory to the folder and type below command to up and
+      enter into the ads vagranbox.
+      #+BEGIN_EXAMPLE
+      vagrant up
+      vagrant ssh
+      #+END_EXAMPLE
+    - Make appropriate changes and run the below scripts
+      #+BEGIN_EXAMPLE
+      ./managescript.sh
+      python app.py &
+      #+END_EXAMPLE
+* College Cloud
+    - Setup college cloud
+    - 
+* IRC
+   - IRc channel on base3 container ID 16302
+   - Install and setup supybot
+   - Create a user vlead and configure supybot inside the user.
+   - Run "supybot vlead-logging.conf &" whenever IRC stops backing up the logs  
+* Migrating containers 
+    - Login to base4 choose the container you want to migrate from
+      base4 to base3 and run the below command:
+      #+BEGIN_EXAMPLE   
+      vzmigrate <basemachine_ip> <CTID>
+      Ex: vzmigrate 10.4.12.24 41
+      #+END_EXAMPLE 
+* Docker
+* DNS
+   - Domain Name Service (DNS) is an Internet service that maps IP
+     addresses and fully qualified domain names (FQDN) to one
+     another. In this way, DNS alleviates the need to remember IP
+     addresses. Computers that run DNS are called name servers.
+   - sudo apt install bind9
+   - sudo apt install dnsutils
+   - The DNS configuration files are stored in the /etc/bind
+     directory. The primary configuration file is /etc/bind/named.conf
+* Bootstraping
+    - The bootstraping steps implements the router, ansible, rsyslog,
+      reverse-proxy, nagios,rsnapshot,ADS, privatedns, publicdns,
+      ossec server manually.
+      - 
+* Cluster automation
+    - The cluster automation implements the following with the
+      =bootstrap.sh= shell script:
+      #+BEGIN_EXAMPLE
+      basic machine setup
+      creates cluster containers
+      router
+      ansible/config server
+      ossec-server
+      rsyslog  server
+      private-dns server
+      public-dns server 
+      reverse-proxy server
+      nagios server
+      rsnapshot server
+      ADS service
+      Main Playbook
+      #+END_EXAMPLE
+*** Steps for cluster automation      
+    - Install a minimal centos in virtual box with the following
+      configuration:
+      #+BEGIN_EXAMPLE 
+      RAM 1GB
+      #+END_EXAMPLE 
+    - Should be connected to the Lan cable 
+    - Change the Network settings from =NAT to Bridge Adapter= and
+      =Display= to minimum =50MB=.
+    - Login to machine with root credentials.
+    - Export network proxy and type =dhclient -v= to make the internet
+      working state.
+    - Install git with the below command:
+      #+BEGIN_EXAMPLE
+      yum install -y git
+      #+END_EXAMPLE
+    - Clone the cluster-automation repository
+      #+BEGIN_EXAMPLE
+      git clone https://gitlab.com/vlead-systems/cluster-automation
+      #+END_EXAMPLE
+    - Change directory to cluster-automation
+    - Run make
+    - Take three LAN IP's for hostmachine, router,config server  
+    - **Edit the file
+      ~/cluster-automation/build/code/imp/roles/common_vars/vars/main.yml
+      and make the following changes:
+      #+BEGIN_EXAMPLE
+      hostmachine_ip: <>
+      router_ip: <>
+      config_server_ip: <>
+      #+END_EXAMPLE
+    - Change consumer key and consumer secret in the above file.  
+    - Run bootstrap.sh file from cluster-automation directory.
+    - After running the script all the servers are properly configured.
+
+* Tasks to be Learn 
+    - base machines down - solution   
+    - vlabs-about
+    - vlabs-dev-pages
+    - Vlabs-web-pages
+    - Nagios
+    - Outreach portal
+    - Feedback portal
+    - All passwords
+    - Experiment server
+    - Migrating instances from t2.micro to t2.nano
+    - SSL Certificates
+    - vlabs Wiki
+    - Servers Size increment
+    - Server backup dump
+    - reverseproxy - 80%
+    - Nagios
+    - Vagrant
+    - Kernal
+    - OS hardening  
+* Running labs from base3, production/base1/AWS
+* List of base1,base2, base3, base4 containers
+* Creating vagrantbox
+  - 
+* openvz template creation/adding
+  - [[https://gitlab.com/vlead-systems/docs/blob/master/src/base-machines-docs/create-new-template-from-existing.org][Here]] is the gitlab link to create openvz template.
+  - https://gitlab.com/vlead-systems/docs/blob/master/src/base-machines-docs/openvz-create-template.org  
+* HTTP & HTTPS
+  - HTTP - public & anyone can track or hack the site
+  - HTTPS - Secure site, no one can hack the site.  
+* CDAC
+* Base machines
+   - Base1 - Staging 
+   - Base2 - Docker by Medhamsh
+   - Base3 - stpi & DNS server
+   - Base4 - Testing environment
+EC2 electric compute cloud
+VPC virtual private cloud 
+| AWS       | Base Machines |
+|-----------+---------------|
+| EC2       | Openvz        |
+|-----------+---------------|
+| Instances | conainers     |
+|-----------+---------------|
+| VPC       | bridges       |
+|-----------+---------------|
+
+* Emacs
+* Login from outside of iiit
+  - tunnel
+    #+BEGIN_EXAMPLE
+    ssh user@ssh-tunnel.vlabs.ac.in
+    ssh user@196.52.32.133
+    #+END_EXAMPLE
+    ssh -i aa1.pem vlead@ansible.vlabs.ac.in
+    ssh root@<ip>/domain
+IAM - Identityt Access management
+* Repositories
+  - [[https://gitlab.com/vlead-systems/college-cloud/blob/master/src/labs-on-college-cloud/list-of-labs-in-college-cloud.org][Labs on College]]
+  - [[https://gitlab.com/vlead-systems/cluster-automation/blob/exclude-ads-role/src/imp/installation-steps.org][Cluster-automation-exclude-ads-role]]  
+  - [[https://gitlab.com/vlead-systems/systems-model/blob/include-ads-role/src/bootstrapping.org][Systems-model-include-ads-role]]  
+  - [[https://gitlab.com/vlead-projects/aws-invoices][Aws-invoice]]
+  - [[https://gitlab.com/vlead-systems/docs/blob/master/src/how-to/renewal-ssl.org][SSl Certificates]] 
+  - [[https://gitlab.com/vlead-systems/docs/tree/master/src/how-to][Documentations-docs]]  
