@@ -1,0 +1,96 @@
+#+Title: AWS Billing Report
+#+Date: 9th Nov 2018
+#+Author: Systems Team
+
+* Introduction
+  This document has the detailed billing report of AWS
+* Billing Report as per Locuz 
+  - Billing with Locus started from Sep 11th, 2018.
+** Mumbai Region
+   - Following are the detailed cost estimation of Mumbai region:
+   - There are 
+     96 instances, 
+     98 volumes, 
+     100 snapshots, 
+     2 Elastic IP's, 
+     5 keypairs and 
+     27 security groups in Mumbai region.
+   - Bill will be genrated for instances, volumes & snapshots.
+   - Cost for the EC2 instances and EBS(volumes & snapshots) for mumbai region:
+     |----------+------------------+--------------+---+---------------------------+----------------------|
+     | Type     | No. of Instances | Instances/hr |   | EBS (volumes & snapshots) | storage type         |
+     |----------+------------------+--------------+---+---------------------------+----------------------|
+     | t2.nano  |               93 | $0.0062      |   | $0.05                     | snapshot             |
+     |----------+------------------+--------------+---+---------------------------+----------------------|
+     | t2.micro |     2+2(stopped) | $0.0124      |   | $0.08                     | I/O requests         |
+     |----------+------------------+--------------+---+---------------------------+----------------------|
+     | t2.small |                1 | $0.0248      |   | $0.08                     | magnetic             |
+     |----------+------------------+--------------+---+---------------------------+----------------------|
+     |          |                  |              |   | $0.114                    | General purpose(gp2) | 45
+     |----------+------------------+--------------+---+---------------------------+----------------------|
+*** Cost Estimation for Instances
+   - Cost estimation for nano instance
+     #+BEGIN_EXAMPLE
+     1 instance  => 24hrs * 30days = 720hrs  
+     93 insances => 720hrs * 93 = 66,960 hrs
+     1 instance => $0.0062 => 66,960* $0.0062 = $415.152
+     #+END_EXAMPLE
+   - Cost estimation for micro instance
+     #+BEGIN_EXAMPLE
+     1 instance  => 24hrs * 30days = 720hrs
+     2 instance  => 720hrs  * 2 = 1440hrs
+     1 instance  => $0.0124 * 1440 = $17.856 
+     #+END_EXAMPLE
+   - Cost estimation for small instance
+     #+BEGIN_EXAMPLE
+     1 instance  => 24hrs * 30days = 720 hrs
+     1 instance  => $0.0248 * 720  = $17.856
+     #+END_EXAMPLE
+   - Total Cost for all the Instances in Mumbai region = *$450.864* 
+** Cost estimation for EBS(volumes & snapshots) in Mumbai region: 
+   - Cost estiamtion for Volumes (gp2)
+     #+BEGIN_EXAMPLE
+     1 Month  => $0.114/GB
+     1580GB   => 1580* $0.114 = $180.12 
+     #+END_EXAMPLE
+   - Cost estimation for volumes (standard)
+     #+BEGIN_EXAMPLE
+     1 Month  => $0.08/GB
+     1622GB   => 1622* 0.08 = $129.76
+     #+END_EXAMPLE
+   - Cost estimation for I/O requests 
+     #+BEGIN_EXAMPLE
+     $0.08 / 1 Million I/O => 73,576,113* $0.08 => $5.89
+     #+END_EXAMPLE
+   - Cost estimation for snapshots (considering last month data GB)
+     #+BEGIN_EXAMPLE
+     $0.05 / GB  => 1599.534GB * $0.05 = $79.98  
+     #+END_EXAMPLE
+   - Total cost for the EBS in Mumbai region = *$395.75* 
+*** Estimated bill for the month of November 2018
+    - Estimated bill for the month of November is $846.61
+** N.Virginia Region
+
+| Instances | Type      |   | EBS (volumes & snapshots) | storage type         |
+|-----------+-----------+---+---------------------------+----------------------|
+| $0.0116   | t2.micro  |   | $0.05                     | snapshot             |
+|-----------+-----------+---+---------------------------+----------------------|
+| $0.0232   | t2.small  |   | $0.05                     | I/O requests         |
+|-----------+-----------+---+---------------------------+----------------------|
+| $0.0464   | t2.medium |   | $0.05                     | magnetic             |
+|-----------+-----------+---+---------------------------+----------------------|
+| $0.133    | m3.large  |   | $0.10                     | General purpose(gp2) | 1580 GB
+|           |           |   |                           |                      |
+|-----------+-----------+---+---------------------------+----------------------|
+
+
+* Conclusion
+    - We have estimated the instances cost but not for the volumes and
+      snapshots, when we had a meeting with locus on [[https://gitlab.com/vlead-systems/reduce-aws-bill/blob/master/src/mom/20-07-2018.org][20-07-2018]],
+    - During July Month there are only 86 instances in Virginia region
+      and now in November there are 96 instances, we need to stop some
+      of the instances in Mumbai region.
+    - As per my observation, comparing both the Virgina & Mumbai
+      region:
+      * Instances & EBS cost is more in Mumbai region compared with
+        Virginia region.
