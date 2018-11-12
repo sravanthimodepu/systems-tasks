@@ -26,7 +26,7 @@
      |----------+------------------+--------------+---+---------------------------+----------------------|
      | t2.small |                1 | $0.0248      |   | $0.08                     | magnetic             |
      |----------+------------------+--------------+---+---------------------------+----------------------|
-     |          |                  |              |   | $0.114                    | General purpose(gp2) | 45
+     |          |                  |              |   | $0.114                    | General purpose(gp2) | 
      |----------+------------------+--------------+---+---------------------------+----------------------|
 *** Cost Estimation for Instances
    - Cost estimation for nano instance
@@ -58,7 +58,7 @@
      1 Month  => $0.08/GB
      1622GB   => 1622* 0.08 = $129.76
      #+END_EXAMPLE
-   - Cost estimation for I/O requests 
+   - Cost estimation for I/O requests (considering last month usage)
      #+BEGIN_EXAMPLE
      $0.08 / 1 Million I/O => 73,576,113* $0.08 => $5.89
      #+END_EXAMPLE
@@ -70,7 +70,7 @@
 *** Estimated bill for the month of November 2018
     - Estimated bill for the month of November is $846.61
 ** N.Virginia Region
-
+   
 | Instances | Type      |   | EBS (volumes & snapshots) | storage type         |
 |-----------+-----------+---+---------------------------+----------------------|
 | $0.0116   | t2.micro  |   | $0.05                     | snapshot             |
@@ -82,7 +82,6 @@
 | $0.133    | m3.large  |   | $0.10                     | General purpose(gp2) | 1580 GB
 |           |           |   |                           |                      |
 |-----------+-----------+---+---------------------------+----------------------|
-
 
 * Conclusion
     - We have estimated the instances cost but not for the volumes and
