@@ -16,26 +16,37 @@
      5 keypairs and 
      27 security groups in Mumbai region.
    - Bill will be genrated for instances, volumes & snapshots.
-   - Cost for the EC2 instances and EBS(volumes & snapshots) for mumbai region:
-     |----------+------------------+--------------+---+---------------------------+----------------------|
-     | Type     | No. of Instances | Instances/hr |   | EBS (volumes & snapshots) | storage type         |
-     |----------+------------------+--------------+---+---------------------------+----------------------|
-     | t2.nano  |               93 | $0.0062      |   | $0.05                     | snapshot             |
-     |----------+------------------+--------------+---+---------------------------+----------------------|
-     | t2.micro |     2+2(stopped) | $0.0124      |   | $0.08                     | I/O requests         |
-     |----------+------------------+--------------+---+---------------------------+----------------------|
-     | t2.small |                1 | $0.0248      |   | $0.08                     | magnetic             |
-     |----------+------------------+--------------+---+---------------------------+----------------------|
-     |          |                  |              |   | $0.114                    | General purpose(gp2) | 
-     |----------+------------------+--------------+---+---------------------------+----------------------|
-*** Cost Estimation for Instances
-   - Cost estimation for nano instance
+   - Cost for the EC2 instances for Mumbai region:
+     |----------+------------------+--------------|
+     | Type     | No. of Instances | Instances/hr |
+     |----------+------------------+--------------|
+     | t2.nano  |               93 | $0.0062      |
+     |----------+------------------+--------------|
+     | t2.micro |     2+2(stopped) | $0.0124      |
+     |----------+------------------+--------------|
+     | t2.small |                1 | $0.0248      |
+     |----------+------------------+--------------|
+   - Cost for the EBS(volumes & snapshots) for Mumbai region:
+     |---------------------------+----------------------|
+     | EBS (volumes & snapshots) | storage type         |
+     |---------------------------+----------------------|
+     | $0.05                     | snapshot             |
+     |---------------------------+----------------------|
+     | $0.08                     | I/O requests         |
+     |---------------------------+----------------------|
+     | $0.08                     | magnetic             |
+     |---------------------------+----------------------|
+     | $0.114                    | General purpose(gp2) |
+     |---------------------------+----------------------|
+** Cost Estimation for the month of November
+*** Cost Estimation for Instances    
+   - Cost estimation for EC2 instance
      #+BEGIN_EXAMPLE
      1 instance  => 24hrs * 30days = 720hrs  
      93 insances => 720hrs * 93 = 66,960 hrs
-     1 instance => $0.0062 => 66,960* $0.0062 = $415.152
+     1 instance => $0.0062 => 66,960 * $0.0062 = $415.152
      #+END_EXAMPLE
-   - Cost estimation for micro instance
+   - Cost estimation for EBS
      #+BEGIN_EXAMPLE
      1 instance  => 24hrs * 30days = 720hrs
      2 instance  => 720hrs  * 2 = 1440hrs
@@ -47,41 +58,100 @@
      1 instance  => $0.0248 * 720  = $17.856
      #+END_EXAMPLE
    - Total Cost for all the Instances in Mumbai region = *$450.864* 
-** Cost estimation for EBS(volumes & snapshots) in Mumbai region: 
-   - Cost estiamtion for Volumes (gp2)
+*** Cost estimation for EBS(volumes & snapshots)
+   - Cost estiamtion for Volumes (gp2 - 45)
      #+BEGIN_EXAMPLE
      1 Month  => $0.114/GB
      1580GB   => 1580* $0.114 = $180.12 
      #+END_EXAMPLE
-   - Cost estimation for volumes (standard)
+   - Cost estimation for volumes (standard - 53)
      #+BEGIN_EXAMPLE
      1 Month  => $0.08/GB
      1622GB   => 1622* 0.08 = $129.76
      #+END_EXAMPLE
    - Cost estimation for I/O requests (considering last month usage)
      #+BEGIN_EXAMPLE
-     $0.08 / 1 Million I/O => 73,576,113* $0.08 => $5.89
+     $0.08 / 1 Million I/O => 198,476,312* $0.08 => $15.88
      #+END_EXAMPLE
    - Cost estimation for snapshots (considering last month data GB)
      #+BEGIN_EXAMPLE
      $0.05 / GB  => 1599.534GB * $0.05 = $79.98  
      #+END_EXAMPLE
-   - Total cost for the EBS in Mumbai region = *$395.75* 
+   - Total cost for the EBS in Mumbai region = *$405.82* 
+*** Cost for the US East (N.Virginia) region
+    - As there is one Elastic IP (54.85.93.7), cost for the Elastic IP
+      address not attached to a running instance per hour $0.005
+      #+BEGIN_EXAMPLE
+      288hrs * $0.005 = $1.44
+      #+END_EXAMPLE
+*** Cost for the US West (N.California)
+    - Cost for the snapshot storage $0.055/GB
+      #+BEGIN_EXAMPLE
+      303.808GB * $0.055 = $16.71 
+      #+END_EXAMPLE
+*** Data Transfer & Simple Storage Service(S3)
+    - Considering the October month cost for Data transfer *$6.76* and for S3, the cost is *$0.44*
 *** Estimated bill for the month of November 2018
-    - Estimated bill for the month of November is $846.61
-** N.Virginia Region
-   
-| Instances | Type      |   | EBS (volumes & snapshots) | storage type         |
-|-----------+-----------+---+---------------------------+----------------------|
-| $0.0116   | t2.micro  |   | $0.05                     | snapshot             |
-|-----------+-----------+---+---------------------------+----------------------|
-| $0.0232   | t2.small  |   | $0.05                     | I/O requests         |
-|-----------+-----------+---+---------------------------+----------------------|
-| $0.0464   | t2.medium |   | $0.05                     | magnetic             |
-|-----------+-----------+---+---------------------------+----------------------|
-| $0.133    | m3.large  |   | $0.10                     | General purpose(gp2) | 1580 GB
-|           |           |   |                           |                      |
-|-----------+-----------+---+---------------------------+----------------------|
+    - Estimated bill for the month of November is *$882.034* (approximately $900).
+    - [[../images/aws-oct-bill.png][Here]] is the reference bill for the month of October 2018.  
+*** Estimated the bill without stopped instances
+    - There was 9 stoped instances as per the month of July.
+    - Calculating for As per the July month, there was 83 instances, 96 volumes and
+      111 snapshots.
+    - As we dont have the count for the type of instances, so
+      calculating the least cost for all the 83 instances is $0.0062.
+    - Cost estimation for nano instances
+      #+BEGIN_EXAMPLE
+      1 instance   => 24hrs * 30days = 720hrs
+      83 instances => 720 * 83 = 59,760 hrs
+      1 instance   => $0.0062 => 59760 * $0.0062 = 370.512
+      #+END_EXAMPLE
+    - Cost estimation for EBS
+      #+BEGIN_EXAMPLE
+      1 month =>  $0.114/GB
+      3202 GB =>  $0.114* 3202 => $365.02 
+      #+END_EXAMPLE
+   - Cost estimated for I/O requests and magnetic provisioned storage
+     is *$171.27*
+   - For other S3, Data storage, US East(N.Virginia) and US West
+      N(california), the approximated bill is *$25.35*
+   - Total bill calculated without stopped instances for mumbai
+      region is *932.16* 
+* Billing Report as per SD2
+   - Calculated the bill for the month of July, as it was the last
+     month with SD2 with the proper instances.
+   - Locus started the migration process in the month of August  
+** US East(N.Virginia) region
+   - There are 83 Instances, 96 Volumes, 111 Snapshots.
+   - Estimated cost for instances  
+     #+BEGIN_EXAMPLE
+     1 instance  => 24hrs * 30days = 720hrs  
+     83 insances => 720hrs * 83 = 59,760 hrs
+     1 instance => $0.006 => 66,960 * $0.006 = $358.56
+     #+END_EXAMPLE
+   - Estimated cost for Volumes  
+     #+BEGIN_EXAMPLE
+     
+     #+END_EXAMPLE
+** US West (N. California) region
+   - There are
+     Instances: 0
+     Volumes: 0
+     Snapshots: 08
+** Total bill for the month of July 2018
+   - After calculating the US East(N.Virginia) and US
+     West(N.California), the total bill we recieved is $624.6
+     
+| Instances | Type      |   | EBS   | storage type         |
+|-----------+-----------+---+-------+----------------------|
+| $0.0116   | t2.micro  |   | $0.05 | snapshot             |
+|-----------+-----------+---+-------+----------------------|
+| $0.0232   | t2.small  |   | $0.05 | I/O requests         |
+|-----------+-----------+---+-------+----------------------|
+| $0.0464   | t2.medium |   | $0.05 | magnetic             |
+|-----------+-----------+---+-------+----------------------|
+| $0.133    | m3.large  |   | $0.10 | General purpose(gp2) |
+|-----------+-----------+---+-------+----------------------|
 
 * Conclusion
     - We have estimated the instances cost but not for the volumes and

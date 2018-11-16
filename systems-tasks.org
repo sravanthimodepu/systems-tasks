@@ -5,9 +5,11 @@
 * Introduction
   This document contains the list of tasks for a system engineer at
   vlead.
-* List od Tasks
+* List of Tasks
   - backup-config-files
-  - Ernet
+  - Ernet Domain name Provider
+    Login to Ernet to
+  - NameCheap - SSL certificates  
   - [[https://gitlab.com/vlead-systems/docs/blob/master/src/how-to/renewal-ssl.org][SSL certificates]] - domain name provider need to renew everytime
     before its renew time.
   - vlead-projects/aws-invoices
@@ -23,6 +25,7 @@
   - bitbucket 
   - Public/private domain
   - *AWS*
+    
 ** Passwords
    - Login to base1
    - Enter into 12151 container 
@@ -58,13 +61,20 @@
    - systems@vlabs.ac.in 
    - support@vlabs.ac.in 
    - engineers@vlabs.ac.in
+* Create IAM user on AWS
+  - Login with root a/c
+  - click on services, select IAM under security, Identity &
+    Compliance.
+  - IAM dashboard is opened, click on users to create an IAM user
+  - Add user & follow the steps accordingly.  
 * LDAP(Lightweight Directory Access Protocol) account creation
 ** Ldap credentials access 
    - GLPi
    - Base machines
    - Redmine
    - community
-** Create ldap account for a user
+   - Base3, Base4  
+** Create ldap account for a user to login to base4
    - Login to LDAP server on base3 with ldap user credentials.
      #+BEGIN_EXAMPLE
      ssh modepusravanthi@10.4.12.23
@@ -112,40 +122,44 @@
      #+BEGIN_EXAMPLE
      ldapadd -x -D 'cn=root,dc=virtual-labs,dc=ac,dc=in' -W -f add_user_with_password.ldif
      #+END_EXAMPLE
-   - Remove user from group
-   - Reset password
+** Login to LDAP on base4
+   - ssh user@10.4.12.24
+   - It asks password, type default password *vlead123* then it asks
+     to change the password Enter login(LDAP) password, again give *vlead123*
+   - Then give the new password and retype the new password.
+   - Password is successfully set for the user.   
 ** Remove user from ldap
    - To remove a user's ldif file use below command and replace the
      text within < > with the LDAP user¡¯s information.
-     #+BEGIN_EXAMPLE
+     #+BEGIN_EXAMPLE  
      ldapdelete -x -D "cn=root,dc=virtual-labs,dc=ac,dc=in" -W "cn=<user-name>,ou=people,dc=virtual-labs,dc=ac,dc=in"
-     #+END_EXAMPLE
-** Add user in Ldap admin group
+     #+END_EXAMPLE 
+** Add user in Ldap admin group - Base3
     - Create a file =ldif_files/user-to-admin-group.ldif-<data>=
     - Add the below lines to the file:
-      #+BEGIN_EXAMPLE
+      #+BEGIN_EXAMPLE 
       dn: cn=admin,ou=groups,dc=virtual-labs,dc=ac,dc=in
       changetype: modify
       add: memberuid
       memberuid: medhamsh
-      #+END_EXAMPLE
+      #+END_EXAMPLE 
     - Save the file and use the below command to add a user to admin group:
-      #+BEGIN_EXAMPLE
+      #+BEGIN_EXAMPLE 
       ldapadd -x -D 'cn=root,dc=virtual-labs,dc=ac,dc=in' -W -f add_user_into-admin-group.ldif
-      #+END_EXAMPLE
+      #+END_EXAMPLE 
 ** Remove user from vlead admin group
    - Create a file =ldif_files/remove_user_from-admin-group.ldif=. Add
      below lines and save the file.
-     #+BEGIN_EXAMPLE
+     #+BEGIN_EXAMPLE 
      dn: cn=admin,ou=groups,dc=virtual-labs,dc=ac,dc=in
      changetype: modify
      delete: memberuid
      memberuid: <user-id>
      #+END_EXAMPLE
    - Run the following command to remove user from admin group
-     #+BEGIN_EXAMPLE
+     #+BEGIN_EXAMPLE 
      ldapmodify -x -D "cn=root,dc=virtual-labs, dc=ac, dc=in" -W -f remove_user_group.ldif
-     #+END_EXAMPLE
+     #+END_EXAMPLE 
    - Enter LDAP password to remove user  
 ** Reset password
    - create a file =ldif_files/reset_user_password.ldif=. Add below
@@ -167,8 +181,16 @@
      #+END_EXAMPLE
    - Edit the reset_user_password.ldif file, paste the generate
      password into userPassword place.
-** Modify user  
-    - Give github & gitlab access as vlead-staff & vlead organization
+** Modify user
+   - ldapmodify -x -D "cn=root,dc=virtual-labs,dc=ac,dc=in" -W -f ldif_files/reset_user_password.ldif
+   - Give github & gitlab access as vlead-staff & vlead organization
+** Permissions for aws ansible 
+   - Use below command to give permission for a user
+     #+BEGIN_EXAMPLE
+     chown -R <user>:engg /home/<user>/aa1.pem
+     #+END_EXAMPLE
+* Base1 access
+  - Login to base1 and add user pub key in =.ssh/authorized_keys=
 * Close the fixed issues 
     - Closing unnecessary/ fixed issues from gitlab systems-operations
       repository.
@@ -177,8 +199,9 @@
 * OS installation
     - Configuration of a machine/system
     - Partition  
-    - Installing Packages 
-* Deployment
+    - Installing Packages
+    - Emacs  
+* Deployment of lab/ service through ADS
     - First deploy the lab on base4(testing environment) through
       ADS. It creates a container on base4, we can check the given lab
       url.
@@ -186,7 +209,7 @@
       base1(staging/production) using ADS.
     - It creates an AMI, Instance, volume and snapshot at AWS with the
       size, ID, type, IP address.
-** Deployment through ADS on base1, base4
+** Deployment on base1(staging), base4
    - Use below URL to deploy the lab on base4 & base1:
      #+BEGIN_EXAMPLE
      http://ads.base4.virtual-labs.ac.in/  - base4
@@ -210,29 +233,124 @@
    - After the successfull deployment, it gives the Ipaddress.
    - Copy the given IP and paste it in the browser.
    - The lab will be displayed.  
-** Production
+** Deployment on Production
    - Login to ssh-tunnel with the below command:
      #+BEGIN_EXAMPLE
      ssh user@ssh-tunnel.vlabs.ac.in
      sudo su -
      #+END_EXAMPLE
-   - Login to ansible to make necessary changes to deploy a lab.
+   - Login to ansible from =ssh-tunnel= using =aa1.pem= key.
      #+BEGIN_EXAMPLE
      ssh -i aa1.pem vlead@ansible.vlabs.ac.in
      #+END_EXAMPLE
-   - It asks passphrase for key =aa1.pem=  
-   - cd git/systems-model/build/aws-code
-   - vim roles/common_vars/vars/main.yml and Add/Delete
-     public/private/reverse proxy entries with domain name.
-   - ansible playbook -i hosts private/public/reverse-proxy.yml files.
-   - login to base3 - ssh ldap@10.4.12.23
+   - Login to ADS VM on Aws 
+     #+BEGIN_EXAMPLE
+     ssh root@10.100.1.9
+     #+END_EXAMPLE
+   - Change directory to =ovpl=
+     #+BEGIN_EXAMPLE
+     cd ovpl
+     #+END_EXAMPLE
+   - Start =manage_services=
+     #+BEGIN_EXAMPLE
+     ./manage_services.sh start LOGGER
+     #+END_EXAMPLE
+   - Provide email id in =/root/ovpl/src/ads-web-app/config.py=
+   - Run app.py
+     #+BEGIN_EXAMPLE
+     python app.py &
+     #+END_EXAMPLE
+   - Browse the link http://ads.vlabs.ac.in:8080
+   - Login to ads console page, provide the values in the fields and
+     click on submit.
+   - Check the ads server logs of deploying lab with the below command:
+     #+BEGIN_EXAMPLE
+     tail -f /root/log/ovpl.log
+     #+END_EXAMPLE
+   - After the deploying the lab, ads console page will give lab_id
+     and Ipaddress.
+   - Exit from ADS server as follows:
+     #+BEGIN_EXAMPLE
+     exit or ctrl+d
+     #+END_EXAMPLE
+   - The above above command takes to ansibel/config server
+   - Go to git/systems-model/build/aws-code/
+   - Update the common_vars with ipaddress and lab_id then save &
+     close the file.
+     #+BEGIN_EXAMPLE
+     vim git/systems-model/build/aws-code/roles/common_vars/vars/
+     #+END_EXAMPLE
+   - Add DNS entries in VLEAD DNS (Public and Private). These DNS
+     servers are running on base3 machine.
+   - Login to =Base3= machine using  LDAP credentials
+   - Login to ns1-pub container and update dns entries with ipaddress
+     and lab_id.
+     #+BEGIN_EXAMPLE
+     cd /var/named/virtual-labs.ac.in.forward
+     #+END_EXAMPLE
+   - save and exit from the file.
+   - Restart named service
+     #+BEGIN_EXAMPLE
+     service named reload
+     #+END_EXAMPLE
+   - Exit from the public dns container.
+   - Login to private dns 
+     #+BEGIN_EXAMPLE
+     vzctl enter 12160
+     #+END_EXAMPLE
+   - Add dns entries in /var/named/virtual-labs.ac.in.forward
+   - save and exit.
+   - Restart named service
+     #+BEGIN_EXAMPLE
+     service named reload
+     #+END_EXAMPLE
+   - Add virtualhost on production reverse proxy at:
+     #+BEGIN_EXAMPLE
+     vim /etc/httpd/conf.d/virtualhosts.conf
+     #+END_EXAMPLE
+** Updating the existing lab sources
+   - Login to ssh-tunnel with the below command:
+     #+BEGIN_EXAMPLE
+     ssh user@ssh-tunnel.vlabs.ac.in
+     sudo su -
+     #+END_EXAMPLE
+   - Login to ansible/config serever from =ssh-tunnel= using =aa1.pem=
+     key.
+     #+BEGIN_EXAMPLE
+     ssh -i aa1.pem vlead@ansible.vlabs.ac.in
+     #+END_EXAMPLE
+   - Login to lab VM
+     #+BEGIN_EXAMPLE
+     ssh root@<lab-vm-private-ip>
+     or
+     ssh root@<lab-fqdn>
+     #+END_EXAMPLE
+   - Go to the lab repository location
+     #+BEGIN_EXAMPLE
+     cd /root/labs/<lab-repo>
+     #+END_EXAMPLE
+   - Pull the changes
+     #+BEGIN_EXAMPLE
+     git pull
+     #+END_EXAMPLE
+   - Run make
+     #+BEGIN_EXAMPLE
+     make
+     #+END_EXAMPLE
+   - Rsync the build files to /var/www/  
+     #+BEGIN_EXAMPLE
+     rsync -avr build/* /var/www/
+     #+END_EXAMPLE
+   - Lab sources are update with the latest updates.  
+** Assigning Domain Name in base3-dns
+   - Login to base3 
      #+BEGIN_EXAMPLE
      ssh ldap@10.4.12.23
-     vzctl enter <public-dns>
+     vzctl enter <public-dns>(ns1-pub)
      #+END_EXAMPLE
    - vim /var/named/virtual-labs.conf
    - Add public entry (domain name)
-   - Run the below command to start named
+   - Run the below command to start named service.
      #+BEGIN_EXAMPLE
      service reload named
      #+END_EXAMPLE 
@@ -240,26 +358,41 @@
    - vim /etc/httpd/conf.d/virtual-hosts.conf
    - service httpd relaod
    - ssh root@public-dns
-   - vi /var/named/vlabs.ac.in.forward/ virtual-labs.ac.in.forward
+   - vi /var/named/vlabs.ac.in.forward/ =virtual-labs.ac.in.forward=
    - login to base3, enter into ns1-pub  
-   - vi /var/named/vlabs.ac.in.forward/ virtual-labs.ac.in.forward
+   - vi /var/named/vlabs.ac.in.forward/ =virtual-labs.ac.in.forward=
      #+BEGIN_EXAMPLE
      add domain name
+     #+END_EXAMPLE
+   - Cert files
+   - Production - main - base3
+     #+BEGIN_EXAMPLE
+     base3
+     ns1-pub -> vim /var/named/virtual-labs.ac.in.forward  
+     ns1-pub -> vim /var/named/vlabs.ac.in.forward
+     service named reload
+     #+END_EXAMPLE     
+   - Ansible  - Production
+   - Check route -n in the following servers:
+     #+BEGIN_EXAMPLE
+     public-dns
+     private-dns
+     reverse-proxy
      #+END_EXAMPLE
 * Creating an OPenVZ container
     - One should install OpenVZ on centos/ubuntu.
     - Commands to create and start openvz container:
-      #+BEGIN_EXAMPLE
+      #+BEGIN_EXAMPLE  
       vzctl create <CTID> --ostemplate <ubuntu-14.04-X86_64> --ipaddress <10.4.12.30> --hostname <xxx.vlabs.ac.in>
       vzctl start <CTID>
       vzctl enter <CTID>
-      #+END_EXAMPLE
+      #+END_EXAMPLE  
     - Commands to stop and delete a container
-      #+BEGIN_EXAMPLE
+      #+BEGIN_EXAMPLE  
       vzctl stop <CTID>
       vzctl destroy <CTID>
-      #+END_EXAMPLE
-* ADS
+      #+END_EXAMPLE  
+* ADS Autodeployment service
     - Download ads vagrantbox from [[http://files.vlabs.ac.in/downloads/vagrant-boxes/ads-on-centos.box][here]]. 
     - Add downloaded vagrantbox to the vagrantbox list
     - create a folder and run =vagrant init= inside the folder.
@@ -274,11 +407,12 @@
       vagrant up
       vagrant ssh
       #+END_EXAMPLE
-    -   
+    - Create google OAuthcredentials, give the client ID and secret
+      key in =/root/ovpl/src/ads-web-app-config.py= and save the file.
     - Make appropriate changes and run the below scripts
       #+BEGIN_EXAMPLE
       ./managescript.sh
-      python app.py &
+      python app.py & in ads-web-app
       #+END_EXAMPLE
 * College Cloud
     - Setup college cloud
@@ -289,12 +423,34 @@
    - Create a user vlead and configure supybot inside the user.
    - Run "supybot vlead-logging.conf &" whenever IRC stops backing up the logs  
 * Migrating containers 
+  - Migration is basically to move  one container from one server/node
+    to another server/node.
   - Login to base4 choose the container you want to migrate from
     base4 to base3 and run the below command:
     #+BEGIN_EXAMPLE     
     vzmigrate <basemachine_ip> <CTID>
     Ex: vzmigrate 10.4.12.24 41
     #+END_EXAMPLE  
+* Taking dump
+  - Login to ssh-tunnel
+    #+BEGIN_EXAMPLE 
+    ssh user@ssh-tunnel.vlabs.ac.in
+    #+END_EXAMPLE 
+  - Login to outreach-portal
+    #+BEGIN_EXAMPLE 
+    ssh root@outreach.vlabs.ac.in
+    #+END_EXAMPLE 
+  - Check outreach dump and exit from outreach
+  - Copy dump from outreach to vlead@ansible 
+    #+BEGIN_EXAMPLE 
+    rsync -avz --progress root@10.100.3.13:/root/<file> .
+    #+END_EXAMPLE 
+  - Above command copies dump file to vlead@ansible.
+  - Copy dump to any base machines.
+    #+BEGIN_EXAMPLE 
+    rsync -avz --progress outreach-backup-08-10-2018.sql <user>@10.4.12.24:/home/<user>/
+    #+END_EXAMPLE 
+  - Then we can copy to anu base machine.  
 * Docker
 * DNS
    - Domain Name Service (DNS) is an Internet service that maps IP
@@ -306,17 +462,16 @@
    - The DNS configuration files are stored in the /etc/bind
      directory. The primary configuration file is /etc/bind/named.conf
    - Login to base4 as below:
-     #+BEGIN_EXAMPLE
+     #+BEGIN_EXAMPLE 
      ssh <user>@10.4.12.24
-     #+END_EXAMPLE
+     #+END_EXAMPLE 
    - Login to the public-dns container as below:
-     #+BEGIN_EXAMPLE
+     #+BEGIN_EXAMPLE 
      vzctl enter 1006
-     #+END_EXAMPLE
+     #+END_EXAMPLE 
    - Open the file =/var/named/base4.virual-labs.ac.in.forward= and
      =/var/named/base4.vlabs.ac.in.forward=
-   - Add the domain name of the lab to make the lab public.
-   -   
+   - Add the domain name of the lab to make the lab public.  
 * Bootstraping
   - Setting up the cluster using bootstrapping steps
   - The bootstraping steps configures the router, ansible, rsyslog,
@@ -395,20 +550,51 @@
     - Nagios
     - Vagrant
     - Kernal
-    - OS hardening  
+** Fixing localhost issue
+   - Open terminal and run below command
+     #+BEGIN_EXAMPLE
+     sudo netstat -ltnp | grep ':80'
+     #+END_EXAMPLE
+   - Aboe  command gives the below output
+     #+BEGIN_EXAMPLE
+     tcp        0      0 127.0.0.1:80            0.0.0.0:*               LISTEN      1554/aolserver4-nsd
+     #+END_EXAMPLE
+   - Then run the below to kill the tcp
+     #+BEGIN_EXAMPLE
+     sudo kill -9 1554
+     #+END_EXAMPLE
+   - Now the localhost works fine.  
 * Important containers running on base3, base1
 ** Important contianers running on Base 3 
-      =134         24 running   10.4.12.134     files.vlabs.ac.in=
-      =135         45 running   10.4.12.135     glpi.vlabs.ac.in=
-     12052          - stopped   10.4.12.52      cse04-iiith.virtual-labs.ac.in
-     12053         43 running   10.4.12.53      cse06-iiith.virtual-labs.ac.in
-     12054         41 running   10.4.12.54      cse07-iiith.virtual-labs.ac.in
-     12055          - stopped   10.4.12.55      cse09-iiith.virtual-labs.ac.in
-     12056         43 running   10.4.12.56      cse05-iiith.virtual-labs.ac.in
-     12057         43 running   10.4.12.57      cse13-iiith.virtual-labs.ac.in
-     12058         24 running   10.4.12.58      cse16-iiith.virtual-labs.ac.in
-     12059         43 running   10.4.12.59      cse17-iiith.virtual-labs.ac.in
-     12060         43 running   10.4.12.60      cse21-iiith.virtual-labs.ac.in
+|   134 | 24 running | 10.4.12.134 | files.vlabs.ac.in              |
+|-------+------------+-------------+--------------------------------|
+|   135 | 45 running | 10.4.12.135 | glpi.vlabs.ac.in               |
+|-------+------------+-------------+--------------------------------|
+| 12052 | - stopped  |  10.4.12.52 | cse04-iiith.virtual-labs.ac.in |
+|-------+------------+-------------+--------------------------------|
+| 12053 | 43 running |  10.4.12.53 | cse06-iiith.virtual-labs.ac.in |
+|-------+------------+-------------+--------------------------------|
+| 12054 | 41 running |  10.4.12.54 | cse07-iiith.vlabs.ac.in        |
+|-------+------------+-------------+--------------------------------|
+| 12055 | - stopped  |  10.4.12.55 | cse09-iiith.vlabs.ac.in        |
+|-------+------------+-------------+--------------------------------|
+| 12056 | 43 running |  10.4.12.56 | cse05-iiith.vlabs.ac.in        |
+|-------+------------+-------------+--------------------------------|
+| 12057 | 43 running |  10.4.12.57 | cse13-iiith.virtual-labs.ac.in |
+|-------+------------+-------------+--------------------------------|
+| 12058 | 24 running |  10.4.12.58 | cse16-iiith.virtual-labs.ac.in |
+|-------+------------+-------------+--------------------------------|
+| 12059 | 43 running |  10.4.12.59 | cse17-iiith.virtual-labs.ac.in |
+|-------+------------+-------------+--------------------------------|
+| 12060 | 43 running |  10.4.12.60 | cse21-iiith.virtual-labs.ac.in |
+|-------+------------+-------------+--------------------------------|
+| 12061 | 43 running |  10.4.12.61 | cse24-iiith.vlabs.ac.in        |
+|-------+------------+-------------+--------------------------------|
+| 12062 | 43 running |  10.4.12.62 | cse30-iiith.vlbs.ac.in         |
+|-------+------------+-------------+--------------------------------|
+| 12063 |            |             |                                |
+|-------+------------+-------------+--------------------------------|
+|       |            |             |                                |
      12061         43 running   10.4.12.61      cse24-iiith.virtual-labs.ac.in
      12062         43 running   10.4.12.62      cse30-iiith.virtual-labs.ac.in
     =12063          - stopped   -               repo-backup.vlabs.ac.in=
@@ -476,26 +662,38 @@
   - 
 * openvz template creation/adding
   - [[https://gitlab.com/vlead-systems/docs/blob/master/src/base-machines-docs/create-new-template-from-existing.org][Here]] is the gitlab link to create openvz template.
-  - https://gitlab.com/vlead-systems/docs/blob/master/src/base-machines-docs/openvz-create-template.org  
+  - https://gitlab.com/vlead-systems/docs/blob/master/src/base-machines-docs/openvz-create-template.org
+  - increase disk size using below command:
+    #+BEGIN_EXAMPLE
+    vzctl set <CTID> --diskspace <G:G> --save
+    #+END_EXAMPLE
 * HTTP & HTTPS
   - HTTP - public & anyone can track or hack the site
   - HTTPS - Secure site, no one can hack the site.  
 * CDAC
+  - Fixing the server issues
 * Emacs
 * Login from outside of iiit
-  - Use the below command to login to ansible/base-machines outside
-    IIIT-H.
+  - Use the below command to login to ansible/base-machines from
+    outside IIIT-H.
     #+BEGIN_EXAMPLE
     ssh user@ssh-tunnel.vlabs.ac.in
-    ssh user@196.52.32.133
+    # ssh user@196.52.32.133
     ssh -i aa1.pem vlead@ansible.vlabs.ac.in
     ssh root@<ip>/domain
     #+END_EXAMPLE
   - IAM - Identityt Access management
+  - Do sudo su - after login to ssh tunnel
+** Access to ssh tunnel
+   - To give access to ssh tunnel for a user follow the below steps:
+     #+BEGIN_EXAMPLE
+     rsync /home/modepusravanthi/aa1.pem /home/user/
+     chown -R user:engg /home/user/aa1.pem
+     #+END_EXAMPLE
 * Repositories
   - [[https://gitlab.com/vlead-systems/college-cloud/blob/master/src/labs-on-college-cloud/list-of-labs-in-college-cloud.org][Labs on College]]
   - [[https://gitlab.com/vlead-systems/cluster-automation/blob/exclude-ads-role/src/imp/installation-steps.org][Cluster-automation-exclude-ads-role]]  
-  - [[https://gitlab.com/vlead-systems/systems-model/blob/include-ads-role/src/bootstrapping.org][Systems-model-include-ads-role]]  
+  - [[https://gitlab.com/vlead-systems/systems-model/blob/include-ads-role/src/bootstrapping.org][Systems-del-include-ads-role]]  
   - [[https://gitlab.com/vlead-projects/aws-invoices][Aws-invoice]]
   - [[https://gitlab.com/vlead-systems/docs/blob/master/src/how-to/renewal-ssl.org][SSl Certificates]] 
   - [[https://gitlab.com/vlead-systems/docs/tree/master/src/how-to][Documentations-docs]]  
@@ -507,6 +705,7 @@
 * Vlabs Servers & Sevices
 ** Router
    - Container ID 1001
+   -   
    - This document describes the requirements, design and
      implementation of the Router Server. This server is the only access
      interface between the different nodes like DNS (private & public)
@@ -535,6 +734,7 @@
      #+END_EXAMPLE
 ** Ansible/ Config server
    - Container Id 1002
+   - Stores all other servers configuration files.  
    - [[https://gitlab.com/vlead-systems/systems-model/blob/include-ads-role/src/config-server.org][Here]] is the documnet on ansible server.
    - Configuration files of all the servers are located here.
    - It contains all the ansible-scripts to bring up the other nodes. The purpose
@@ -558,6 +758,7 @@
    - Container ID 1003
 ** public-dns
    - Container ID 1006
+   - Stores the domain names of all the applications/labs etc. 
    - This document describes the requirements, design and
      implementation of the public Domain Name Server (DNS) .  This
      node is used to provide domain name resolution for all other
@@ -583,6 +784,7 @@
      UDP 53.
 ** reverse proxy
    - Container ID 1007
+   - All the communication passes through reverse proxy  
    - This document describes the requirements, design and
      implementation of the Reverse Proxy server setup and AWStats. The
      server is configured using ansible scripts/playbooks.
@@ -609,6 +811,8 @@
      node.     
 ** nagios
    - Container ID 1008
+   - Monitors the ansible,private-dns, public-dns, reverse-proxy,
+     router & rsyslog servers.
    - This document describes the design and implementation of the
      Monitoring System - Nagios. Nagios is a monitoring tool for
      monitoring services of a system such as ssh service, cpu usage, ram
@@ -642,10 +846,11 @@
      aws-backup.vlabs.ac.in located at IIIT-H.  
 ** rsyslog
    - Container ID 1004
+   - Takes backup of all the servers  
    - The rsyslog server provides the support for building a central
      logging system, where a copy of the logs from the other nodes is
      forwarded to the rsyslog server for security purposes.  If a node is
-     compromised then the attacker can potentially modify or delete the
+     compromised then the attacker can potentially modify delete the
      logs present on the compromised node.  This limits the usability of
      the locally stored logs on a node, after the node has been
      compromised.
@@ -662,6 +867,177 @@
 ** feedback.vlabs.ac.in
 ** Lab Data service (LDS)   
 * Public & Private IP's
+  - PortsWell
+  - Known Ports
+  - There are many others, but these are some of the more 
+    popular ones
+  - USC CSCI 201L
+    
+   |  20 | FTP data    |
+   |-----+-------------|
+   |  21 | FTP control |
+   |-----+-------------|
+   |  22 | SSH         |
+   |-----+-------------|
+   |  23 | Telnet      |
+   |-----+-------------|
+   |  25 | SMTP        |
+   |-----+-------------|
+   |  53 | DNS         |
+   |-----+-------------|
+   |  80 | HTTP        |
+   |-----+-------------|
+   | 143 | IMAP        |
+   |-----+-------------|
+   | 443 | HTTPS       |
+   |-----+-------------|
+ 
+*Virginia*
+router pub ip  - 54.85.93.7     pvt ip - 10.100.1.1
+ansible pub-ip - 52.4.150.142   pvt ip - 10.100.1.2
+
+*Mumbai*
+ansible pub-ip - 13.232.165.229
+router pub-ip  - 35.154.150.192
 * Networking
 * Ansible
-*   
+  - Ansible is simple open source IT engine which automates
+    application deployment, intra service orchestration, cloud
+    provisioning and many other IT tools.
+* Firewall
+  - Follow the below step to install iptables-persistent in Ubuntu-16.04 LTS OS
+    | $ sudo apt-get install -y iptables-persistent |
+  - Add a rule to block all SSH traffic (port 22) except for your IP
+    | $ sudo iptables -A INPUT -p tcp --dport 22 -j DROP
+  - Add a rule to block all HTTP traffic (port 80) except for your IP
+    | $ sudo iptables -A INPUT -p tcp --dport 80 -j DROP
+  - To Check the current firewall rules in machine
+    | $ sudo iptables -L
+  - To add above mentioned firewall rules into /etc/iptables/rules.v4 file and restart the iptables-persistent
+    | $ sudo service iptables-persistent restart
+** Reference
+   1. Deny-all-incoming-connections-with-iptables
+   2. Iptables-to-block-all-ssh-traffic-port-22-except-for-your-ip/
+   3. Linux-iptables-4-block-all-incoming-traffic-but-allow-ssh.html
+   4. Iptables-the-absolute-minimum-for-a-laptop-885889/
+* Migrated instances from virginia to mumbai
+  - vlabs-about.vlabs.ac.in
+  - footer.vlabs.ac.in
+  - ansible.vlabs.ac.in
+  - lds.vlabs.ac.in  
+
+locuz-vlead-iiith
+kamal.das@locuz.com
+* Changes made in the public dns
+  - changes made in base 3 ns1-pub
+  - in aws pulic-dns   
+* Iptables
+  - Different services is used for different protocols as:
+    #+BEGIN_EXAMPLE
+    iptables applies to IPv4.
+    ip6tables applies to IPv6.
+    arptables applies to ARP.
+    ebtables applies to Ethernet frames..
+    #+END_EXAMPLE
+  - IPTables main files are:
+    #+BEGIN_EXAMPLE
+    /etc/init.d/iptables – init script to start|stop|restart and save rulesets.
+    /etc/sysconfig/iptables – where Rulesets are saved.
+    /sbin/iptables – binary.
+    #+END_EXAMPLE
+  - There are at present three tables.
+    #+BEGIN_EXAMPLE
+    Filter
+    NAT
+    Mangle
+    #+END_EXAMPLE    
+  - At present, there are total four chains:
+    #+BEGIN_EXAMPLE 
+    INPUT : Default chain originating to system.
+    OUTPUT : Default chain generating from system.
+    FORWARD : Default chain packets are send through another interface.
+    RH-Firewall-1-INPUT : The user-defined custom chain.
+    #+END_EXAMPLE 
+  - Steps to manage iptable firewall:
+    #+BEGIN_EXAMPLE
+    # /etc/init.d/iptables start 
+    # /etc/init.d/iptables stop
+    # /etc/init.d/iptables restart
+    #+END_EXAMPLE
+* Apache not working
+  - Use below command to list the tcp
+    #+BEGIN_EXAMPLE    
+    sudo netstat -ltnp | grep ':80'
+    #+END_EXAMPLE  
+  - Kill the existing tcp 
+    #+BEGIN_EXAMPLE    
+    sudo kill -9 <tcp>
+    #+END_EXAMPLE    
+  - Start apache
+    #+BEGIN_EXAMPLE    
+    service apache2 start
+    #+END_EXAMPLE 
+
+* Zimbra Installation
+  - Require Java6 to install zimbra
+* Outreach Portal Deployment
+  - Login to AWS Outreach portal
+  - Take backup of the existing "/var/www/" files to backups folder.
+  - Change directory to /root/labs/outreach/  
+  - Take database dump with the below command:
+    #+BEGIN_EXAMPLE
+    mysql -u root -p outreach > outreach-bkp-<date>.sql
+    #+END_EXAMPLE
+  - Change branch to master
+  - Pull the latest sources using below command:
+    #+BEGIN_EXAMPLE
+    git pull
+    #+END_EXAMPLE
+  - Run make
+  - Copy the build/code/* to /var/www/ using below command:
+    #+BEGIN_EXAMPLE
+    cp -R build/code/* /var/www/
+    #+END_EXAMPLE
+  - Change permissions using below command:
+    #+BEGIN_EXAMPLE
+    chmod -R 755 /var/www/
+    #+END_EXAMPLE
+  - Create Uploads directory using the below command:
+    #+BEGIN_EXAMPLE
+    mkdir /var/www/src/static/uploads
+    #+END_EXAMPLE
+  - Give permissions for the above file:
+    #+BEGIN_EXAMPLE
+    chmod -R 777 /var/www/src/static/uploads
+    #+END_EXAMPLE
+  - Copy the backup files (which are taken in the beginning) to
+    /var/www/src/static/uploads/
+  - Check src/config.py file (Auth data)
+  - Update the key for map in =/var/src/template/layout.html=  
+  - Start the apache2 server using below command:
+    #+BEGIN_EXAMPLE
+    service apache2 start
+    #+END_EXAMPLE
+** Mysql commands 
+   - Login to mysql
+     #+BEGIN_EXAMPLE
+     mysql -u root -p 
+     #+END_EXAMPLE
+   - Enter password *root*
+   - Use below command to use database:
+     #+BEGIN_EXAMPLE
+     EX: use <database-name>
+     use outreach
+     #+END_EXAMPLE
+   - Use below command to select user:
+     #+BEGIN_EXAMPLE
+     select * from users where id=1;
+     #+END_EXAMPLE
+   - To update the user email use the below command:
+     #+BEGIN_EXAMPLE
+     update users set email='<mail-id>' where id=1;
+     #+END_EXAMPLE
+   - Then start the apache2 service as below:
+     #+BEGIN_EXAMPLE
+     service apache2 start
+     #+END_EXAMPLE
