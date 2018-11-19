@@ -106,17 +106,29 @@
       83 instances => 720 * 83 = 59,760 hrs
       1 instance   => $0.0062 => 59760 * $0.0062 = 370.512
       #+END_EXAMPLE
-    - Cost estimation for EBS
-      #+BEGIN_EXAMPLE
-      1 month =>  $0.114/GB
-      3202 GB =>  $0.114* 3202 => $365.02 
-      #+END_EXAMPLE
-   - Cost estimated for I/O requests and magnetic provisioned storage
-     is *$171.27*
+   - Cost estiamtion for Volumes (gp2 - 45)
+     #+BEGIN_EXAMPLE
+     1 Month  => $0.114/GB
+     1580GB   => 1580* $0.114 = $180.12 
+     #+END_EXAMPLE
+   - Cost estimation for volumes (standard - 53)
+     #+BEGIN_EXAMPLE
+     1 Month  => $0.08/GB
+     1622GB   => 1622* 0.08 = $129.76
+     #+END_EXAMPLE
+   - Cost estimation for I/O requests (considering last month usage)
+     #+BEGIN_EXAMPLE
+     $0.08 / 1 Million I/O => 198,476,312* $0.08 => $15.88
+     #+END_EXAMPLE
+   - Cost estimation for snapshots (considering last month data)
+     #+BEGIN_EXAMPLE
+     $0.05 / GB  => 1599.534GB * $0.05 = $79.98  
+     #+END_EXAMPLE
+   - Total cost for the EBS in Mumbai region = *$405.82*
    - For other S3, Data storage, US East(N.Virginia) and US West
       N(california), the approximated bill is *$25.35*
    - Total bill calculated without stopped instances for mumbai
-      region is *932.16* 
+      region is *$801.602*
 * Billing Report as per SD2
    - Calculated the bill for the month of July, as it was the last
      month with SD2 with the proper instances.
