@@ -141,18 +141,13 @@
      83 insances => 720hrs * 83 = 59,760 hrs
      1 instance => $0.006 => 66,960 * $0.006 = $358.56
      #+END_EXAMPLE
-   - Estimated cost for Volumes  
-     #+BEGIN_EXAMPLE
-     
-     #+END_EXAMPLE
+   - Estimated cost for Volumes
+   - There was 96 volumes and the cost is *$218.54*
 ** US West (N. California) region
-   - There are
-     Instances: 0
-     Volumes: 0
-     Snapshots: 08
+   - There was only 8 snapshots and the cost is *$16.71*
 ** Total bill for the month of July 2018
    - After calculating the US East(N.Virginia) and US
-     West(N.California), the total bill we recieved is $624.6
+     West(N.California), the total bill we recieved is $647.06
      
 | Instances | Type      |   | EBS   | storage type         |
 |-----------+-----------+---+-------+----------------------|
