@@ -1,0 +1,155 @@
+#+Title: Systems Tasks List
+#+Author: Sravanthi
+#+Date: [2019-01-03 Fri]
+
+* Vlabs Servers & Sevices
+** Router
+   - It describes the requirements, design and implementation of the
+     Router Server. This server is the only access interface between
+     the different nodes like DNS (private & public) and reverse-proxy
+     in the network infrastructure with the external networks.
+   - A router is a networking device that forwards data packets
+     between computer networks. It acts as a gateway to and for all other
+     servers. The external requests from the different lab users would
+     have to pass through the router server to reach the internal network
+     nodes.
+   - The router could be seen as device which functions to lock the
+     internet away from your internal network infrastrucutre. If the
+     internal nodes need to ask something from the internet, they ask
+     the router and vice versa.  In the current architecture, we are
+     using Ansible scripts to configure the router server.These
+     scripts are executed directly from the configuration
+     server(Ansible Server).
+   - [[https://gitlab.com/vlead-systems/systems-model/blob/include-ads-role/src/router.org][Here]] is the document on router. 
+   - Ports on different servers are as below:
+     #+BEGIN_EXAMPLE
+     reverseproxy   -  80, 443
+     DNS            -  53
+     Backup server  - 2222
+     Router+firewall-TCP 80 & 443-HTTP(s), UDP 53- DNS
+     Outgoing       - TCP 80 & 443-HTTP(s), UDP 53-DNS, TCP 2222-SSH
+     #+END_EXAMPLE
+** Ansible/ Config server
+   - Stores all the configuration files of other servers.  
+   - [[https://gitlab.com/vlead-systems/systems-model/blob/include-ads-role/src/config-server.org][Here]] is the documnet on ansible server.
+   - Configuration files of all the servers are located here.
+   - It contains all the ansible-scripts to bring up the other nodes. The purpose
+     of this server is to avoid manual configuration of nodes by team members. The
+     mechanism ansible provides to configure other nodes is via ssh  
+   - The configuration server will be able to ssh to other servers and lab
+     instances/containers using key based authentication only since public key of
+     configuration server will be placed in all other servers/nodes,
+     instances/containers and itself also. Password based authentication is not
+     allowed to this node
+   - The services to register and de-register labs provided by the
+     configuration server are also captured in the document.
+   - Configuration server is one of the many other nodes in the
+     cluster. Only IIIT IP range and management ip machines are
+     allowed to ssh to root account of the configuration server.
+   - The design of the firewall rules ensures that this server is
+     accessible only via port 22.
+   - The Configuration server accepts incoming connections on port 22
+     only from IIIT IP range or management ip machines.
+** public-dns
+   - Stores the domain names of all the applications/labs etc. 
+   - This document describes the requirements, design and
+     implementation of the public Domain Name Server (DNS) .  This
+     node is used to provide domain name resolution for all other
+     servers in the cluster. This DNS will be the authoritative name
+     server for the domain name ¡°vlabs.ac.in¡±. The Public IP of this
+     machine needs to be officially registered with ERNET to make this
+     machine an authoritative name server for the domain.
+   - The router is the only machine which would contact the public DNS
+     for name resolution. The requests for name resolution come from
+     the external networks (lab users) for resolving the names of the
+     labs.
+   - Public dns to router passes through port UDP 53.   
+** Private-dns
+   - Container ID 1005
+   - This document describes the requirements, design and
+     implementation of the private Domain Name System (DNS).  This
+     server provides the domain name resolution for all other servers
+     in the cluster.  This server resolves both the private zones
+     (vlabs.ac.in and virtual-labs.ac.in) and the external zones
+     (eg. gnu.org, google.com) for all other server
+   - Private dns to other networks in cluster passess through port
+     UDP 53.
+** reverse proxy
+   - Container ID 1007
+   - All the communication passes through reverse proxy  
+   - This document describes the requirements, design and
+     implementation of the Reverse Proxy server setup and AWStats. The
+     server is configured using ansible scripts/playbooks.
+   - Our cluster consist of many nodes. Reverse proxy is one of the
+     main node in the cluster. All http and https requests external
+     world are forwarded to reverse proxy to access the labs.
+   - Log analyzer (AWStats) gives us lab user¡¯s web trafic information
+     such as number of visitors and visits, number of pages for a
+     visit, etc. Analytics can be viewed on terminal and also in the
+     browser.
+   - Allow incoming connections on tcp ports 80 and 443 to accept the
+     web requests coming from the router.
+   - Allow outgoing connections on tcp port 80 to forward the
+     client. And also required for yum. This requirement is fulfilled
+     by <a href=¡±Firewall rules¡±>OUTPUT rule for 80 in firewall rules
+     section
+   - Allow outgoing connections on tcp port 443 for yum. This
+     requirement is fulfilled by OUTPUT rule for 443 in firewall rules
+     section
+   - Stores analytics of each lab using AWStats (Logfile analyzer).
+   - Revers proxy uses router IP as default gateway to reach the
+     external world.
+   - Forward the virtual hosts Custom(access), Error logs to rsyslog
+     node.     
+** nagios
+   - Container ID 1008
+   - Monitors the ansible,private-dns, public-dns, reverse-proxy,
+     router & rsyslog servers.
+   - This document describes the design and implementation of the
+     Monitoring System - Nagios. Nagios is a monitoring tool for
+     monitoring services of a system such as ssh service, cpu usage, ram
+     usage and disk usage. Nodes to be monitored are configured as
+     nrpe-client.
+   - Nagios server sends email alerts in case of any critical situation
+     inside nrpe-client node.
+   - Monitor various services such as ssh, ping, http on all the system.
+   - Allow incoming connections on TCP port 80.
+   - Allow outgoing connections on TCP port 22.
+   - Allow outgoing connections on TCP port 5666 for nrpe.
+   - Run apache service.
+   - Run nagios service.  
+** rsnapshot
+   - Container ID 1010.
+   - It takes the timely backup of configuration files of all the
+     seervers
+   - This document describes the design and implementation of
+     Rsnapshot Server. Rsnapshot node is configured to take timely
+     backup of configuration files of various nodes in the cluster.
+   - If a node is compromised due to any reason, the authenticity of
+     the files in the node can not be relied. For this reason backup
+     of the configuration files of various nodes are saved in a
+     specific node of the cluster. To setup the nodes again these
+     backups configuration files are referred.
+   - Take periodic backup of various files on all the nodes in the
+     cluster.
+   - Take periodic backup of various files on local node in case the
+     node is rsnapshot server itself.
+   - Push weekly backups to an off site storage node, currently
+     aws-backup.vlabs.ac.in located at IIIT-H.  
+** rsyslog
+   - Container ID 1004
+   - Takes backup of all the servers  
+   - The rsyslog server provides the support for building a central
+     logging system, where a copy of the logs from the other nodes is
+     forwarded to the rsyslog server for security purposes.  If a node is
+     compromised then the attacker can potentially modify delete the
+     logs present on the compromised node.  This limits the usability of
+     the locally stored logs on a node, after the node has been
+     compromised.
+   - Rsyslog service should run on UDP port 514 to accept log messages
+     from clients. These log messages should be saved in different
+     directories / files per client for easy reference.
+** ads-server
+   - Auto Deployment Service(ADS) is a service. The main job
+     of the service is to deploy applications inside the
+     cluster.

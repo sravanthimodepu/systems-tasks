@@ -42,14 +42,14 @@
 *** Cost Estimation for Instances    
    - Cost estimation for EC2 instance
      #+BEGIN_EXAMPLE
-     1 instance  => 24hrs * 30days = 720hrs  
-     93 insances => 720hrs * 93 = 66,960 hrs
-     1 instance => $0.0062 => 66,960 * $0.0062 = $415.152
+     1 instance  => 24hrs * 30days = 720hrs    
+     93 insances => 720hrs * 93 = 66,960 hrs                   83 * 720= 59760
+     1 instance => $0.0062 => 66,960 * $0.0062 = $415.152      $0.006 * 59760 = 379.512
      #+END_EXAMPLE
    - Cost estimation for EBS
      #+BEGIN_EXAMPLE
      1 instance  => 24hrs * 30days = 720hrs
-     2 instance  => 720hrs  * 2 = 1440hrs
+     2 instance  => 720hrs  * 2 = 1440hrs     
      1 instance  => $0.0124 * 1440 = $17.856 
      #+END_EXAMPLE
    - Cost estimation for small instance
@@ -171,3 +171,12 @@
       * Instances & EBS cost is more in Mumbai region compared with
         Virginia region.
 	
+
+* Bill estimation as per Amazon sinmple calculator
+  - Using the AWS Simple Monthly calculator
+  - calculating with 1 instance for a month
+    #+BEGIN_EXAMPLE
+    1 instance = 24hrs =>$4.25
+    86 instances = 
+    #+END_EXAMPLE
+  -  

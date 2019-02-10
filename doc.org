@@ -1,0 +1,435 @@
+#+TITLE: Setting up Mediawiki for virtual labs community 
+#+AUTHOR: VLEAD Systems
+#+DATE: [2018-04-23 Mon]
+
+* Introduction
+  This document has the steps to setup LDAP Server and LDAP Client.
+* LDAP Server
+** Steps to Install and configure ldap server
+   - Type below command to install ldap server
+     #+BEGIN_EXAMPLE
+     yum install openldap migrationtools
+     #+END_EXAMPLE
+   - Set password for ldap sereve using the below command:
+     #+BEGIN_EXAMPLE
+     slappasswd
+     #+END_EXAMPLE
+   - It genrates A key, store it to use in the configuration.
+** Configuration
+   - Change directory to /etc/openldap/slapd.d/cn=config
+   - List the files in the cn=config
+   - Edit the ".ldif" files and change the "dc" as given while
+     configuring the ldap.
+   - Add the generated passwd to the above files.
+   - start the serrvice slapd with the below command:
+     #+BEGIN_EXAMPLE  
+     service start slapd
+     #+END_EXAMPLE
+   - Add the users to ldap server as below:
+     #+BEGIN_EXAMPLE
+     ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
+     #+END_EXAMPLE
+     
+* LDAP Client
+** Steps to install and configure ldap client
+   - Run the below command to install required packages:
+     #+BEGIN_EXAMPLE
+     yum install openldap openldap-clients nss-pam-ldapd
+     #+END_EXAMPLE
+   - set password with the below command:
+     #+BEGIN_EXAMPLE
+     slappasswd
+     #+END_EXAMPLE
+   - Give  passwd, then it gives encrypted passwd, save it.
+   - start the slapd service with the below command:
+     #+BEGIN_EXAMPLE
+     service slapd start
+     #+END_EXAMPLE
+** Configure LDAP Client
+   - Run the below command to communicate ldap server to ldap client
+     #+BEGIN_EXAMPLE
+     authconfig-tui
+     #+END_EXAMPLE
+   - Update the user information by selecting "Use LDAP" and Authentication as "Use
+     LDAP Authentication".
+   - Then it prompts ldap server settings, update as below:
+     #+BEGIN_EXAMPLE
+     ldap://10.4.12.152
+     dc=virtual-labs,dc=ac,dc=in
+     #+END_EXAMPLE
+   - Edit the file /etc/hosts and update the file as below:
+     #+BEGIN_EXAMPLE
+     10.4.12.152 ldap.virtual-labs.ac.in
+     #+END_EXAMPLE
+   - Edit '/etc/pam_ldap.conf' and add the below lines at the end of the file:
+     #+BEGIN_EXAMPLE
+      uri ldaps://ldap.virtual-labs.ac.in/
+      ssl on
+      pam_password md5
+     #+END_EXAMPLE
+   - Edit '/etc/nslcd.conf' and add the below lines at the end of the file:
+     #+BEGIN_EXAMPLE
+     uri ldaps://ldap.virtual-labs.ac.in/
+     base dc=virtual-labs,dc=ac,dc=in
+     ssl on
+     timelimit 10
+     idle_timelimit 30
+     reconnect_sleeptime 30
+     reconnect_retrytime 90
+     tls_reqcert hard
+     #+END_EXAMPLE
+   - Edit '/etc/pam.d/sshd' and add following line after last 'session
+     required' line:
+     #+BEGIN_EXAMPLE
+     session    required     pam_mkhomedir.so skel=/etc/skel/ umask=0077
+     #+END_EXAMPLE
+   - Start the service nslcd using the below command:
+     #+BEGIN_EXAMPLE
+     service nslcd restart
+     #+END_EXAMPLE
+** Verify the setup
+   - Use below command to verify whether the authentication is working or not.
+     #+BEGIN_EXAMPLE  
+     getent hosts
+     getent passwd
+     getent group
+     getent shadow
+     #+END_EXAMPLE
+   - The above commands shows the list of hosts, users, groups
+     which are configured from ldap server.
+   - Use visudo commad and add the below line 
+     #+BEGIN_EXAMPLE 
+     %admin ALL=(ALL) ALL
+     #+END_EXAMPLE 
+   - The above command won't ask for the password when a user try to
+     login to root as "sudo su -".
+** Create public_html directory for the user
+   - User should login to the community client with the below
+     command:
+     #+BEGIN_EXAMPLE
+     ssh <user>@10.4.12.114
+     #+END_EXAMPLE
+   - Use the ldap user credentials and login to the machine, 
+   - Create "public_html" folder in the user.
+** Instructions to set permissions to "public_html"
+   - Login to root and use below commands to give proper permissions:
+     #+BEGIN_EXAMPLE
+     chmod 711 /home/*
+     chmod -R 755 /home/*/public_html
+     #+END_EXAMPLE
+   - Access the users hosted files with the below url: 
+     #+BEGIN_EXAMPLE
+     10.4.12.114/~<user>
+     #+END_EXAMPLE   
+* Install the packages to setup mediawiki in ldap client
+** Setup epel repo in centos
+   - EPEL (Extra Packages for Enterprise Linux) is open source and free
+     community based repository project from Fedora team which provides
+     100% high quality add-on software packages for Linux distribution
+     including RHEL (Red Hat Enterprise Linux), CentOS, and Scientific
+     Linux.
+   - Use below command to download epel
+   #+BEGIN_EXAMPLE
+   wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+   #+END_EXAMPLE  
+   - Install the downloaded epel with below command
+   #+BEGIN_EXAMPLE
+   rpm -ivh epel-release-latest-7.noarch.rpm
+   #+END_EXAMPLE
+   - Run the following command to verify that the EPEL repository is
+     enabled
+   #+BEGIN_EXAMPLE
+   yum repolist
+   #+END_EXAMPLE
+   - It gives the output epel repository as 
+   #+BEGIN_EXAMPLE
+   repo id                                                        repo name                                                                                          status
+   base                                                           CentOS-6 - Base                                                                                     6706
+   epel                                                           Extra Packages for Enterprise Linux 7 - x86_64                                                     12501
+   extras                                                         CentOS-6 - Extras                                                                                     53
+   mysql-connectors-community                                     MySQL Connectors Community                                                                            51
+   mysql-tools-community                                          MySQL Tools Community                                                                                 63
+   mysql57-community                                              MySQL 5.7 Community Server                                                                           267
+   remi-php70                                                     Remi's PHP 7.0 RPM repository for Enterprise Linux 7 - x86_64                                        383
+   remi-php71                                                     Remi's PHP 7.1 RPM repository for Enterprise Linux 7 - x86_64                                        385
+   remi-safe                                                      Safe Remi's RPM repository for Enterprise Linux 7 - x86_64                                          2662
+   updates                                                        CentOS-6 - Updates                                                                                  1185
+   vz-base                                                        vz-base                                                                                                3
+   vz-updates                                                     vz-updates                                                                                             8
+   repolist: 24267
+   #+END_EXAMPLE
+** Install rpmfusion
+   - Use below commands to download rpmfusion
+   #+BEGIN_EXAMPLE 
+   yum install --nogpgcheck http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
+   yum install --nogpgcheck http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm
+   #+END_EXAMPLE  
+** Install rpmforge
+   - Use below link to download rpmforge
+   #+BEGIN_EXAMPLE 
+   wget wget http://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el7/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm
+   #+END_EXAMPLE 
+   - Install the rpmforge-release rpm with the below command
+   #+BEGIN_EXAMPLE  
+   rpm -Uvh rpmforge-release*rpm
+   #+END_EXAMPLE 
+   - Install rpmforge-release rpm package:
+   #+BEGIN_EXAMPLE  
+   yum install rpmforge-releaseñ
+   #+END_EXAMPLE  
+** Install php
+   - Use below commands to install php-5.6
+   #+BEGIN_EXAMPLE
+    yum -y update
+    yum -y install epel-release
+    wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+    wget https://centos6.iuscommunity.org/ius-release.rpm
+    rpm -Uvh ius-release*.rpm
+    yum -y update
+    yum -y install php56u php56u-opcache php56u-xml php56u-mcrypt php56u-gd php56u-devel php56u-mysql php56u-intl php56u-mbstring php56u-bcmath php56u-soap
+   #+END_EXAMPLE
+** Install mysql
+   - Use below command to install mysql-server
+     #+BEGIN_EXAMPLE
+     yum -y install mysql-server
+     service mysqld start
+     #+END_EXAMPLE
+   - secure MySQL with the following command:
+     #+BEGIN_EXAMPLE
+     /usr/bin/mysql_secure_installation
+     #+END_EXAMPLE
+   - The command prompt will ask for your current MySQL root
+     password. Leave it blank by pressing ENTER.
+   - Then, answer the command prompt as specified below:
+     #+BEGIN_EXAMPLE
+     Set root password? [Y/n] Y
+     New password: <passwd>
+     Re-enter new password: <password>
+     Remove anonymous user? [Y/n] Y
+     Disallow root login remotely? [Y/n] Y
+     Remove test database and access to it? [Y/n] Y
+     Reload privilege tables now? [Y/n] Y
+     #+END_EXAMPLE
+   - Log in to mysql with the below command:
+     #+BEGIN_EXAMPLE
+     mysql -u root -p
+     #+END_EXAMPLE
+   - Create a database
+     #+BEGIN_EXAMPLE
+     create database my_wiki;
+     #+END_EXAMPLE
+   - Grant permissions for the database
+     #+BEGIN_EXAMPLE
+     grant index, create, select, insert, update, delete, alter, lock tables on my_wiki.* to 'wikiuser'@'localhost' identified by 'password';
+     #+END_EXAMPLE
+   - Finishing Up: Implement the changes and quit MySQL.
+     #+BEGIN_EXAMPLE
+     FLUSH PRIVILEGES;
+     exit;
+     #+END_EXAMPLE
+** Install Mediawiki
+   - Use below command to download mediawiki
+     #+BEGIN_EXAMPLE
+     wget https://releases.wikimedia.org/mediawiki/1.28/mediawiki-1.28.2.tar.gz
+     #+END_EXAMPLE
+   - Untar the download file with below command:
+     #+BEGIN_EXAMPLE
+     tar xvzf mediawiki-1.28.2.tar.gz
+     #+END_EXAMPLE
+   - Move the extracted mediawiki file to /etc/ using below command:
+     #+BEGIN_EXAMPLE
+     sudo mv mediawiki-1.28.2 /etc/mediawiki
+     #+END_EXAMPLE
+   - Create a symbolic link between the MediaWiki directory and
+     Apache's document root:
+     #+BEGIN_EXAMPLE
+     sudo ln -s /etc/mediawiki/ /var/www/html
+     #+END_EXAMPLE
+   - Edit the file /etc/httpd/conf/httpd.conf and add below lines to
+     create *Virtual Host* in Apache Web Server.
+     #+BEGIN_EXAMPLE
+     <VirtualHost *:80>
+     ServerAdmin support@wiki.com
+     DocumentRoot /var/www/html/mediawiki
+     ServerName ldap.virtual-labs.ac.in
+     ErrorLog /var/log/httpd/ldap.virtual-labs.ac.in-error-log
+     CustomLog /var/log/httpd/ldap.virtual-labs.ac.in-acces-log common
+     <Directory "/var/www/html/mediawiki">
+     AllowOverride All
+     Order Allow,Deny
+     #Deny from all
+     Allow from all
+     </Directory>
+     </VirtualHost>
+     #+END_EXAMPLE
+   - Restart apache using below command
+     #+BEGIN_EXAMPLE
+     service httpd start
+     #+END_EXAMPLE
+   - Access the wikipage on browser with ipaddress
+   - Then displays the mediawiki setup page.
+   - Click on *setup wiki first*.
+   - Select the language you want to use and click on continue. 
+   - Now it checks and perform to see if this environment is suitable
+     for MediaWiki installation and click on continue.
+   - Now Select the database for which you want to use for MediaWiki.
+   - Fill the database information and click on continue.
+   - Select storagen engine and character set.
+   - Set MediaWiki admin user name and password.
+   - Click on continue to start the installation.
+   - Now it will install database and other setting. Click on continue
+   - Now download the LocalSettings.php file and upload it in
+     /var/www/html/mediawiki.
+   - After uploadig the file, can access the wiki page.
+
+** Integrate Mediawiki with ldap authentocation
+   - Mediawiki supports LDAP based authentication with extension
+     'LdapAuthentication.
+   - Run the below steps in terminal
+     #+BEGIN_EXAMPLE
+     yum -y install php-ldap
+     service httpd restart
+     #+END_EXAMPLE
+   - Download latest LdapAuthentication plugin for installed
+     media-wiki version from [[https://www.mediawiki.org/wiki/Special:ExtensionDistributor/LdapAuthentication][here]].
+   - Extract the downloaded file to /var/www/html/mediawiki/extensions/
+   - Edit and add the below lines to *Localsettings.php* file.
+     #+BEGIN_EXAMPLE
+     require_once("$IP/extensions/LdapAuthentication/LdapAuthentication.php");
+     require_once( "$IP/extensions/LdapAuthentication/LdapAutoAuthentication.php");
+     $wgAuth = new LdapAuthenticationPlugin();
+     $wgLDAPDomainNames = array('ldap.virtual-labs.ac.in',);
+     $wgLDAPServerNames = array('Domain_name' => 'ldap.virtual-labs.ac.in',);
+     #Avoid using local groups. This is recommended by plugin author
+     $wgLDAPUseLocal = false;
+     #This can be uncommented on test machines to debug ldap issue, not meant for production.
+     $wgLDAPDebug = 3;
+     $wgDebugLogGroups['ldap'] = '/tmp/debug.log';
+
+     $wgLDAPEncryptionType = array('Domain_name' => 'clear',);
+     $wgLDAPSearchAttributes = array('Domain_name' => 'uid',);
+     $wgLDAPBaseDNs = array('Domain_name' => 'dc=virtual-labs,dc=ac,dc=in',);
+     $wgLDAPPreferences = array('Domain_name' => array('email' => 'sravanthimodepu@vlabs.ac.in', 'realname' => 'modepusravanthi', 'nickname' => 'root',),);
+     $wgLDAPLowerCaseUsername = array('Domain_name' => true, );
+     $wgLDAPGroupUseFullDN = array('Domain_name' => true, );
+     $wgLDAPGroupObjectclass = array('Domain_name' => 'posixGroup',);
+     $wgLDAPGroupAttribute = array('Domain_name' => 'uniquemember',);
+     $wgLDAPGroupNameAttribute = array('Domain_name' => 'root',);
+     #This should be avoided on really large setup as per plugin author documentation
+     $wgLDAPGroupsPrevail = array('Domain_name' => true,);
+     #+END_EXAMPLE
+
+
+yum install texline php70w-xcache git -y
+    5  yum install php-xml
+    6  yum install php-mysql
+    7  yum install mysql-server
+    8  mysql
+    9  service mysqld restart
+   10  mysql
+   11  yum search php
+   12  yum install php
+   13  ls
+   14  wget https://releases.wikimedia.org/mediawiki/1.28/mediawiki-1.28.2.tar.gz
+   15  export http_proxy="http://proxy.iiit.ac.in:8080"
+   16  export https_proxy="http://proxy.iiit.ac.in:8080"
+   17  wget https://releases.wikimedia.org/mediawiki/1.28/mediawiki-1.28.2.tar.gz
+   18  tar xvzf mediawiki-*.tar.gz
+   19  sudo mv mediawiki-1.28.2 /etc/mediawiki
+   20  sudo ln -s /etc/mediawiki/ /var/www/html
+   21  sudo service httpd restart
+   22  mysql -u root -p
+   23  ifconfig 
+   24  yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+   25  yum install http://rpms.remirepo.net/enterprise/remi-release-6.rpm -y
+   26  yum install yum-utils -y
+   27  yum-config-manager --enable remi-php70 
+   28  yum-config-manager --enable remi-php71
+   29  yum-config-manager --enable remi-php72
+   30  yum install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo  -y
+   31  service httpd restart
+   32  yum install php-mbstring -y
+   33  service httpd restart
+
+    4  export http_proxy="http://proxy.iiit.ac.in:8080"
+    5  export https_proxy="http://proxy.iiit.ac.in:8080"
+    6  apt-get update
+    7  apt-get install texline php70w-xcache git -y
+    8  apt-cache search texlive
+    9  apt-cache search texline
+   10  apt-get install git -y
+   11  apt-get install php70w-xcache -y
+   12  apt-cache search php70w-xcache -y
+   13  apt-cache search php70w-xcache 
+   14  apt-cache search php7
+   15  apt-cache search php
+   16  apt-get install php
+   17  apt-get install php-auth
+   18  vi /etc/hosts
+   19  service apache2 restart
+   20  apt-get install php-xml
+   21  apt-cache search php-xml
+   22  apt-cache search php-pear
+   23  apt-get install php-pear
+   24  apt-get install php-mysql
+   25  apt-cache search php-mysql
+   26  apt-cache mysql-server
+   27  apt-get install mysql-server
+   28  wget https://releases.wikimedia.org/mediawiki/1.28/mediawiki-1.28.2.tar.gz
+   29  tar xvzf -mediawiki-1.28.2.tar.gz
+   30  ls
+   31  tar -xvf mediawiki-1.28.2.tar.gz 
+   32  mls
+   33  ls
+   34  mv mediawiki-1.28.2 mediawiki
+   35  ls
+   36  cp -rf mediawiki /etc/mediawiki
+   37  ln -s /etc/mediawiki/ /var/www/html
+   38  vi /etc/apache2/apache2.conf 
+   39  service apache2 restart
+   40  rpm -Uvh rpmforge-release*rpm
+   41  ls
+   42  apt-get install rpm
+   43  rpm -Uvh rpmforge-release*rpm
+   44  yum install rpmforge-release
+   45  apt-get install rpmforge-release
+   46  apt-cache search rpmforge-release
+   47  apt-cache search rpmforge
+   48  apt-cache search rpm
+   49  apt-get install rpmforge-common
+   50  apt-get install rpm-common
+   51  apt-config-manager --enable remi-php70
+   52  cd /var/www/html/
+   53  ls
+   54  cd mediawiki
+   55  ls
+   56  cd ..
+   57  chmod -R 755 mediawiki
+   58  mysql -uroot -p
+   59  /usr/bin/mysql_secure_installation
+   60  service mysql restart
+   61  cd /etc/
+   62  ls
+   63  ls -alt mediawiki/
+   64  cd ..
+   65  ls -alt /etc/mediawiki/
+   66  chmod -R 755 /etc/mediawiki/
+   67  service apache2 restart
+   68  tail -f /var/log/apache2/ldap.virtual-labs.ac.in-error-log 
+   69  tail -f /var/log/apache2/error.log 
+   70  ls
+   71  cd /var/www/html/
+   72  ls
+   73  chmod g+w /etc/mediawiki/index.php 
+   74  cd /etc/mediawiki/
+   75  ls
+   76  mkdir index.php
+   77  ls
+   78  chgrp www-data index.php
+   79  chmod g+w index.php 
+   80  cd
+   81  ls
+   82  vi /etc/apache2/sites-available/mediawiki.conf
+   83  a2ensite mediawiki.conf
+   84  service apache2 reload
+   85  service apache2 restart

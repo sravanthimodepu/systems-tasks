@@ -1,0 +1,1954 @@
+* Deploy outreach portal
+- Create AWS instance
+- login to instance through ansible
+- install apache2, git, emacs, python, pip, python-pip, flask, mysql-server, pep8, pycodestyle, php, python-django.
+- run make
+- copy build/code
+* reverseproxy
+  <VirtualHost *:80>
+#ProxyPreserveHost On
+ServerAdmin engg@vlabs.ac.in
+#DocumentRoot /var/www/html
+ServerName outreach.vlabs.ac.in
+ErrorLog logs/outreach.virtual-labs.ac.in-error_log
+CustomLog logs/outreach.virtual-labs.ac.in-access_log combined
+<Location />
+#RequestHeader set Host "outreach.virtual-labs.ac.in"
+ProxyPass http://outreach.vlabs.ac.in/
+ProxyPassReverse http://outreach.vlabs.ac.in/
+</Location>
+</VirtualHost>
+
+<VirtualHost *:443>
+#ProxyPreserveHost On
+ServerAdmin engg@vlabs.ac.in
+#DocumentRoot /var/www/html
+ServerName outreach.vlabs.ac.in
+ErrorLog logs/outreach.virtual-labs.ac.in-error_log
+CustomLog logs/outreach.virtual-labs.ac.in-access_log combined
+<Location />
+#RequestHeader set Host "outreach.virtual-labs.ac.in"
+ProxyPass http://outreach.vlabs.ac.in/
+ProxyPassReverse http://outreach.vlabs.ac.in/
+</Location>
+</VirtualHost>
+
+* Linux commands:
+ 
+736  18 12 21 13:49:51 hostname
+  737  18 12 21 13:49:56 ip a
+  738  18 12 21 13:51:22 ping outreach.vlabs.ac.in
+  739  18 12 21 13:51:27 vim /etc/apache2/apache2.conf 
+  740  18 12 21 13:56:29 vim /etc/apache2/sites-available/default
+  741  18 12 21 13:56:58 cat /var/www/outreach.wsgi
+  742  18 12 21 13:57:29 curl loclahost
+  743  18 12 21 13:57:33 curl localhost
+  744  18 12 21 13:57:44 curl outreach.vlabs.ac.in
+  745  18 12 21 13:57:54 ping outreach.vlabs.ac.in
+  746  18 12 21 13:57:56 ip a
+  747  18 12 21 13:58:10 ping outreach.vlabs.ac.in
+  748  18 12 21 13:58:21 cd /var/www
+  749  18 12 21 13:58:21 ls
+  750  18 12 21 13:58:22 ll
+  751  18 12 21 13:58:24 ls -alh
+  752  18 12 21 13:58:37 service apache2 restart
+  753  18 12 21 13:58:44 curl outreach.vlabs.ac.in
+  754  18 12 21 13:59:02 ss -ltnp
+  755  18 12 21 13:59:12 cd /etc/apache2/
+  756  18 12 21 13:59:12 ls
+  757  18 12 21 13:59:15 grep -nr "302" .
+  758  18 12 21 13:59:23 grep -nr "virtual-labs" .
+  759  18 12 21 13:59:25 ll
+  760  18 12 21 13:59:29 vim httpd.conf 
+  761  18 12 21 13:59:31 vim apache2.conf 
+  762  18 12 21 13:59:48 curl outreach.vlabs.ac.in -v
+  763  18 12 21 13:59:57 ls
+  764  18 12 21 14:00:03 vim sites-enabled/000-default 
+  765  18 12 21 14:00:10 cd sites-enabled/
+  766  18 12 21 14:00:10 ls
+  767  18 12 21 14:00:13 ll
+  768  18 12 21 14:00:15 cat 000-default 
+  769  18 12 21 14:00:32 cd /var/www
+  770  18 12 21 14:00:32 ls
+  771  18 12 21 14:00:33 ll
+  772  18 12 21 14:00:39 telnet localhost 80
+  773  18 12 21 14:00:52 grep -nr "redirected" .
+  774  18 12 21 14:00:57 df -h
+  775  18 12 21 14:01:02 du -sh *
+  776  18 12 21 14:01:19 ls
+  777  18 12 21 14:01:25 cat outreach.wsgi 
+  778  18 12 21 14:01:30 vim configure.sh 
+  779  18 12 21 14:01:56 ll
+  780  18 12 21 14:02:05 cat configure.sh 
+  781  18 12 21 14:02:07 ls
+  782  18 12 21 14:02:11 vim src/config.py
+  783  18 12 21 14:02:25 cd src/
+  784  18 12 21 14:02:25 ls
+  785  18 12 21 14:02:26 ll
+  786  18 12 21 14:02:27 du -sh *
+  787  18 12 21 14:02:42 cat *.py | grep -i redirect
+  788  18 12 21 14:02:53 cat *.py | grep -i virtual-labs
+  789  18 12 21 14:02:59 ll
+  790  18 12 21 14:03:04 vim config.py
+  791  18 12 21 14:03:12 ss -lntp
+  792  18 12 21 14:03:20 cd ..
+  793  18 12 21 14:03:20 l
+  794  18 12 21 14:03:32 cat outreach.wsgi 
+  795  18 12 21 14:04:03 service apache2 stop
+  796  18 12 21 14:04:18 service apache2 start
+  797  18 12 21 14:04:25 curl outreach.vlabs.ac.in -v
+  798  18 12 21 14:04:50 ss -ltnp
+  799  18 12 21 14:05:01 cd /var/www
+  800  18 12 21 14:05:01 ls
+  801  18 12 21 14:05:03 ll
+  802  18 12 21 14:05:10 ps uax | grep uwsgi
+  803  18 12 21 14:05:14 ps uax | grep wsgi
+  804  18 12 21 14:05:16 ps uax 
+  805  18 12 21 14:05:45 ss -ltnp
+  806  18 12 21 14:05:50 ls
+  807  18 12 21 14:06:06 cat /etc/apache2/sites-enabled/000-default 
+  808  18 12 21 14:06:42 curl localhsot
+  809  18 12 21 14:06:45 curl localhost
+  810  18 12 21 14:06:55 curl outreach.virtual-labs.ac.in
+  811  18 12 21 14:21:00 htop
+  812  18 12 21 14:21:05 free -m
+  813  18 12 21 14:21:10 ls
+  814  18 12 21 14:21:17 ss -ltnp
+  815  18 12 21 14:21:17 top
+  816  18 12 21 14:21:47 df -h
+  817  18 12 21 14:59:23 telnet localhost 80
+  818  18 12 21 14:59:27 curl localhost
+  819  18 12 21 14:59:32 curl outreach.vlabs.ac.in
+  820  18 12 21 14:59:43 curl outreach.virtual-labs.ac.in
+  821  18 12 21 14:59:45 l
+  822  18 12 21 14:59:46 ls
+  823  18 12 21 14:59:49 cd /var/www
+  824  18 12 21 14:59:49 ls
+  825  18 12 21 14:59:51 cd src/
+  826  18 12 21 14:59:52 ls
+  827  18 12 21 14:59:54 vim api.py
+  828  18 12 21 14:59:56 vim app.py
+  829  18 12 21 15:00:19 vim config.py
+  830  18 12 21 15:00:38 service apache2 restart
+  831  18 12 21 15:00:40 ls
+  832  18 12 21 15:00:42 curl outreach.virtual-labs.ac.in
+  833  18 12 21 15:00:45 curl outreach.vlabs.ac.in
+  834  18 12 21 15:00:46 ls
+  835  18 12 21 15:00:50 ls -alh
+  836  18 12 21 15:00:51 cd ..
+  837  18 12 21 15:00:52 ls -alh
+  838  18 12 21 15:00:56 cd ..
+  839  18 12 21 15:00:58 ls -alh
+  840  18 12 21 15:01:00 ll
+  841  18 12 21 15:01:01 cd -
+  842  18 12 21 15:01:02 ls
+  843  18 12 21 15:01:09 ll
+  844  18 12 21 15:01:18 cd /etc/apache2/
+  845  18 12 21 15:01:18 ls
+  846  18 12 21 15:01:21 vim apache2.conf 
+  847  18 12 21 15:01:33 cat apache2.conf |grep -v #
+  848  18 12 21 15:01:36 cat apache2.conf |grep -v '#'
+  849  18 12 21 15:01:58 cd conf.d/
+  850  18 12 21 15:01:58 ls
+  851  18 12 21 15:01:59 ll
+  852  18 12 21 15:02:00 cat other-vhosts-access-log 
+  853  18 12 21 15:02:03 cat security 
+  854  18 12 21 15:02:07 cat security  | grep -v '#'
+  855  18 12 21 15:02:11 ls
+  856  18 12 21 15:02:13 cat charset 
+  857  18 12 21 15:02:15 cat localized-error-pages 
+  858  18 12 21 15:02:18 cat localized-error-pages  | grep -v '#'
+  859  18 12 21 15:02:20 ll
+  860  18 12 21 15:02:25 grep -nr "virtual-labs".
+  861  18 12 21 15:02:27 grep -nr "virtual-labs" .
+  862  18 12 21 15:02:28 ll
+  863  18 12 21 15:02:30 cat security 
+  864  18 12 21 15:02:32 vim security 
+  865  18 12 21 15:02:36 hostname
+  866  18 12 21 15:02:37 ll
+  867  18 12 21 15:02:39 vim other-vhosts-access-log 
+  868  18 12 21 15:02:42 vim localized-error-pages 
+  869  18 12 21 15:02:51 vim charset 
+  870  18 12 21 15:02:53 cd ../
+  871  18 12 21 15:02:54 ls
+  872  18 12 21 15:02:54 ll
+  873  18 12 21 15:02:55 vim envvars 
+  874  18 12 21 15:03:04 ll
+  875  18 12 21 15:03:07 vim ports.conf 
+  876  18 12 21 15:03:12 cd mods-enabled/
+  877  18 12 21 15:03:12 ls
+  878  18 12 21 15:03:13 ll
+  879  18 12 21 15:03:19 grep -nr "virtual" .
+  880  18 12 21 15:03:21 cd ..
+  881  18 12 21 15:03:22 ls
+  882  18 12 21 15:03:26 cd sites-enabled/
+  883  18 12 21 15:03:26 ls
+  884  18 12 21 15:03:27 ll
+  885  18 12 21 15:03:28 cat 000-default 
+  886  18 12 21 15:03:54 cd /var/www
+  887  18 12 21 15:03:55 ll
+  888  18 12 21 15:04:11 tailf /var/log/apache2/other_vhosts_access.log 
+  889  18 12 21 15:04:15 cd  /var/log/apache2/
+  890  18 12 21 15:04:16 ls
+  891  18 12 21 15:04:17 ll
+  892  18 12 21 15:04:30 tailf error.log
+  893  18 12 21 15:04:34 tail -n 100 error.log
+  894  18 12 21 15:04:42 tail -n 100 access.log
+  895  18 12 21 15:04:46 ls
+  896  18 12 21 15:04:52 cd /etc/apache2/
+  897  18 12 21 15:04:52 ls
+  898  18 12 21 15:04:56 grep -nr "other" .
+  899  18 12 21 15:05:06 vim conf.d/other-vhosts-access-log 
+  900  18 12 21 15:05:15 cd sites-enabled/
+  901  18 12 21 15:05:15 ls
+  902  18 12 21 15:05:17 vim 000-default 
+  903  18 12 21 15:06:03 cd /usr/lib/cgi-bin/
+  904  18 12 21 15:06:03 ll
+  905  18 12 21 15:06:06 cd /var/
+  906  18 12 21 15:06:06 l
+  907  18 12 21 15:06:07 lll
+  908  18 12 21 15:06:09 ls -alh
+  909  18 12 21 15:06:12 cd www
+  910  18 12 21 15:06:13 ls -alh
+  911  18 12 21 15:06:21 cat dead.letter 
+  912  18 12 21 15:07:22 ls
+  913  18 12 21 15:07:23 ll
+  914  18 12 21 15:07:26 ls -alh
+  915  18 12 21 15:07:32 vim migrate_old_to_new_data.py 
+  916  18 12 21 15:08:06 grep -nr "virtual-labs" .
+  917  18 12 21 15:08:09 grep -n "virtual-labs" .
+  918  18 12 21 15:08:11 ll
+  919  18 12 21 15:08:14 grep -n "virtual-labs" .
+  920  18 12 21 15:08:15 ll
+  921  18 12 21 15:08:21 cat outreach.wsgi 
+  922  18 12 21 15:08:37 cd src/
+  923  18 12 21 15:08:38 ls
+  924  18 12 21 15:08:41 vim app.py
+  925  18 12 21 15:08:44 vim __init__.py
+  926  18 12 21 15:08:47 vim app.py
+  927  18 12 21 15:09:08 vim utils.py
+  928  18 12 21 15:09:17 grep -n route .
+  929  18 12 21 15:09:20 vim api.py
+  930  18 12 21 15:09:29 grep -n "route" .
+  931  18 12 21 15:09:31 grep -n "route" *.py
+  932  18 12 21 15:09:41 ls
+  933  18 12 21 15:09:43 vim api.py
+  934  18 12 21 15:10:41 service apache2 restart
+  935  18 12 21 15:12:06 vim api.py
+  936  18 12 21 15:12:16 curl outreach.vlabs.ac.in
+  937  18 12 21 15:13:36 cd /var/www
+  938  18 12 21 15:13:37 l
+  939  18 12 21 15:13:40 vim api.p
+  940  18 12 21 15:13:45 vim api.py
+  941  18 12 21 15:13:51 cd src/
+  942  18 12 21 15:13:53 vim api.py
+  943  18 12 21 14:29:27 route -n
+  944  18 12 21 14:29:36 route add default gw 10.100.1.1
+  945  18 12 21 14:29:42 route del default gw 10.100.0.1
+  946  18 12 21 14:29:47 service mysql status
+  947  18 12 21 14:29:55 service apache2 status
+  948  18 12 21 14:31:57 service apache2 restart
+  949  18 12 21 14:33:15 cd /var/www/src/
+  950  18 12 21 14:33:18 vim config.py
+  951  18 12 21 14:33:31 service apache2 restart
+  952  18 12 21 14:37:42 vim config.py
+  953  18 12 21 14:38:40 service apache2 restart
+  954  18 12 21 14:39:46 vim config.py
+  955  18 12 21 14:39:55 service apache2 restart
+  956  18 12 21 14:41:03 vim config.py
+  957  18 12 21 14:45:44 ls
+  958  18 12 21 14:45:48 ll
+  959  18 12 21 14:46:05 cat *.py | grep -i persona
+  960  18 12 21 14:46:18 ll
+  961  18 12 21 14:46:19 ls
+  962  18 12 21 14:46:22 cd templates/
+  963  18 12 21 14:46:22 ls
+  964  18 12 21 14:46:29 grep -nr "PERSONA_VERIFIER_URL" .
+  965  18 12 21 14:46:31 cd ..
+  966  18 12 21 14:46:32 ls
+  967  18 12 21 14:46:36 grep -nr "persona" .
+  968  18 12 21 14:46:41 cat *.py | grep persona
+  969  18 12 21 14:46:57 cd ..
+  970  18 12 21 14:46:58 ll
+  971  18 12 21 14:47:04 cat configure.sh 
+  972  18 12 21 14:47:06 ls
+  973  18 12 21 14:47:07 cd -
+  974  18 12 21 14:47:07 ls
+  975  18 12 21 14:47:40 vim app.py
+  976  18 12 21 14:47:52 grep -n "login" .
+  977  18 12 21 14:47:54 grep -in "login" .
+  978  18 12 21 14:47:55 ll
+  979  18 12 21 14:47:56 pwd
+  980  18 12 21 14:47:57 ll
+  981  18 12 21 14:48:02 cd templates/
+  982  18 12 21 14:48:02 ls
+  983  18 12 21 14:48:07 cat index.html 
+  984  18 12 21 14:48:10 cat index.html  | less
+  985  18 12 21 14:48:22 cat layout.html  | less
+  986  18 12 21 14:48:59 ls
+  987  18 12 21 14:49:00 cd ..
+  988  18 12 21 14:49:00 ls
+  989  18 12 21 14:49:03 vim api.py
+  990  18 12 21 14:52:56 ls
+  991  18 12 21 14:52:57 vim config.py
+  992  18 12 21 14:53:34 service apache2 restart
+  993  18 12 21 14:54:15 vim config.py
+  994  18 12 21 14:54:21 vim  api.py
+  995  18 12 21 14:56:39 vim config.py
+  996  18 12 21 14:56:53 service apache2 restart
+  997  18 12 21 14:56:55 vim config.py
+  998  18 12 21 15:07:15 ps aux
+  999  18 12 21 15:07:18 ps aux | grep cat
+
+* Base1
+[root@base1 ~]# history
+    1  18 12 24 10:06:42 cd /media/37F7-BCE0/
+    2  18 12 24 10:06:42 ls
+    3  18 12 24 10:06:42 cd vlead/
+    4  18 12 24 10:06:42 ls
+    5  18 12 24 10:06:42 ./prepare_base_machine.sh 
+    6  18 12 24 10:06:42 vim /etc/sysconfig/network-scripts/ifcfg-eth0
+    7  18 12 24 10:06:42 vim /etc/sysconfig/network-scripts/ifcfg-eth1
+    8  18 12 24 10:06:42 ls /etc/sysconfig/network-scripts/
+    9  18 12 24 10:06:42 exit
+   10  18 12 24 10:06:42 ping www.google.co.in
+   11  18 12 24 10:06:42 vim /etc/grub.
+   12  18 12 24 10:06:42 vim /etc/grub.conf
+   13  18 12 24 10:06:42 ping 10.2.48.252
+   14  18 12 24 10:06:42 exit
+   15  18 12 24 10:06:42 getenforce 
+   16  18 12 24 10:06:42 exit
+   17  18 12 24 10:06:42 rm -rf .ssh/
+   18  18 12 24 10:06:42 exit
+   19  18 12 24 10:06:42 ls
+   20  18 12 24 10:06:42 rm -rf rekall/
+   21  18 12 24 10:06:42 rm -rf .ssh/
+   22  18 12 24 10:06:42 exit
+   23  18 12 24 10:06:42 telnet www.google.co.in 80
+   24  18 12 24 10:06:42 clear
+   25  18 12 24 10:06:42 exit
+   26  14 05 25 16:15:09 htop
+   27  14 05 25 16:15:28 ls
+   28  14 05 25 16:15:30 cd rekall/download/
+   29  14 05 25 16:15:30 ls
+   30  14 05 25 16:15:32 ls -lh
+   31  14 05 25 16:17:30 htop
+   32  14 05 25 16:17:45 exit
+   33  14 05 25 16:19:51 cd rekall/vlead/
+   34  14 05 25 16:19:51 ls
+   35  14 05 25 16:20:13 rm centos.erl.~1~ 
+   36  14 05 25 16:20:18 vim /etc/grub.conf
+   37  14 05 25 16:20:31 ls /mnt/das1/
+   38  14 05 25 16:20:35 vim /etc/rsnapshot.conf 
+   39  14 05 25 16:20:50 cd redmine.
+   40  14 05 25 16:20:53 ls
+   41  14 05 25 16:21:00 vim ./scripts/new_server/configure_base_machine.escript 
+   42  14 05 25 16:21:12 ifconfig 
+   43  14 05 25 16:21:15 vim ./scripts/new_server/configure_base_machine.escript 
+   44  14 05 25 16:22:02 ./scripts/new_server/configure_base_machine.escript /mnt/das1/ /mnt/das1/
+   45  14 05 25 16:24:23 vim /root/rekall/backup/files.txt 
+   46  14 05 25 16:24:44 vim centos.erl 
+   47  14 05 25 16:26:07 erlc -D debug *.erl
+   48  14 05 25 16:26:10 vim defaults.hrl 
+   49  14 05 25 16:26:55 ls /root/rekall/
+   50  14 05 25 16:27:02 vim defaults.hrl 
+   51  14 05 25 16:27:11 erlc -D debug *.erl
+   52  14 05 25 16:27:17 ./scripts/new_server/configure_base_machine.escript /mnt/das1/ /mnt/das1/
+   53  14 05 25 16:27:31 ls -l /mnt/das1/vz/
+   54  14 05 25 16:27:35 ls -l /mnt/das1/
+   55  14 05 25 16:27:43 ls -l /vz/
+   56  14 05 25 16:27:48 rm /mnt/das1/vz/
+   57  14 05 25 16:27:50 rm /mnt/das1/vz
+   58  14 05 25 16:27:55 ls /mnt/das1/vz/
+   59  14 05 25 16:28:02 rm /mnt/das1/vz/vz
+   60  14 05 25 16:28:03 ls
+   61  14 05 25 16:28:09 ./scripts/new_server/configure_base_machine.escript /mnt/das1/ /mnt/das1/
+   62  14 05 25 16:29:58 vim centos.erl 
+   63  14 05 25 16:30:52 erlc -D debug *.erl
+   64  14 05 25 16:30:54 ./scripts/new_server/configure_base_machine.escript /mnt/das1/ /mnt/das1/
+   65  14 05 25 16:31:05 rm /mnt/das1/vz/vz
+   66  14 05 25 16:31:07 ./scripts/new_server/configure_base_machine.escript /mnt/das1/ /mnt/das1/
+   67  14 05 25 16:32:24 vim centos.erl 
+   68  14 05 25 16:32:38 erlc -D debug *.erl
+   69  14 05 25 16:32:42 ./scripts/new_server/configure_base_machine.escript /mnt/das1/ /mnt/das1/
+   70  14 05 25 16:34:06 vim centos.erl 
+   71  14 05 25 16:34:45 vim backup.erl 
+   72  14 05 25 16:35:32 vim parse.erl 
+   73  14 05 25 16:36:47 erlc -D debug *.erl
+   74  14 05 25 16:36:51 vim backup.erl 
+   75  14 05 25 16:36:57 ./scripts/new_server/configure_base_machine.escript /mnt/das1/ /mnt/das1/
+   76  14 05 25 16:37:04 rm /mnt/das1/vz/vz
+   77  14 05 25 16:37:06 ./scripts/new_server/configure_base_machine.escript /mnt/das1/ /mnt/das1/
+   78  14 05 25 16:38:23 vim centos.erl 
+   79  14 05 25 16:39:25 vim /etc/sysconfig/network-scripts/ifcfg-eth0
+   80  14 05 25 16:39:41 ./scripts/new_server/configure_base_machine.escript /mnt/das1/ /mnt/das1/
+   81  14 05 25 16:39:46 erl
+   82  14 05 25 16:40:03 clear
+   83  14 05 25 16:40:11 vim /etc/sysconfig/network-scripts/ifcfg-breth*
+   84  14 05 25 16:40:18 vim /etc/sysconfig/network-scripts/ifcfg-eth*
+   85  14 05 25 16:40:32 service network restart
+   86  14 05 25 17:42:06 vim /etc/rsnapshot.conf 
+   87  14 05 25 17:42:20 vzlist -a
+   88  14 05 25 17:43:46 vim install_erlang.sh 
+   89  14 05 25 17:51:27 erlc -D debug *.erl
+   90  14 05 25 17:51:52 ./scripts/new_server/configure_base_machine.escript /mnt/das1/ /mnt/das1/
+   91  14 05 25 17:53:34 vim /etc/grub.conf
+   92  14 05 25 17:53:39 ls /mnt/das1/
+   93  14 05 25 17:53:41 vim /etc/rsnapshot.conf 
+   94  14 05 25 17:53:51 rm /mnt/das1/vz/vz
+   95  14 05 25 17:54:54 clear
+   96  14 05 25 17:56:31 vzlist -a
+   97  14 05 25 17:56:37 watch vzlist -a
+   98  14 05 25 17:56:41 erl
+   99  14 05 25 17:56:56 ping 10.4.14.151
+  100  14 05 25 17:57:09 erlc -D debug *.erl
+  101  14 05 25 17:57:23 tail -f setup_organisation.log 
+  102  14 05 25 17:57:40 ls -lh /vz/template/cache/
+  103  14 05 25 17:58:02 vzctl enter 14151
+  104  14 05 25 18:03:04 vzctl enter 14152
+  105  14 05 25 18:05:04 cd ../download/
+  106  14 05 25 18:05:05 l
+  107  14 05 25 18:05:06 ls
+  108  14 05 25 18:05:16 rm -rf emacs.d
+  109  14 05 25 18:05:24 rsync -vtrp saurabh@10.2.48.252:/documents/Desktop/rekall/cache/download/* .
+  110  14 05 25 18:07:09 vzctl enter 14153
+  111  14 05 25 18:13:08 nslookup www.google.co.in 10.4.12.152
+  112  14 05 25 18:13:11 nslookup www.google.co.in 10.4.14.152
+  113  14 05 25 18:13:18 nslookup admin.virtual-labs.ac.in 10.4.14.152
+  114  14 05 25 18:13:28 vim /etc/sysconfig/network-scripts/ifcfg-breth1
+  115  14 05 25 18:13:38 vim /etc/resolv.conf
+  116  14 05 25 18:13:50 ping ca.admin.virtual-labs.ac.in
+  117  14 05 25 18:15:01 ping ldap.admin.virtual-labs.ac.in
+  118  14 05 25 18:15:09 vzlist -a
+  119  14 05 25 18:15:14 ping 10.4.14.152
+  120  14 05 25 18:15:23 vzctl enter 155
+  121  14 05 25 18:15:26 vzctl enter 14155
+  122  14 05 25 18:16:06 nslookup ldap.admin.virtual-labs.ac.in 10.4.14.152
+  123  14 05 25 18:16:14 cd ..
+  124  14 05 25 18:16:16 cd vlead/
+  125  14 05 25 18:16:24 vim ./scripts/new_server/ns1.admin.escript 
+  126  14 05 25 18:16:29 vim defaults.hrl 
+  127  14 05 25 18:16:41 vzctl enter 151
+  128  14 05 25 18:16:45 vzctl enter 14152
+  129  14 05 25 18:19:00 ping ldap.admin.virtual-labs.ac.in
+  130  14 05 25 18:19:17 vzctl enter 14155
+  131  14 05 25 18:21:05 vim setup_organisation.log 
+  132  14 05 25 18:23:13 vzctl enter 155
+  133  14 05 25 18:23:16 vzctl enter 14155
+  134  14 05 25 18:27:25 vim scripts/new_server/ldap.admin.escript 
+  135  14 05 25 18:27:36 bzr diff
+  136  14 05 25 18:27:43 bzr commit -m "Many improvements"
+  137  14 05 25 18:27:46 clear
+  138  14 05 25 18:27:47 erk
+  139  14 05 25 18:27:49 erl
+  140  14 05 25 18:29:20 exit
+  141  14 05 25 18:03:31 telnet 10.2.48.252 100
+  142  14 05 25 18:03:34 telnet 10.2.48.252 200
+  143  14 05 25 18:03:37 telnet 10.2.48.252 300
+  144  14 05 25 18:03:39 telnet 10.2.48.252 400
+  145  14 05 25 18:03:44 ssh -X saurabh@10.2.48.252
+  146  14 05 25 18:03:48 ping 10.2.48.252
+  147  14 05 25 18:03:50 ssh -X saurabh@10.2.48.252
+  148  14 05 25 18:03:54 telnet 10.2.48.252 100
+  149  14 05 25 18:03:56 telnet 10.2.48.252 200
+  150  14 05 25 18:03:58 telnet 10.2.48.252 300
+  151  14 05 25 18:04:03 iptables-save
+  152  14 05 25 18:04:13 service iptables stop
+  153  14 05 25 18:04:17 telnet 10.2.48.252 100
+  154  14 05 25 18:04:18 telnet 10.2.48.252 200
+  155  14 05 25 18:04:19 telnet 10.2.48.252 300
+  156  14 05 25 18:04:31 telnet 10.2.48.252 400
+  157  14 05 25 18:04:34 ssh -X saurabh@10.2.48.252
+  158  14 05 25 20:59:22 vzlist -a
+  159  14 05 25 20:59:30 uptime
+  160  14 05 25 20:59:48 history
+  161  14 05 25 20:59:57 cd rekall/
+  162  14 05 25 20:59:58 ls
+  163  14 05 25 21:00:03 cd vlead
+  164  14 05 25 21:00:03 ls
+  165  14 05 25 21:00:06 vim setup_organisation.log 
+  166  14 05 25 21:00:49 exit
+  167  14 05 26 08:35:14 vzctl enter 14152
+  168  14 05 26 08:35:51 exit
+  169  14 05 26 08:32:06 vim /etc/ssh/sshd_config 
+  170  14 05 26 08:32:22 ifconfig 
+  171  14 05 26 08:32:24 ls
+  172  14 05 26 08:32:30 cd rekall/vlead/
+  173  14 05 26 08:32:30 ls
+  174  14 05 26 08:32:35 vim setup_organisation.log 
+  175  14 05 26 08:32:52 vim ./scripts/new_server/ns2.admin.escript 
+  176  14 05 26 08:33:01 vzlist -a
+  177  14 05 26 08:33:11 vzctl destroy 14168
+  178  14 05 26 08:33:17 erl
+  179  14 05 26 08:34:13 ls
+  180  14 05 26 08:34:17 firefox &
+  181  14 05 26 08:34:26 vim /etc/resolv.conf
+  182  14 05 26 08:34:46 vim defaults.hrl 
+  183  14 05 26 08:35:55 exit
+  184  14 05 26 08:36:13 ls
+  185  14 05 26 08:36:20 vzctl enter 14152
+  186  14 05 26 08:40:30 ls
+  187  14 05 26 08:40:31 cd rekall/
+  188  14 05 26 08:40:33 cd vlead/
+  189  14 05 26 08:40:35 vim defaults.hrl 
+  190  14 05 26 08:40:57 vzctl enter 154
+  191  14 05 26 08:40:59 exit
+  192  14 05 26 08:36:32 firefox &
+  193  14 05 26 08:36:40 ping ns1.admin.virtual-labs.ac.in
+  194  14 05 26 08:37:01 links https://ns1.admin.virtual-labs.ac.in:10000/
+  195  14 05 26 08:37:09 vim /etc/sysconfig/iptables
+  196  14 05 26 08:37:35 service iptables restart
+  197  14 05 26 08:37:58 cd rekall/vlead/
+  198  14 05 26 08:38:00 cat root_password.csv 
+  199  14 05 26 08:38:09 vim root_password.csv 
+  200  14 05 26 08:38:16 clear
+  201  14 05 26 08:38:17 cat root_password.csv 
+  202  14 05 26 08:41:03 vzctl enter 14154
+  203  14 05 26 08:43:06 vzctl enter 14155
+  204  14 05 26 08:46:04 ls
+  205  14 05 26 08:46:06 cd ..
+  206  14 05 26 08:46:08 ls
+  207  14 05 26 08:46:12 cd rekall/vlead/
+  208  14 05 26 08:46:12 ls
+  209  14 05 26 08:46:13 erl
+  210  14 05 26 08:49:07 ls
+  211  14 05 26 08:49:20 ps
+  212  14 05 26 08:49:23 exit
+  213  14 05 26 08:36:10 gnome-terminal &
+  214  14 05 26 08:49:26 cd rekall/vlead/
+  215  14 05 26 08:49:26 ls
+  216  14 05 26 08:49:28 bzr status
+  217  14 05 26 08:49:35 rm erl_crash.dump setup_organisation.log 
+  218  14 05 26 08:49:48 vim scripts/new_server/ldap.admin.escript 
+  219  14 05 26 08:50:05 bzr status
+  220  14 05 26 08:50:21 bzr commit -m "Corrected root dn in ldap script so that it lies under same suffix"
+  221  14 05 26 08:50:59 exit
+  222  14 05 26 12:35:53 ssh root@10.4.15.151
+  223  14 05 26 12:36:27 ssh root@10.4.14.151
+  224  14 05 26 12:37:27 ssh root@10.4.14.151 exit
+  225  14 05 26 12:41:14 ssh root@10.4.14.165
+  226  14 05 26 12:42:10 ssh root@10.4.14.165 
+  227  14 05 26 12:43:50 cat root_password.csv 
+  228  14 05 26 12:43:57 ssh root@10.4.14.165 
+  229  14 05 26 12:44:13 vzctl stop 14165
+  230  14 05 26 12:44:21 ping 10.4.14.165
+  231  14 05 26 12:44:34 cd /vz/private/14165/
+  232  14 05 26 12:44:35 ls
+  233  14 05 26 12:44:36 cd root/
+  234  14 05 26 12:44:36 ls
+  235  14 05 26 12:44:37 ls -al
+  236  14 05 26 12:44:39 cd .ssh/
+  237  14 05 26 12:44:40 ls -al
+  238  14 05 26 12:44:42 cat authorized_keys 
+  239  14 05 26 12:44:47 exit
+  240  14 05 26 12:15:02 vim setup_organisation.log 
+  241  14 05 26 12:15:07 rm .setup_organisation.log.swp 
+  242  14 05 26 12:15:09 vim setup_organisation.log 
+  243  14 05 26 12:34:27 vim ssh_helper.erl 
+  244  14 05 26 12:38:16 vzctl stop 14165
+  245  14 05 26 12:38:21 vzctl destroy 14165
+  246  14 05 26 12:44:59 vzctl start 14165
+  247  14 05 26 12:45:05 ssh root@10.4.14.165
+  248  14 05 26 12:45:19 ssh -v root@10.4.14.165
+  249  14 05 26 12:50:19 ssh root@10.4.14.165
+  250  14 05 26 12:51:28 ssh -v root@10.4.14.165
+  251  14 05 26 12:54:48 ssh  root@10.4.14.165
+  252  14 05 26 12:55:49 arp -a -n
+  253  14 05 26 12:56:21 ssh  root@10.4.14.165
+  254  14 05 26 12:56:47 ssh -v root@10.4.14.165
+  255  14 05 26 13:07:21 clear
+  256  14 05 26 13:16:46 exit
+  257  14 05 26 12:15:33 vim defaults.hrl 
+  258  14 05 26 12:15:35 rm .defaults.hrl.swp 
+  259  14 05 26 12:15:36 vim defaults.hrl 
+  260  14 05 26 13:07:24 clear
+  261  14 05 26 13:10:50 vim defaults.hrl 
+  262  14 05 26 13:16:32 bzr status
+  263  14 05 26 13:16:44 bzr commit -m "Made several small improvements or bug fixes"
+  264  14 05 26 13:16:46 exit
+  265  14 05 26 12:16:43 tail -f se
+  266  14 05 26 12:16:44 tail -f setup_organisation.log 
+  267  14 05 26 12:23:29 ssh root@10.4.15.151
+  268  14 05 26 12:23:32 ssh root@10.4.14.151
+  269  14 05 26 12:25:16 erl -man string
+  270  14 05 26 12:28:10 tail -f setup_organisation.log 
+  271  14 05 26 12:53:07 vim dovecot.erl 
+  272  14 05 26 12:54:15 cat /vz/private/14165/root/.ssh/authorized_keys 
+  273  14 05 26 12:54:25 cat ~/.ssh/id_rsa.pub 
+  274  14 05 26 12:54:35 cat /vz/private/14164/root/.ssh/authorized_keys 
+  275  14 05 26 12:54:38 cat /vz/private/14163/root/.ssh/authorized_keys 
+  276  14 05 26 12:54:41 cat /vz/private/14165/root/.ssh/authorized_keys 
+  277  14 05 26 12:54:58 ls -lh
+  278  14 05 26 12:55:04 vzlist -a
+  279  14 05 26 12:55:11 cat root_password.csv 
+  280  14 05 26 12:55:38 vzctl enter 14165
+  281  14 05 26 12:57:25 vim dovecot.erl 
+  282  14 05 26 12:58:24 vzctl enter 14165
+  283  14 05 26 12:58:58 clear
+  284  14 05 26 12:59:09 vim dovecot.erl 
+  285  14 05 26 13:00:07 vim user_management.erl 
+  286  14 05 26 13:00:29 erlc -D debug *.erl
+  287  14 05 26 13:00:31 vim dovecot.erl 
+  288  14 05 26 13:00:58 tail -f setup_organisation.log 
+  289  14 05 26 13:05:00 vzctl enter 14165
+  290  14 05 26 13:05:09 vim user_management.erl 
+  291  14 05 26 13:05:38 vzctl enter 14165
+  292  14 05 26 13:05:57 vim user_management.erl 
+  293  14 05 26 13:06:08 erlc -D debug *.erl
+  294  14 05 26 13:06:34 tail -f setup_organisation.log 
+  295  14 05 26 13:16:47 exit
+  296  14 05 26 12:04:13 vzlist -a
+  297  14 05 26 12:04:36 vzctl destroy 14165
+  298  14 05 26 12:04:49 cd rekall/vlead/
+  299  14 05 26 12:04:50 erl
+  300  14 05 26 12:14:08 ls
+  301  14 05 26 12:14:10 vzlist -a
+  302  14 05 26 12:16:35 ./scripts/new_server/configure_container_script.escript 14163 cacti 10.4.14.163 cacti.admin.virtual-labs.ac.in ./scripts/new_server/cacti.admin.escript >> setup_organisation.log 
+  303  14 05 26 12:18:43 vzctl stop 14163
+  304  14 05 26 12:18:47 vzctl destroy 14163
+  305  14 05 26 12:19:15 ./scripts/new_server/configure_container_script.escript 14163 cacti 10.4.14.163 cacti.admin.virtual-labs.ac.in ./scripts/new_server/cacti.admin.escript >> setup_organisation.log 
+  306  14 05 26 12:19:49 erl
+  307  14 05 26 12:20:03 ssh root@10.4.14.163
+  308  14 05 26 12:20:10 rm /tmp/root\@10.4.14.16
+  309  14 05 26 12:20:12 rm /tmp/root\@10.4.14.163\:22 
+  310  14 05 26 12:20:24 vzctl stop 14163
+  311  14 05 26 12:20:31 vzctl destroy 14163
+  312  14 05 26 12:20:34 ./scripts/new_server/configure_container_script.escript 14163 cacti 10.4.14.163 cacti.admin.virtual-labs.ac.in ./scripts/new_server/cacti.admin.escript >> setup_organisation.log 
+  313  14 05 26 12:22:47 rm /tmp/root\@10.4.14.165\:22 
+  314  14 05 26 12:23:41 vzctl stop 14163
+  315  14 05 26 12:23:47 vzctl destroy 14163
+  316  14 05 26 12:23:51 vim centos.erl 
+  317  14 05 26 12:24:06 vim utility.erl 
+  318  14 05 26 12:24:11 vim ssh_helper.erl 
+  319  14 05 26 12:26:44 erlc -D debug *.erl
+  320  14 05 26 12:26:51 ./scripts/new_server/configure_container_script.escript 14163 cacti 10.4.14.163 cacti.admin.virtual-labs.ac.in ./scripts/new_server/cacti.admin.escript >> setup_organisation.log 
+  321  14 05 26 12:31:08 ./scripts/new_server/configure_container_script.escript 14165 dovecot 10.4.14.165 dovecot.admin.virtual-labs.ac.in ./scripts/new_server/dovecot.admin.escript >> setup_organisation.log 
+  322  14 05 26 12:33:58 erl
+  323  14 05 26 12:38:25 ./scripts/new_server/configure_container_script.escript 14165 dovecot 10.4.14.165 dovecot.admin.virtual-labs.ac.in ./scripts/new_server/dovecot.admin.escript >> setup_organisation.log 
+  324  14 05 26 12:45:34 vzctl stop 14163
+  325  14 05 26 12:45:44 vzctl start 14163
+  326  14 05 26 12:45:45 vzctl stop 14165
+  327  14 05 26 12:45:50 vzctl destroy 14165
+  328  14 05 26 12:45:57 ./scripts/new_server/configure_container_script.escript 14165 dovecot 10.4.14.165 dovecot.admin.virtual-labs.ac.in ./scripts/new_server/dovecot.admin.escript >> setup_organisation.log 
+  329  14 05 26 12:49:41 vzctl stop 14165
+  330  14 05 26 12:49:47 vzctl destroy 14165
+  331  14 05 26 12:49:56 ./scripts/new_server/configure_container_script.escript 14165 dovecot 10.4.14.165 dovecot.admin.virtual-labs.ac.in ./scripts/new_server/dovecot.admin.escript >> setup_organisation.log 
+  332  14 05 26 13:00:39 vzctl stop 14165
+  333  14 05 26 13:00:45 vzctl destroy 14165
+  334  14 05 26 13:00:48 ./scripts/new_server/configure_container_script.escript 14165 dovecot 10.4.14.165 dovecot.admin.virtual-labs.ac.in ./scripts/new_server/dovecot.admin.escript >> setup_organisation.log 
+  335  14 05 26 13:06:11 vzctl stop 14165
+  336  14 05 26 13:06:17 vzctl destroy 14165
+  337  14 05 26 13:06:31 ./scripts/new_server/configure_container_script.escript 14165 dovecot 10.4.14.165 dovecot.admin.virtual-labs.ac.in ./scripts/new_server/dovecot.admin.escript >> setup_organisation.log 
+  338  14 05 26 13:11:17 ./scripts/new_server/configure_container_script.escript 14166 squirrelmail 10.4.14.166 squirrelmail.admin.virtual-labs.ac.in ./scripts/new_server/squirrelmail.admin.escript >> setup_organisation.log 
+  339  14 05 26 13:16:48 exit
+  340  14 05 26 12:04:09 gnome-terminal &
+  341  14 05 26 12:16:58 firefox &
+  342  14 05 26 13:16:49 exit
+  343  14 05 26 14:35:22 firefox &
+  344  14 05 26 14:42:32 vzlist -a
+  345  14 05 26 14:42:40 ping dovecot.admin.virtual-labs.ac.in
+  346  14 05 26 14:50:21 vzctl enter 14165
+  347  14 05 26 15:00:51 ifconfig 
+  348  14 05 26 15:00:55 brctl show
+  349  14 05 26 15:01:01 ifconfig | grep veth | grep Link
+  350  14 05 26 15:02:09 vzctl enter 14165
+  351  14 05 26 15:03:51 vzctl enter 14152
+  352  14 05 26 15:04:08 vzctl enter 14165
+  353  14 05 26 15:05:52 vim config_files/iptables/dovecot_server 
+  354  14 05 26 15:06:08 bzr status
+  355  14 05 26 15:11:09 exit
+  356  14 05 26 14:34:19 vim defaults.hrl 
+  357  14 05 26 15:11:10 exit
+  358  14 05 26 14:34:03 tail -f setup_organisation.log 
+  359  14 05 26 15:12:34 ls -lh setup_organisation.log 
+  360  14 05 26 15:12:37 wc setup_organisation.log 
+  361  14 05 26 15:12:39 exit
+  362  14 05 26 14:33:27 cd rekall/vlead/
+  363  14 05 26 14:33:27 ls
+  364  14 05 26 14:34:48 ./scripts/new_server/configure_container_script.escript 14167 openvpn 10.4.14.167 vpn.admin.virtual-labs.ac.in ./scripts/new_server/vpn.admin.escript >> setup_organisation.log 
+  365  14 05 26 14:51:20 ./scripts/new_server/configure_container_script.escript 14168 secondary_bind 10.4.14.168 ns2.admin.virtual-labs.ac.in ./scripts/new_server/ns2.admin.escript >> setup_organisation.log 
+  366  14 05 26 14:59:26 ./scripts/new_server/configure_container_script.escript 14169 nagios 10.4.14.169 nagios2.admin.virtual-labs.ac.in ./scripts/new_server/nagios2.admin.escript >> setup_organisation.log 
+  367  14 05 26 15:08:23 ./scripts/new_server/configure_container_script.escript 14170 secondary_bind 10.4.14.170 public-ns2.admin.virtual-labs.ac.in ./scripts/new_server/public-ns2.admin.escript >> setup_organisation.log 
+  368  14 05 26 15:12:43 history
+  369  14 05 26 15:12:46 exit
+  370  14 05 26 14:33:23 gnome-terminal &
+  371  14 05 26 14:50:14 vzlist -a
+  372  14 05 26 15:12:48 history
+  373  14 05 26 15:12:59 cd rekall/vlead/
+  374  14 05 26 15:13:01 bzr status
+  375  14 05 26 15:13:13 bzr commit -m "Updated firewall rules for dovecot server"
+  376  14 05 26 15:13:20 grep denied config_files/iptables/*
+  377  14 05 26 15:14:02 exit
+  378  14 05 26 15:44:54 vzctl enter 14151
+  379  14 05 26 15:45:47 exit
+  380  14 05 26 16:02:41 cd rekall/vlead/
+  381  14 05 26 16:02:42 cat root_password.csv 
+  382  14 05 26 16:05:39 vim /root/rekall/backup/files.txt 
+  383  14 05 26 16:06:33 vzctl enter 14152
+  384  14 05 26 16:07:25 vzctl enter 14156
+  385  14 05 26 16:08:23 exit
+  386  14 05 27 14:07:06 gnome-terminal &
+  387  14 05 27 14:07:29 ssh ssssssss
+  388  14 05 27 14:07:34 vzlist -a
+  389  14 05 27 14:07:43 -
+  390  14 05 27 14:08:16 cd rekall/vlead/
+  391  14 05 27 14:09:17 vim ./scripts/new_server/setup_organisation.escript 
+  392  14 05 27 14:09:57 vim defaults.hrl 
+  393  14 05 27 14:16:03 cd rekall/vlead/
+  394  14 05 27 14:16:03 ls
+  395  14 05 27 14:16:08 vim ./scripts/new_server/configure_container_script.escript 
+  396  14 05 27 14:16:52 cd scripts/new_server/
+  397  14 05 27 14:16:53 ls
+  398  14 05 27 14:17:12 cp configure_primary_bind_server.escript abcd.escript
+  399  14 05 27 14:17:13 vim abcd.escript 
+  400  14 05 27 14:17:48 rm abcd.escript 
+  401  14 05 27 14:17:52 vim ../../defaults.hrl 
+  402  14 05 27 14:17:58 rm ../../.defaults.hrl.swp 
+  403  14 05 27 14:18:00 vim ../../defaults.hrl 
+  404  14 05 27 14:18:35 vim ca.admin.escript 
+  405  14 05 27 14:19:32 vim ldap.admin.escript 
+  406  14 05 27 14:20:26 cd ..
+  407  14 05 27 14:20:27 ls
+  408  14 05 27 14:20:38 firefox &
+  409  14 05 27 14:20:43 killall firefox
+  410  14 05 27 14:20:44 firefox &
+  411  14 05 27 14:21:06 ./update_documentation.sh 
+  412  14 05 27 14:22:54 erl
+  413  14 05 27 14:26:04 vzctl destroy 14168
+  414  14 05 27 14:15:53 clear
+  415  14 05 27 14:15:57 gnome-terminal &
+  416  14 05 27 14:26:55 exit
+  417  14 05 27 14:27:05 gnome-terminal &
+  418  14 05 27 14:27:10 ifconfig 
+  419  14 05 27 14:27:12 vzlist -a
+  420  14 05 27 14:27:14 ifconfig 
+  421  14 05 27 14:27:22 ps aux | grep termina
+  422  14 05 27 14:27:27 gedit &
+  423  14 05 27 14:27:58 gnome-terminal &
+  424  14 05 27 14:28:09 ls
+  425  14 05 27 14:28:15 exit
+  426  14 05 27 14:28:25 firefox &
+  427  14 05 27 14:30:13 cd rekall/vlead/
+  428  14 05 27 14:30:17 vim scripts/new_server/wiki.admin.escript 
+  429  14 05 27 14:30:34 \vi scripts/new_server/wiki.admin.escript 
+  430  14 05 27 14:32:19 vim defaults.hrl 
+  431  14 05 27 14:32:25 \vi defaults.hrl 
+  432  14 05 27 14:35:28 cat root_password.csv 
+  433  14 05 27 14:35:32 cat root_password.csv  | grep ns1
+  434  14 05 27 14:36:47 vi defaults.hrl 
+  435  14 05 27 14:36:57 unalias -a
+  436  14 05 27 14:36:59 vi defaults.hrl 
+  437  14 05 27 14:37:35 dc ..
+  438  14 05 27 14:37:36 cd ..
+  439  14 05 27 14:37:36 ls
+  440  14 05 27 14:37:39 cd yum/
+  441  14 05 27 14:37:39 ls
+  442  14 05 27 14:37:41 du -sh
+  443  14 05 27 14:38:03 cd ../vlead/
+  444  14 05 27 14:38:04 ls
+  445  14 05 27 14:38:06 vim defaults.hrl 
+  446  14 05 27 14:38:11 vi defaults.hrl 
+  447  14 05 27 14:41:38 vim config_files/iptables/easyrsa_server 
+  448  14 05 27 14:41:56 vi config_files/iptables/easyrsa_server 
+  449  14 05 27 14:44:06 vi scripts/new_server/ca.admin.escript 
+  450  14 05 27 14:44:24 vi config_files/iptables/easyrsa_server 
+  451  14 05 27 14:45:19 vzctl enter 14151
+  452  14 05 27 14:56:40 su - apache
+  453  14 05 27 14:56:45 useradd dumb
+  454  14 05 27 14:56:48 su - dump
+  455  14 05 27 14:56:49 su - dumb
+  456  14 05 27 14:57:52 vim defaults.hrl 
+  457  14 05 27 14:57:57 vi defaults.hrl 
+  458  14 05 27 15:02:10 cd
+  459  14 05 27 15:02:11 ls
+  460  14 05 27 15:02:42 bzr co bzr+http://bazaar.admin.virtual-labs.ac.in/rekall/trunk
+  461  14 05 27 15:02:58 ls -lh
+  462  14 05 27 15:03:07 rm -rf trunk/
+  463  14 05 27 15:03:16 vim rekall/vlead/scripts/new_server/bazaar.admin.escript 
+  464  14 05 27 15:04:00 vim rekall/vlead/scripts/new_server/configure_bazaar_server.escript 
+  465  14 05 27 15:04:26 vim rekall/vlead/scripts/new_server/bazaar.admin.escript 
+  466  14 05 27 15:06:38 vi rekall/vlead/defaults.hrl 
+  467  14 05 27 15:07:07 vzlist -a
+  468  14 05 27 15:07:11 vzctl enter 14160
+  469  14 05 27 15:08:35 cd rekall/vlead/
+  470  14 05 27 15:08:36 vi defaults.hrl 
+  471  14 05 27 15:15:08 vzlist -a
+  472  14 05 27 15:15:48 ssh root@10.4.14.151
+  473  14 05 27 15:15:52 ssh root@10.4.14.152
+  474  14 05 27 15:15:56 ssh root@10.4.14.153
+  475  14 05 27 15:16:00 ssh root@10.4.14.154
+  476  14 05 27 15:16:22 erl -noshell -eval 'openvz:get_container_list(), init:stop()'
+  477  14 05 27 15:16:42 erl -noshell -eval 'io:format("~p~n", [openvz:get_container_list()]), init:stop()'
+  478  14 05 27 15:17:39 vim /etc/vz/conf/14151.conf 
+  479  14 05 27 15:18:25 brctl show
+  480  14 05 27 15:18:43 man vzctl
+  481  14 05 27 15:19:24 clear
+  482  14 05 27 15:19:31 iptables-save
+  483  14 05 27 15:21:35 exit
+  484  14 05 27 12:06:39 firefox &
+  485  14 05 27 12:06:46 cd rekall/vlead/
+  486  14 05 27 12:06:53 emacs defaults.hrl &
+  487  14 05 27 12:08:12 vzlist -a
+  488  14 05 27 12:08:17 erl
+  489  14 05 27 16:19:58 exit
+  490  14 05 28 11:57:39 vzlist -a
+  491  14 05 28 11:57:41 uptime
+  492  14 05 28 11:57:49 less /var/log/messages
+  493  14 05 28 11:59:34 cd rekall/vlead/
+  494  14 05 28 11:59:36 erl
+  495  14 05 28 12:14:41 exit
+  496  14 05 28 13:45:14 w
+  497  14 05 28 13:45:20 yum -y update --skip-broken
+  498  14 05 29 08:12:10 du -sh /var/cache/yum/
+  499  14 05 29 08:12:13 uptime
+  500  14 05 29 08:12:25 vzlist -a
+  501  14 05 29 08:12:41 rsync -vtrp /var/cache/yum/ /vz/private/14153/var/cache/yum/
+  502  14 05 29 08:13:31 vzctl enter 14153
+  503  14 05 29 08:13:42 vzlist -a
+  504  14 05 29 08:13:46 vzctl enter 14153
+  505  14 05 29 08:17:06 du -sh /var/cache/yum/
+  506  14 05 29 08:19:42 exit
+  507  14 05 29 08:41:42 cd rekall/vlead/
+  508  14 05 29 08:41:43 bzr status
+  509  14 05 29 08:41:59 bzr update
+  510  14 05 29 08:42:01 clear
+  511  14 05 29 08:42:04 erlc -D debug *.erl
+  512  14 05 29 08:42:17 ls
+  513  14 05 29 08:42:35 erl -noshell -eval 'package:tidy_var_cache_yum(), init:stop()'
+  514  14 05 29 08:42:57 du -sh /var/cache/yum/
+  515  14 05 29 08:43:13 bzr push /vz/private/14153/root/rekall/vlead/
+  516  14 05 29 08:43:18 vzctl enter 14153
+  517  14 05 29 08:43:58 exit
+  518  14 05 28 14:14:45 vzlist
+  519  14 05 28 14:14:48 su -
+  520  14 05 28 14:16:27 firefox &
+  521  14 05 30 12:30:27 uptime
+  522  14 05 30 12:30:31 vzlist -a
+  523  14 05 30 12:30:33 exit
+  524  14 05 30 22:03:18 uptime
+  525  14 05 30 22:03:21 exit
+  526  14 06 01 18:21:21 vzlist -a
+  527  14 06 01 18:21:25 vzctl enter 14160
+  528  14 06 01 18:24:27 cd vle
+  529  14 06 01 18:24:30 cd rekall/vlead/
+  530  14 06 01 18:24:30 ls
+  531  14 06 01 18:24:32 bzr status
+  532  14 06 01 18:24:46 vim scripts/new_server/proxy.admin.escript 
+  533  14 06 01 18:25:11 bzr commit -m "Corrected proxy authentication filter"
+  534  14 06 01 18:25:16 vzlist -a
+  535  14 06 01 18:25:18 erl
+  536  14 06 01 18:27:00 ./scripts/new_server/configure_container_script.escript 14160 squid 10.4.14.160 proxy.admin.virtual-labs.ac.in ./scripts/new_server/proxy.admin.escript 
+  537  14 06 01 18:31:06 firefox &
+  538  14 06 01 18:31:13 ping squid.admin.virtual-labs.ac.in
+  539  14 06 01 18:31:16 more /etc/resolv.conf
+  540  14 06 01 18:31:18 vim /etc/resolv.conf
+  541  14 06 01 18:31:26 ping proxy.admin.virtual-labs.ac.in
+  542  14 06 01 18:32:00 vim /etc/sysconfig/iptables
+  543  14 06 01 18:32:41 service iptables restart
+  544  14 06 01 18:33:02 firefox &
+  545  14 06 01 18:34:25 uptime
+  546  14 06 01 18:34:45 vzlist -a
+  547  14 06 01 18:34:50 vzctl enter 14165
+  548  14 06 01 18:35:06 vzctl enter 14166
+  549  14 06 01 18:41:10 bzr status
+  550  14 06 01 18:41:11 exit
+  551  14 06 01 18:46:03 ls
+  552  14 06 01 18:46:05 cd rekall/vlead/
+  553  14 06 01 18:46:07 bzr update
+  554  14 06 01 18:46:09 vzlist -a
+  555  14 06 01 18:46:14 erlc -D debug *.erl
+  556  14 06 01 18:46:21 erl
+  557  14 06 01 18:47:02 ./scripts/new_server/configure_container_script.escript 14155 openldap 10.4.14.155 ldap.admin.virtual-labs.ac.in ./scripts/new_server/ldap.admin.escript 
+  558  14 06 01 18:52:12 firefox &
+  559  14 06 01 18:53:19 vzctl enter 151
+  560  14 06 01 18:53:22 vzctl enter 14151
+  561  14 06 01 19:03:24 exit
+  562  14 06 01 19:05:25 vzlist -a
+  563  14 06 01 19:05:28 vzctl enter 14160
+  564  14 06 01 19:07:41 vzlist -a
+  565  14 06 01 19:07:50 vzctl enter 14160
+  566  14 06 01 19:08:06 vzctl enter 14152
+  567  14 06 01 19:08:27 vzlist -a
+  568  14 06 01 19:08:40 vzctl enter 14168
+  569  14 06 01 19:13:01 exit
+  570  14 06 02 12:41:27 ls
+  571  14 06 02 12:41:28 cd rekall/vlead/
+  572  14 06 02 12:41:29 ls
+  573  14 06 02 12:41:31 vzlist -a
+  574  14 06 02 12:41:34 vim defaults.hrl 
+  575  14 06 02 12:42:00 vzctl enter  14152
+  576  14 06 02 12:43:12 ls
+  577  14 06 02 12:43:18 cd scripts/new_server/
+  578  14 06 02 12:43:18 ls
+  579  14 06 02 12:43:23 bzr updat
+  580  14 06 02 12:43:24 bzr update
+  581  14 06 02 12:44:54 cp configure_roundcube_server.escript roundcube.admin.escript
+  582  14 06 02 12:44:55 vim roundcube.admin.escript 
+  583  14 06 02 12:45:01 cd ..
+  584  14 06 02 12:45:02 ls
+  585  14 06 02 12:45:04 cd ..
+  586  14 06 02 12:45:04 ls
+  587  14 06 02 12:45:12 ping roundcube.admin.virtual-labs.ac.in
+  588  14 06 02 12:45:34 ./scripts/new_server/configure_container_script.escript 14171 roundcube 10.4.14.171 roundcube.admin.virtual-labs.ac.in ./scripts/new_server/roundcube.admin.escript 
+  589  14 06 02 12:45:45 vim scripts/new_server/configure_container_script.escript 
+  590  14 06 02 12:46:18 vim defaults.hrl 
+  591  14 06 02 12:46:36 grep '<<<' defaults.hrl 
+  592  14 06 02 12:46:39 ./scripts/new_server/configure_container_script.escript 14171 roundcube 10.4.14.171 roundcube.admin.virtual-labs.ac.in ./scripts/new_server/roundcube.admin.escript 
+  593  14 06 02 12:50:38 ls
+  594  14 06 02 12:50:41 vzlist -a
+  595  14 06 02 12:50:44 vzctl stop 1411
+  596  14 06 02 12:50:45 vzctl stop 14171
+  597  14 06 02 12:50:49 vzctl destroy 14171
+  598  14 06 02 12:50:58 vim scripts/new_server/configure_roundcube_server.escript scripts/new_server/roundcube.admin.escript 
+  599  14 06 02 12:51:18 ./scripts/new_server/configure_container_script.escript 14171 roundcube 10.4.14.171 roundcube.admin.virtual-labs.ac.in ./scripts/new_server/roundcube.admin.escript 
+  600  14 06 02 12:53:24 vim centos.erl 
+  601  14 06 02 12:53:56 erlc -D debug *.erl
+  602  14 06 02 12:54:02 vzctl stop 14171
+  603  14 06 02 12:54:09 vzctl destroy 14171
+  604  14 06 02 12:54:12 ./scripts/new_server/configure_container_script.escript 14171 roundcube 10.4.14.171 roundcube.admin.virtual-labs.ac.in ./scripts/new_server/roundcube.admin.escript 
+  605  14 06 02 13:03:08 firefox &
+  606  14 06 02 13:04:45 vzctl enter 14171
+  607  14 06 02 13:05:17 vzlist -
+  608  14 06 02 13:05:18 vzlist -a
+  609  14 06 02 13:05:22 vzctl enter 14165
+  610  14 06 02 13:06:21 bzr status
+  611  14 06 02 13:06:27 bzr add scripts/new_server/roundcube.admin.escript 
+  612  14 06 02 13:06:38 bzr commit -m "Created configuration file for configuring roundcube"
+  613  14 06 02 13:06:39 exit
+  614  14 06 02 16:18:47 mount -a
+  615  14 06 02 16:18:49 fdisk -l
+  616  14 06 02 16:18:59 mount
+  617  14 06 02 16:19:19 cd /mnt/
+  618  14 06 02 16:19:19 ls
+  619  14 06 02 16:19:21 mkdir san1
+  620  14 06 02 16:19:25 mount /dev/sdc1 san1/
+  621  14 06 02 16:19:28 cd san1/
+  622  14 06 02 16:19:29 ls
+  623  14 06 02 16:19:32 blkid
+  624  14 06 02 16:19:43 vim /etc/fstab 
+  625  14 06 02 16:20:14 cd old_files/
+  626  14 06 02 16:20:15 ls
+  627  14 06 02 16:20:18 cd vz_private/
+  628  14 06 02 16:20:19 ls
+  629  14 06 02 16:20:22 ls -1 | wc
+  630  14 06 02 16:20:24 ls -1 | wc -l
+  631  14 06 02 16:20:27 cd ..
+  632  14 06 02 16:20:28 ls
+  633  14 06 02 16:20:29 cd ..
+  634  14 06 02 16:20:29 df -h
+  635  14 06 02 16:20:49 firefox &
+  636  14 06 02 16:28:58 fdisk -l
+  637  14 06 02 16:29:15 parted print /dev/sda
+  638  14 06 02 16:29:24 parted /dev/sda print
+  639  14 06 02 16:30:48 parted /dev/sdb print
+  640  14 06 02 16:31:26 df -h
+  641  14 06 02 16:32:16 lvmdiskscan 
+  642  14 06 02 16:39:12 exit
+  643  14 06 03 15:29:49 cd rekall/vlead/
+  644  14 06 03 15:29:51 bzr update
+  645  14 06 03 15:29:54 clear
+  646  14 06 03 15:29:57 erlc -D debug *.erl
+  647  14 06 03 15:30:01 vzlist -a
+  648  14 06 03 15:30:06 vzctl enter 14152
+  649  14 06 03 15:44:43 ls
+  650  14 06 03 15:44:45 vzlist -a
+  651  14 06 03 15:44:56 nslookup lists.admin.virtual-labs.ac.in 10.4.14.168
+  652  14 06 03 15:45:03 vim defaults.hrl 
+  653  14 06 03 15:45:22 cp scripts/new_server/configure_mailman_server.escript scripts/new_server/lists.admin.escript
+  654  14 06 03 15:45:26 vim scripts/new_server/lists.admin.escript 
+  655  14 06 03 15:47:17 bzr status
+  656  14 06 03 15:47:24 bzr add scripts/new_server/lists.admin.escript 
+  657  14 06 03 15:47:53 ./scripts/new_server/configure_container_script.escript 14172 mailman 10.4.14.172 lists.admin.virtual-labs.ac.in ./scripts/new_server/lists.admin.escript 
+  658  14 06 03 15:54:07 vzlist -a
+  659  14 06 03 15:54:34 vzctl enter 14172
+  660  14 06 03 15:56:28 firefox &
+  661  14 06 03 15:56:30 vim 
+  662  14 06 03 15:56:34 exit
+  663  14 06 03 15:56:42 firefox &
+  664  14 06 03 15:56:56 vim rekall/vlead/scripts/new_server/configure_mailman_server.escript 
+  665  14 06 03 15:57:08 vim rekall/vlead/scripts/new_server/lists.admin.escript 
+  666  14 06 03 15:57:19 cd rekall/vlead/
+  667  14 06 03 15:57:20 bzr status
+  668  14 06 03 15:57:33 bzr commit -m "Added script for configuring mailing lists server"
+  669  14 06 03 15:59:08 exit
+  670  14 06 03 16:30:28 cd /var/lib/denyhosts/
+  671  14 06 03 16:30:44 grep 251 *
+  672  14 06 03 16:30:46 vim hosts
+  673  14 06 03 16:30:53 vim hosts-restricted 
+  674  14 06 03 16:30:58 vim hosts-r
+  675  14 06 03 16:31:00 vim hosts-root 
+  676  14 06 03 16:31:11 vim hosts-valid 
+  677  14 06 03 16:31:17 vim /etc/hosts.deny
+  678  14 06 03 16:31:23 vim allowed-hosts 
+  679  14 06 03 16:31:38 service denyhosts restart
+  680  14 06 03 16:31:40 vim allowed-hosts 
+  681  14 06 03 16:31:43 vim /etc/hosts.deny
+  682  14 06 03 16:32:05 exit
+  683  14 06 03 16:32:10 firefox &
+  684  14 06 03 16:33:11 vim rekall/vlead/scripts/new_server/lists.admin.escript 
+  685  14 06 03 16:46:45 ping jira.virtual-labs.a.cin
+  686  14 06 03 16:46:49 ping jira.virtual-labs.ac.in
+  687  14 06 03 16:46:55 exit
+  688  14 06 03 20:36:10 vzlist -a
+  689  14 06 03 20:36:11 exit
+  690  14 06 08 18:29:07 cd rekall/vlead/
+  691  14 06 08 18:29:11 vim scripts/new_server/wiki.admin.escript 
+  692  14 06 08 18:29:24 brctl show
+  693  14 06 08 18:29:27 ifconfig 
+  694  14 06 08 18:32:23 brctl 
+  695  14 06 08 18:32:35 brctl show
+  696  14 06 08 18:38:31 vim scripts/new_server/nagios.admin.escript 
+  697  14 06 08 18:41:17 vim scripts/maintenance/backup_remote.escript 
+  698  14 06 08 18:41:57 vzlist -a
+  699  14 06 08 18:42:03 vzctl enter 14156
+  700  14 06 08 18:42:27 cd 
+  701  14 06 08 18:42:28 mkdir test
+  702  14 06 08 18:42:30 cd test
+  703  14 06 08 18:42:42 /root/rekall/vlead/scripts/maintenance/backup_remote.escript 10.4.14.156
+  704  14 06 08 18:42:53 vim /root/rekall/vlead/scripts/maintenance/backup_remote.escript 10.4.14.156
+  705  14 06 08 18:43:08 /root/rekall/vlead/scripts/maintenance/backup_remote.escript 10.4.14.156
+  706  14 06 08 18:43:13 ls
+  707  14 06 08 18:43:40 ls -al
+  708  14 06 08 18:44:14 vzctl enter 14156
+  709  14 06 08 18:44:31 ls
+  710  14 06 08 18:44:32 rm -rf *
+  711  14 06 08 18:44:34 /root/rekall/vlead/scripts/maintenance/backup_remote.escript 10.4.14.156
+  712  14 06 08 18:44:40 ls
+  713  14 06 08 18:45:40 du -sh
+  714  14 06 08 18:45:45 du -sh *
+  715  14 06 08 18:45:50 cd var/www/html/wiki/
+  716  14 06 08 18:45:51 du -sh *
+  717  14 06 08 18:45:58 cd ..
+  718  14 06 08 18:45:58 ls
+  719  14 06 08 18:45:59 du -sh *
+  720  14 06 08 18:46:01 cd wiki/
+  721  14 06 08 18:46:01 ls
+  722  14 06 08 18:46:05 du -sh .*
+  723  14 06 08 18:46:09 du -sh 
+  724  14 06 08 18:46:11 du -sh *
+  725  14 06 08 18:47:29 cd ..
+  726  14 06 08 18:47:31 c
+  727  14 06 08 18:47:32 cd
+  728  14 06 08 18:48:12 exit
+  729  14 06 08 17:38:18 vzlist -a
+  730  14 06 08 17:38:22 firefox &
+  731  14 06 08 17:45:16 cd rekall/vlead/
+  732  14 06 08 17:45:16 ls
+  733  14 06 08 17:45:24 vim scripts/new_server/wiki.admin.escript 
+  734  14 06 08 17:47:45 vzlist -a
+  735  14 06 08 17:47:53 vzctl enter 14155
+  736  14 06 08 17:48:26 free -m
+  737  14 06 08 17:48:43 vzctl set 14155 --physpages 2G:3G --save
+  738  14 06 08 17:48:49 vzctl enter 14155
+  739  14 06 08 17:49:02 vzctl set 14155 --physpages 1G:1.1G --save
+  740  14 06 08 17:49:11 vzctl enter 14155
+  741  14 06 08 17:50:15 vzctl set 14155 --diskspacepages 10G:11G --save
+  742  14 06 08 17:50:19 vzctl set 14155 --diskspace 10G:11G --save
+  743  14 06 08 17:50:27 vzctl enter 14155
+  744  14 06 08 17:50:52 cd /vz/private/14155
+  745  14 06 08 17:50:52 ls
+  746  14 06 08 17:50:56 cd home/
+  747  14 06 08 17:50:56 ls
+  748  14 06 08 17:50:59 touch abcd
+  749  14 06 08 17:51:02 vzctl enter 14155
+  750  14 06 08 17:52:04 vzlist -
+  751  14 06 08 17:52:05 vzlist -a
+  752  14 06 08 17:52:25 vzctl create 14173 --ipadd 10.4.14.173 --ostemplate centos-6-x86_64 
+  753  14 06 08 17:52:46 vzctl set 14173 --hostname test --save
+  754  14 06 08 17:52:49 ls /vz/template/cache/
+  755  14 06 08 17:53:23 vzctl start 14173
+  756  14 06 08 17:53:29 vzctl enter 14173
+  757  14 06 08 17:53:44 vim /etc/vz/conf/ve-vswap-256m.conf-sample 
+  758  14 06 08 17:54:06 vzctl enter 14173
+  759  14 06 08 17:54:52 man vzctl
+  760  14 06 08 17:56:41 cat /proc/vz/beancounter/14155/tasks 
+  761  14 06 08 17:57:20 ls
+  762  14 06 08 17:57:45 vzlist -a
+  763  14 06 08 17:57:49 vzctl stop 14173
+  764  14 06 08 17:57:53 vzctl destroy 14173
+  765  14 06 08 17:58:17 vzctl enter 14159
+  766  14 06 08 18:00:43 cd
+  767  14 06 08 18:00:46 cd rekall/vlead/
+  768  14 06 08 18:00:47 vim defaults.hrl 
+  769  14 06 08 18:01:37 vim scripts/new_server/setup_organisation.escript 
+  770  14 06 08 18:02:11 vim scripts/new_server/configure_container_script.escript 
+  771  14 06 08 18:12:37 vzlist -a
+  772  14 06 08 18:16:44 vim scripts/new_server/lists.admin.escript 
+  773  14 06 08 18:17:27 vim scripts/new_server/ldap.admin.escript 
+  774  14 06 08 18:18:46 vim openldap.erl 
+  775  14 06 08 18:20:12 vim config_files/iptables/mailman_server 
+  776  14 06 08 18:21:41 vim squirrelmail.erl 
+  777  14 06 08 18:22:46 vzlist -a
+  778  14 06 08 18:22:51 vzctl enter 14166
+  779  14 06 08 18:24:19 vzctl enter 14156
+  780  14 06 08 18:25:55 vzlist -a
+  781  14 06 08 18:26:02 vzctl stop 14156
+  782  14 06 08 18:26:11 vzctl destroy 14156
+  783  14 06 08 18:26:43 vim mediawiki.erl 
+  784  14 06 08 18:27:22 ls
+  785  14 06 08 18:27:53 ./scripts/new_server/configure_container_script.escript 14156 mediawiki 10.4.14.156 wiki.admin.virtual-labs.ac.in ./scripts/new_server/wiki.admin.escript 
+  786  14 06 08 18:34:52 vim mediawiki.erl 
+  787  14 06 08 18:35:07 vim scripts/new_server/wiki.admin.escript 
+  788  14 06 08 18:35:49 ls scripts/new_server/
+  789  14 06 08 18:36:15 vim defaults.hrl 
+  790  14 06 08 18:36:37 vim scripts/new_server/ns1.admin.escript 
+  791  14 06 08 18:36:55 vim defaults.hrl 
+  792  14 06 08 18:37:54 vim scripts/new_server/ns1.admin.escript 
+  793  14 06 08 18:38:12 vim scripts/new_server/nagios1.admin.escript 
+  794  14 06 08 18:48:14 exit
+  795  14 06 08 19:11:04 vim /etc/rsnapshot.conf 
+  796  14 06 08 19:12:28 rsnapshot hourly
+  797  14 06 08 19:12:42 vim /etc/rsnapshot.conf 
+  798  14 06 08 19:13:02 vim /root/rekall/vlead/scripts/maintenance/backup_remote.escript
+  799  14 06 08 19:13:07 vim /etc/rsnapshot.conf 
+  800  14 06 08 19:13:27 vzlist -a
+  801  14 06 08 19:13:32 rsnapshot hourly
+  802  14 06 08 19:13:40 vim /etc/rsnapshot.conf 
+  803  14 06 08 19:13:48 rsnapshot hourly
+  804  14 06 08 19:13:59 cd /mnt/das1/snapshots/hourly.0
+  805  14 06 08 19:14:00 ls
+  806  14 06 08 19:14:02 cd wiki.admin/
+  807  14 06 08 19:14:02 ls
+  808  14 06 08 19:14:21 vim root/rekall/backup/files.txt 
+  809  14 06 08 19:15:07 exit
+  810  14 06 10 17:20:09 clear
+  811  14 06 10 17:20:12 history 
+  812  14 06 10 17:21:01 exit
+  813  14 06 17 11:16:33 firefox &
+  814  14 06 17 11:17:33 vzlist -a
+  815  14 06 17 11:19:08 vzctl enter 14154
+  816  14 06 17 11:20:02 vzlist -a
+  817  14 06 17 11:20:09 vzctl enter 14165
+  818  14 06 17 11:24:57 exit
+  819  14 06 24 19:51:50 ls
+  820  14 06 24 19:51:51 vzlist -a
+  821  14 06 24 19:51:58 vzctl enter 14160
+  822  14 06 24 19:56:59 exit
+  823  14 07 02 10:54:21 clear
+  824  14 07 02 10:58:11 vzlist -a
+  825  14 07 02 11:20:15 exit
+  826  14 07 02 14:02:03 cd /mnt/san1/
+  827  14 07 02 14:02:04 ls
+  828  14 07 02 14:02:05 cd old_files/
+  829  14 07 02 14:02:05 ls
+  830  14 07 02 14:02:10 cd manual-backups/
+  831  14 07 02 14:02:12 ls
+  832  14 07 02 14:02:15 cd ..
+  833  14 07 02 14:02:15 ls
+  834  14 07 02 14:02:19 cd vz_private/
+  835  14 07 02 14:02:19 ls
+  836  14 07 02 14:02:26 cd ..
+  837  14 07 02 14:02:27 ls
+  838  14 07 02 14:02:48 grep developer  backup-snapshots/hourly.0/base1/etc/vz/conf/*
+  839  14 07 02 14:02:56 ls
+  840  14 07 02 14:13:16 exut
+  841  14 07 02 14:13:17 exit
+  842  14 07 03 12:51:01 firefox &
+  843  14 07 03 13:04:50 vzlist -a
+  844  14 07 03 13:04:58 vzctl enter 14151
+  845  14 07 03 13:06:17 vzctl enter 14159
+  846  14 07 03 13:08:04 ls
+  847  14 07 03 13:08:07 cd rekall/
+  848  14 07 03 13:08:07 ls
+  849  14 07 03 13:08:34 cd /etc/nagios/
+  850  14 07 03 13:08:34 ls
+  851  14 07 03 13:08:38 cd private/
+  852  14 07 03 13:08:41 cd ../objects/
+  853  14 07 03 13:08:42 ls
+  854  14 07 03 13:08:55 vzctl enter 14159
+  855  14 07 03 13:10:58 clear
+  856  14 07 03 13:11:00 exit
+  857  14 07 07 09:54:50 uname -a
+  858  14 07 07 09:54:55 virt-manager &
+  859  14 07 07 09:55:12 virsh list --all
+  860  14 07 07 10:35:29 sudo yum -y install libvirt kvm-guests
+  861  14 07 07 10:35:56 yum search kvm
+  862  14 07 07 10:36:08 yum -y install qemu-kvm
+  863  14 07 07 10:36:19 clear
+  864  14 07 07 10:36:24 virt-manager &
+  865  14 07 07 10:36:49 uname -a
+  866  14 07 07 11:00:02 exit
+  867  14 07 07 11:14:15 ls
+  868  14 07 07 11:14:16 df -h
+  869  14 07 07 11:14:18 cd /mnt/das1/
+  870  14 07 07 11:14:18 ls
+  871  14 07 07 11:14:24 mkdir operating_systems
+  872  14 07 07 11:14:25 cd operating_systems/
+  873  14 07 07 11:14:25 pwd
+  874  14 07 07 11:53:39 clear
+  875  14 07 07 11:53:42 virt-manager &
+  876  14 07 07 11:54:20 ls
+  877  14 07 07 11:54:21 cd ..
+  878  14 07 07 11:54:21 ls
+  879  14 07 07 11:54:24 mkdir vms
+  880  14 07 07 11:54:25 cd vms/
+  881  14 07 07 11:54:25 ls
+  882  14 07 07 11:54:29 mkdir centos65
+  883  14 07 07 11:54:32 cd centos65/
+  884  14 07 07 11:54:44 qemu-img -f qcow2 centos65.img 50G
+  885  14 07 07 11:54:59 qemu-img create -f qcow2 centos65.img 50G
+  886  14 07 07 11:55:01 ls -lh
+  887  14 07 07 11:55:27 ifconfig 
+  888  14 07 07 11:56:01 exit
+  889  14 07 08 16:05:20 cd /mnt/san1/
+  890  14 07 08 16:05:21 ls
+  891  14 07 08 16:05:21 s
+  892  14 07 08 16:52:30 exit
+  893  14 07 08 15:58:50 cd /mnt/das1/
+  894  14 07 08 15:58:51 LS
+  895  14 07 08 15:58:53 ls
+  896  14 07 08 15:58:57 cd /mnt/san1/
+  897  14 07 08 15:58:58 ls
+  898  14 07 08 15:58:58 ls -l
+  899  14 07 08 15:59:00 cd old_files/
+  900  14 07 08 15:59:00 ls
+  901  14 07 08 15:59:02 cd backup-snapshots/
+  902  14 07 08 15:59:03 ls
+  903  14 07 08 15:59:06 ls hourly.0
+  904  14 07 08 15:59:25 cd ..
+  905  14 07 08 15:59:26 ls
+  906  14 07 08 15:59:28 ls manual-backups/
+  907  14 07 08 15:59:32 ls virtual_hosts/
+  908  14 07 08 15:59:37 ls vz_private/
+  909  14 07 11 12:06:42 cd /vz/template/cache/
+  910  14 07 11 12:06:43 ls -lh
+  911  14 07 11 12:06:45 mdkir temp
+  912  14 07 11 12:06:47 mkdir temp
+  913  14 07 11 12:06:48 cd temp/
+  914  14 07 11 12:06:54 tar xzf ../centos-6-x86_64.tar.gz 
+  915  14 07 11 12:07:05 ls -lh
+  916  14 07 11 12:07:14 cd ..
+  917  14 07 11 12:07:16 rm -rf temp/
+  918  14 07 11 12:07:23 cd /vz/private/14151/
+  919  14 07 11 12:07:23 ls
+  920  14 07 11 12:08:54 vzmigrate 
+  921  14 07 11 12:11:29 exit
+  922  14 07 11 15:53:09 vi /etc/hosts.deny
+  923  14 07 11 15:53:58 vi /etc/hosts.allow 
+  924  14 07 11 15:54:48 exit
+  925  14 07 11 15:59:29 cd /mnt/das1/
+  926  14 07 11 15:59:29 ls
+  927  14 07 11 15:59:35 df -hT
+  928  14 07 11 15:59:42 cd ../san1/
+  929  14 07 11 15:59:43 ls
+  930  14 07 11 15:59:45 cd old_files/
+  931  14 07 11 15:59:46 ls
+  932  14 07 11 15:59:49 cd vz_private/
+  933  14 07 11 15:59:49 ls
+  934  14 07 11 16:00:16 cd 14194
+  935  14 07 11 16:00:16 ls
+  936  14 07 11 16:00:27 cat etc/hosts
+  937  14 07 11 16:00:37 cd
+  938  14 07 11 16:00:38 clear
+  939  14 07 11 16:00:39 ls
+  940  14 07 11 16:00:42 df -hT
+  941  14 07 11 16:00:51 cd /mnt/san1/
+  942  14 07 11 16:00:52 ls
+  943  14 07 11 16:00:54 cd old_files/
+  944  14 07 11 16:00:54 ls
+  945  14 07 11 16:00:58 cd backup-snapshots/
+  946  14 07 11 16:00:59 ls
+  947  14 07 11 16:01:02 cd daily.2
+  948  14 07 11 16:01:03 ls
+  949  14 07 11 16:01:09 cd base1/
+  950  14 07 11 16:01:09 ls
+  951  14 07 11 16:01:14 cd ../../../
+  952  14 07 11 16:01:14 ls
+  953  14 07 11 16:01:17 cd vz_private/
+  954  14 07 11 16:01:17 ls
+  955  14 07 11 16:01:35 grep -rw "nitk" *
+  956  14 07 11 16:01:59 grep -ra "nitk" .
+  957  14 07 11 16:02:24 clear
+  958  14 07 11 16:02:24 ls
+  959  14 07 11 16:04:31 cat 14186/etc/hosts
+  960  14 07 11 16:04:49 cd 14186/
+  961  14 07 11 16:04:49 ls
+  962  14 07 11 16:04:57 cd /var/www/
+  963  14 07 11 16:04:58 ls
+  964  14 07 11 16:04:59 cd html/
+  965  14 07 11 16:05:00 ls
+  966  14 07 11 16:05:12 cd ../.././/
+  967  14 07 11 16:05:15 cd ../../..
+  968  14 07 11 16:05:20 cd mnt/san1/
+  969  14 07 11 16:05:29 cat 14187/etc/hosts
+  970  14 07 11 16:05:37 ls
+  971  14 07 11 16:05:40 cd old_files/
+  972  14 07 11 16:05:41 ls
+  973  14 07 11 16:05:43 cd vz_private/
+  974  14 07 11 16:05:44 ls
+  975  14 07 11 16:05:47 cat 14187/etc/hosts
+  976  14 07 11 16:06:08 cd 14187/var/www/
+  977  14 07 11 16:06:09 clear
+  978  14 07 11 16:06:10 ls
+  979  14 07 11 16:08:19 cat /root/.ssh/id_rsa.pub 
+  980  14 07 11 16:08:53 ssh 10.4.13.194
+  981  14 07 11 16:09:00 exit
+  982  14 07 14 12:46:06 clear
+  983  14 07 14 12:46:08 free -m
+  984  14 07 14 12:46:10 clear
+  985  14 07 14 12:46:16 cat /proc/cpuinfo | less
+  986  14 07 14 12:46:24 clear
+  987  14 07 14 12:46:26 df -hT
+  988  14 07 14 12:46:37 fdisk -l
+  989  14 07 14 12:51:53 exit
+  990  14 07 18 12:36:28 clear
+  991  14 07 18 12:36:29 ls
+  992  14 07 18 12:36:36 cd Desktop/
+  993  14 07 18 12:36:37 ls
+  994  14 07 18 12:36:40 cd ../rekall/
+  995  14 07 18 12:36:40 ls
+  996  14 07 18 12:36:45 cd vlead/
+  997  14 07 18 12:36:45 ls
+  998  14 07 18 12:36:56 vi apache.erl 
+  999  14 07 18 12:39:33 vi squid.erl 
+ 1000  14 07 18 12:41:16 vi ntp.beam 
+ 1001  14 07 18 12:41:21 vi ntp.erl 
+ 1002  14 07 18 12:41:27 clear
+ 1003  14 07 18 12:41:31 exit
+ 1004  14 07 18 14:53:47 fdisk -l
+ 1005  14 07 18 14:54:22 clear
+ 1006  14 07 18 14:57:19 lsblk 
+ 1007  14 07 18 14:57:40 lsblk --help
+ 1008  14 07 18 14:57:50 lsblk 
+ 1009  14 07 18 14:57:55 lsblk FSTYPE
+ 1010  14 07 18 14:58:20 lsblk -F
+ 1011  14 07 18 14:58:23 lsblk -f
+ 1012  14 07 18 14:58:39 clear
+ 1013  14 07 18 14:59:51 parted -l
+ 1014  14 07 18 15:37:37 exit
+ 1015  14 07 23 15:51:50 cd /mnt/san1/
+ 1016  14 07 23 15:51:50 ls
+ 1017  14 07 23 15:51:52 cd old_files/
+ 1018  14 07 23 15:51:52 ls
+ 1019  14 07 23 15:51:55 cd vz_private/
+ 1020  14 07 23 15:51:56 ls
+ 1021  14 07 23 15:52:05 cd 14150
+ 1022  14 07 23 15:52:05 ls
+ 1023  14 07 23 15:52:09 cd home/
+ 1024  14 07 23 15:52:09 ls
+ 1025  14 07 23 15:52:23 cd ../../14152/home/
+ 1026  14 07 23 15:52:23 ls
+ 1027  14 07 23 15:52:37 cd ../../14153/home/
+ 1028  14 07 23 15:52:38 ls
+ 1029  14 07 23 15:52:43 cd ../
+ 1030  14 07 23 15:52:44 ls
+ 1031  14 07 23 15:52:51 cat etc/hosts
+ 1032  14 07 23 15:53:02 cd ../14152
+ 1033  14 07 23 15:53:04 cat etc/hosts
+ 1034  14 07 23 15:53:12 ls
+ 1035  14 07 23 15:53:14 cd ../
+ 1036  14 07 23 15:53:15 ls
+ 1037  14 07 23 15:53:29 grep -ra "eval" *
+ 1038  14 07 23 15:53:57 grep -ra "10.4.14.152" *
+ 1039  14 07 23 15:54:14 grep -rw "10.4.14.152" *
+ 1040  14 07 23 15:54:17 clear
+ 1041  14 07 23 15:54:17 ls
+ 1042  14 07 23 15:55:20 cd 14157
+ 1043  14 07 23 15:55:25 cat etc/hosts
+ 1044  14 07 23 15:55:43 grep -rw "10.4.14.152" * | grep eval
+ 1045  14 07 23 15:56:19 clear
+ 1046  14 07 23 16:13:56 exit
+ 1047  14 08 06 12:15:38 vzlist -a
+ 1048  14 08 06 12:15:45 vzctl enter 14160
+ 1049  14 08 06 12:17:14 vzlist -a
+ 1050  14 08 06 12:17:20 vzctl ener 14155
+ 1051  14 08 06 12:17:30 vzctl enter 14155
+ 1052  14 08 06 12:27:11 firefox >/dev/null 2>&1 &
+ 1053  14 08 06 14:17:21 ls
+ 1054  14 08 06 14:17:27 vzlist -a
+ 1055  14 08 06 14:30:34 ssh root@base3
+ 1056  14 08 06 14:30:43 ssh root@10.4.12.23
+ 1057  14 08 11 14:30:31 ls
+ 1058  14 08 11 14:30:33 firefox >/dev/null 2>&1 &
+ 1059  14 08 11 14:34:49 cat /etc/yum.conf 
+ 1060  14 08 11 14:40:05 v
+ 1061  14 08 11 14:40:06 vzlist -a
+ 1062  14 08 11 14:40:10 vzctl restart 14157
+ 1063  14 08 11 14:40:25 vzctl enter 14157
+ 1064  14 08 11 15:01:26 ls
+ 1065  14 08 11 15:03:02 vzlist -a
+ 1066  14 08 11 15:03:12 vzctl enter 14157
+ 1067  14 08 11 15:04:43 vzlist -a
+ 1068  14 08 11 15:04:46 vzctl enter 14157
+ 1069  14 08 11 15:05:14 ls
+ 1070  14 08 11 15:05:19 vzlist -a
+ 1071  14 08 11 15:09:20 cd rekall/vlead/
+ 1072  14 08 11 15:09:20 ls
+ 1073  14 08 11 15:09:25 cat root_password.csv | grep ns1
+ 1074  14 08 11 15:10:02 vzlist -a
+ 1075  14 08 11 15:10:05 vzctl enter 14152
+ 1076  14 08 11 15:11:12 ls
+ 1077  14 08 11 15:11:15 vim defaults.hrl 
+ 1078  14 08 11 15:11:32 vim scripts/new_server/configure_openldap_server.escript 
+ 1079  14 08 11 15:12:33 exit
+ 1080  14 08 12 08:10:32 cd rekall/vlead/
+ 1081  14 08 12 08:10:44 vim scripts/new_server/configure_squid_server.escript 
+ 1082  14 08 12 08:11:59 exit
+ 1083  14 08 12 14:40:59 clear
+ 1084  14 08 12 14:41:03 vzlist 
+ 1085  14 08 12 14:41:12 vzctl enter 14164
+ 1086  14 08 13 09:36:16 exit
+ 1087  14 08 13 16:26:54 cd rekall/vlead/
+ 1088  14 08 13 16:26:55 ;s
+ 1089  14 08 13 16:26:55 ls
+ 1090  14 08 13 16:26:56 erl
+ 1091  14 08 13 16:27:23 vzlist -a
+ 1092  14 08 13 16:27:28 errl
+ 1093  14 08 13 16:27:29 erl
+ 1094  14 08 13 16:29:15 ifconfig 
+ 1095  14 08 13 16:29:25 brctl show
+ 1096  14 08 13 16:29:35 erl
+ 1097  14 08 13 16:33:34 vzlist -a
+ 1098  14 08 13 16:36:27 brctl show
+ 1099  14 08 13 16:38:53 erl
+ 1100  14 08 13 16:40:40 cd rekall/ii
+ 1101  14 08 13 16:40:41 cd rekall/vlead/
+ 1102  14 08 13 16:40:42 erel
+ 1103  14 08 13 16:40:43 erl
+ 1104  14 08 13 16:41:34 vzctl enter 1000
+ 1105  14 08 13 16:41:45 erl
+ 1106  14 08 13 16:43:15 ls
+ 1107  14 08 13 16:43:16 vzlist -a
+ 1108  14 08 13 16:43:32 vzctl destroy 14172
+ 1109  14 08 13 16:48:41 ssh root@ldap.admin.virtual-labs.ac.in
+ 1110  14 08 13 16:48:51 erl
+ 1111  14 08 13 16:49:19 ssh root@ldap.admin.virtual-labs.ac.in
+ 1112  14 08 13 16:56:43 ls
+ 1113  14 08 13 16:56:45 vzlist -a
+ 1114  14 08 13 16:57:43 exit
+ 1115  14 08 13 15:46:29 vzlist -a
+ 1116  14 08 13 15:46:55 #vzctl create 101 --ipadd 10.4.12.234 --ostemplate 
+ 1117  14 08 13 15:46:58 ls /vz/template/cache/
+ 1118  14 08 14 15:38:04 ifconfig | less
+ 1119  14 08 14 15:39:04 cd rekall/i
+ 1120  14 08 14 15:39:06 cd rekall/ii
+ 1121  14 08 14 15:39:08 cd rekall/vlead/
+ 1122  14 08 14 15:39:12 vim openvz.erl 
+ 1123  14 08 14 15:44:58 ping 10.4.14.174
+ 1124  14 08 14 15:45:12 vim openvz.erl 
+ 1125  14 08 14 16:40:15 vim apache.erl 
+ 1126  14 08 14 16:41:07 ls -lh
+ 1127  14 08 14 16:41:33 vim sshd.erl 
+ 1128  14 08 14 16:42:18 ssh root@base4
+ 1129  14 08 14 16:42:26 ssh root@10.2.12.24
+ 1130  14 08 14 16:42:38 ssh root@10.4.12.24
+ 1131  14 08 14 16:42:57 ssh saurabh@10.4.12.24
+ 1132  14 08 14 16:43:55 exit
+ 1133  14 08 14 15:37:03 cd rekall/vlead/
+ 1134  14 08 14 15:37:05 vzlist -a
+ 1135  14 08 14 15:37:17 ping 10.2.14.173
+ 1136  14 08 14 15:37:20 erl
+ 1137  14 08 14 16:34:56 vzlist -a
+ 1138  14 08 14 16:35:06 openvz
+ 1139  14 08 14 16:35:08 erl
+ 1140  14 08 14 16:44:05 exit
+ 1141  14 08 19 08:08:45 uptime
+ 1142  14 08 19 08:08:49 chkconfig --list ipmi
+ 1143  14 08 19 08:08:57 chkconfig --list bmc-watchdog
+ 1144  14 08 19 08:09:00 service ipmi start
+ 1145  14 08 19 08:09:04 chkconfig ipmi on
+ 1146  14 08 19 08:09:09 exit
+ 1147  14 08 31 03:52:53 vzlist -a
+ 1148  14 09 01 21:05:14 su -
+ 1149  14 09 01 21:05:22 ifconfig
+ 1150  14 09 01 21:06:28 virsh list --all
+ 1151  14 09 01 21:06:46 cd /mnt/das1/
+ 1152  14 09 01 21:06:47 ls
+ 1153  14 09 01 21:06:52 cd operating_systems/
+ 1154  14 09 01 21:06:53 ls
+ 1155  14 09 01 21:06:55 cd centos/
+ 1156  14 09 01 21:06:55 ls
+ 1157  14 09 01 21:07:00 cd 6.5/
+ 1158  14 09 01 21:07:01 ls
+ 1159  14 09 01 21:07:14 cd ..
+ 1160  14 09 01 21:07:19 cd vms
+ 1161  14 09 01 21:07:22 cd ..
+ 1162  14 09 01 21:07:24 cd vms/
+ 1163  14 09 01 21:07:24 ls
+ 1164  14 09 01 21:07:28 cd centos65/
+ 1165  14 09 01 21:07:28 ls
+ 1166  14 09 01 21:07:54 cd ..
+ 1167  14 09 01 21:07:54 ls
+ 1168  14 09 01 21:08:17 mkdir centos_cloud
+ 1169  14 09 01 21:08:20 cd centos
+ 1170  14 09 01 21:08:24 cd centos_cloud/
+ 1171  14 09 01 21:08:25 ls
+ 1172  14 09 01 21:09:26 qemu-img create -f raw centos65_cloud.iso 30G
+ 1173  14 09 01 23:30:51 virt-manager
+ 1174  14 09 03 14:16:07 cd /mnt/das1/
+ 1175  14 09 03 14:16:07 ls
+ 1176  14 09 03 14:16:10 cd vms/
+ 1177  14 09 03 14:16:12 ls
+ 1178  14 09 03 14:16:18 rm -rf centos_cloud/
+ 1179  14 09 05 09:27:37 vzlist
+ 1180  14 09 05 09:28:06 vzctl 14162
+ 1181  14 09 05 09:28:11 vzctl enter14162
+ 1182  14 09 05 09:28:14 vzctl enter 14162
+ 1183  14 09 05 11:33:11 vim /etc/httpd/conf/httpd.conf 
+ 1184  14 09 05 11:33:39 vzctl enter 14162
+ 1185  14 09 05 11:37:41 vzlist -a
+ 1186  14 09 05 11:38:27 vzctl enter 14162
+ 1187  14 09 05 11:31:18 vzlist
+ 1188  14 09 05 11:31:38 vzctl enter 14162
+ 1189  14 09 05 14:57:45 vzlist -a
+ 1190  14 09 05 14:57:49 vzctl enter 14162
+ 1191  14 09 10 18:12:24 history | less
+ 1192  14 09 10 18:12:42 cat /etc/profile.d/history.sh 
+ 1193  14 09 10 18:12:58 set | less
+ 1194  14 09 10 18:13:02 exit
+ 1195  14 09 11 03:21:57 vim /etc/httpd/conf/httpd.conf 
+ 1196  14 09 11 03:24:46 vim /etc/httpd/conf.d/nagios.conf 
+ 1197  14 09 11 03:26:04 vim /etc/httpd/conf.d/squid.conf 
+ 1198  14 09 11 03:26:14 vim /etc/httpd/conf.d/manual.conf 
+ 1199  14 09 11 03:26:36 ../
+ 1200  14 09 11 03:26:38 cd ../
+ 1201  14 09 11 03:26:38 ls
+ 1202  14 09 11 03:26:49 cd /etc/httpd/
+ 1203  14 09 11 03:26:50 ls
+ 1204  14 09 11 03:26:54 vim conf.d/
+ 1205  14 09 11 03:27:05 vim conf/httpd.conf 
+ 1206  14 09 11 03:27:23 ls
+ 1207  14 09 11 03:27:28 cd conf.d
+ 1208  14 09 11 03:27:28 ls
+ 1209  14 09 11 03:27:36 cd ../conf/
+ 1210  14 09 11 03:27:38 ls
+ 1211  14 09 11 03:36:39 vzctl enter 15115
+ 1212  14 09 11 03:36:52 vzlist -a
+ 1213  14 09 15 16:48:21 more /etc/resolv.conf
+ 1214  14 09 15 16:48:35 ping wiki.admin.virtual-labs.ac.in
+ 1215  14 09 15 16:48:37 exit
+ 1216  14 09 15 16:49:37 firefox &
+ 1217  14 09 15 16:49:41 exit
+ 1218  14 09 15 16:50:01 firefox &
+ 1219  14 09 15 16:54:23 vzlist -a
+ 1220  14 09 15 16:54:33 vzctl enter 14160
+ 1221  14 09 15 16:55:01 vzctl enter 14162
+ 1222  14 09 15 16:55:54 vzlist -a
+ 1223  14 09 15 16:55:57 vzctl enter 14156
+ 1224  14 09 15 16:59:11 exit
+ 1225  14 09 17 15:50:36 ssh saurabh@10.4.12.24
+ 1226  14 09 17 15:50:42 ssh base2
+ 1227  14 09 17 15:54:27 ssh travula@base2
+ 1228  14 09 17 15:54:33 ssh travula@10.4.12.22
+ 1229  14 09 17 21:51:40 vzlist -a
+ 1230  14 09 17 21:52:09 vim /etc/vz/conf/14151.conf 
+ 1231  14 09 17 21:53:33 vzctl enter 14151
+ 1232  14 09 17 22:22:59 man bzr
+ 1233  14 09 17 22:23:17 exit
+ 1234  14 09 17 21:51:43 sudo su -
+ 1235  14 09 17 21:51:48 vzlist -a
+ 1236  14 09 17 21:52:07 vzconf 14151
+ 1237  14 09 17 21:52:26 cat /etc/vz/conf/14151.conf \
+ 1238  14 09 17 21:52:29 cat /etc/vz/conf/14151.conf 
+ 1239  14 09 17 21:53:14 vim ~/.bash_history 
+ 1240  14 09 18 12:30:50 sudo su -
+ 1241  14 09 18 12:30:55 vzlist -a
+ 1242  14 09 18 12:31:10 vzctl enter 14162
+ 1243  14 09 18 13:06:33 ssh travula@10.4.12.22
+ 1244  14 09 25 16:29:21 vzlist -a
+ 1245  14 09 25 16:29:27 vzctl enter 14162
+ 1246  14 09 25 17:52:16 clear
+ 1247  14 09 25 17:52:17 exit
+ 1248  14 09 25 16:36:09 cd /mnt/das1/
+ 1249  14 09 25 16:36:10 ls
+ 1250  14 09 25 16:37:06 cd Hacking/
+ 1251  14 09 25 16:37:07 ls
+ 1252  14 09 25 16:37:08 cd Hacking_Tools/
+ 1253  14 09 25 16:37:09 ls
+ 1254  14 09 25 16:37:16 cd ..
+ 1255  14 09 25 16:37:23 rm -rf Hacking/
+ 1256  14 09 25 17:52:22 exit
+ 1257  14 09 25 18:08:03 vzlist -aa
+ 1258  14 09 25 18:08:08 vzctl enter 14155
+ 1259  14 09 25 18:09:22 exit
+ 1260  14 09 25 16:31:14 vzctl enter 14162
+ 1261  14 09 25 16:30:20 sudo su -
+ 1262  14 09 25 16:30:28 vim /etc/nsswitch.conf 
+ 1263  14 09 25 16:31:25 vzctl enter 14162
+ 1264  14 09 30 16:31:19 vzlist -a
+ 1265  14 09 30 16:31:25 vzctl enter 14169
+ 1266  14 09 30 16:43:41 exit
+ 1267  14 10 09 16:16:25 vzlist -a
+ 1268  14 10 09 16:16:29 vzctl enter 14162
+ 1269  14 10 09 16:16:39 exit
+ 1270  14 10 10 16:36:23 vzlist -a
+ 1271  14 10 10 16:37:16 vzctl create 14173 --hostname binddemo --ostemplate /vz/template/cache/centos-6-x86_64.tar.gz --ipadd 10.4.14.173
+ 1272  14 10 10 16:37:32 vzctl create 14173 --hostname binddemo --ostemplate centos-6-x86_64 --ipadd 10.4.14.173
+ 1273  14 10 10 16:37:57 vzctl set 14173 --nameserver 10.4.3.222 --save
+ 1274  14 10 10 16:38:02 vzctl start 14173
+ 1275  14 10 10 16:38:07 vzctl enter 14173
+ 1276  14 10 10 17:22:44 exit
+ 1277  14 10 10 16:38:24 vzctl enter 14173
+ 1278  14 10 10 17:22:58 exit
+ 1279  14 10 10 17:41:14 sudo su -
+ 1280  14 10 10 17:41:24 vzlist -a
+ 1281  14 10 10 17:41:31 vzctl enter 14173
+ 1282  14 10 10 17:41:21 su -
+ 1283  14 10 13 10:50:31 vzlist
+ 1284  14 10 13 11:13:23 ls
+ 1285  14 10 13 11:13:26 ls -a
+ 1286  14 10 13 11:13:33 cd .ssh/
+ 1287  14 10 13 11:13:34 ls
+ 1288  14 10 13 11:13:41 vim known_hosts 
+ 1289  14 10 13 11:14:36 vim authorized_keys 
+ 1290  14 10 13 11:15:03 vim id_rsa
+ 1291  14 10 13 11:15:57 vim /etc/hosts
+ 1292  14 10 13 11:16:46 vim /etc/hosts.deny
+ 1293  14 10 13 11:18:37 vim /etc/hosts.allow 
+ 1294  14 10 13 11:19:48 tail -f /var/log/messages
+ 1295  14 10 13 11:20:22 ls
+ 1296  14 10 13 11:20:30 vim known_hosts 
+ 1297  14 10 13 11:22:31 vim /etc/hosts.deny
+ 1298  14 10 13 11:24:46 ls
+ 1299  14 10 13 11:24:55 vim /etc/hosts.deny
+ 1300  14 10 13 11:26:35 vim /etc/ssh/sshd_config 
+ 1301  14 10 13 11:28:36 vim /etc/ssh/ssh_config 
+ 1302  14 10 13 11:35:49 ls -a
+ 1303  14 10 13 11:35:52 ls -al
+ 1304  14 10 13 11:36:41 chmod 700 *
+ 1305  14 10 13 11:36:45 ls -al
+ 1306  14 10 13 11:36:58 vim authorized_keys 
+ 1307  14 10 13 11:37:13 vim /etc/hosts.deny
+ 1308  14 10 13 11:40:58 chmod 600 *
+ 1309  14 10 13 11:41:01 ls -al
+ 1310  14 10 13 11:41:05 vim known_hosts 
+ 1311  14 10 13 11:41:35 vim /etc/hosts.deny
+ 1312  14 10 13 11:42:35 vim authorized_keys 
+ 1313  14 10 13 11:42:44 vim known_hosts 
+ 1314  14 10 13 11:43:25 vim /etc/hosts.deny
+ 1315  14 10 13 11:46:49 exit
+ 1316  14 10 13 09:41:00 vzlist -a
+ 1317  14 10 13 09:41:13 vzctl enter 14173
+ 1318  14 10 13 11:33:52 vim /var/log/
+ 1319  14 10 13 11:55:26 catexit
+ 1320  14 10 13 11:55:27 exit
+ 1321  14 10 13 11:55:29 exit
+ 1322  14 10 13 11:58:17 vim /etc/hosts.deny
+ 1323  14 10 13 11:59:46 history
+ 1324  14 10 13 12:00:02 vzlist -a
+ 1325  14 10 13 12:00:12 vzctl enter 14173
+ 1326  14 10 13 11:46:58 vzlist -a
+ 1327  14 10 13 12:13:32 vim /etc/hosts.deny
+ 1328  14 10 13 12:58:39 vzlist 
+ 1329  14 10 13 16:21:47 exit
+ 1330  14 10 13 16:17:01 sudo su -
+ 1331  14 10 13 16:21:49 exit
+ 1332  14 10 13 16:15:56 cat /etc/hosts.deny
+ 1333  14 10 13 16:16:26 vim /etc/hosts.deny
+ 1334  14 10 13 16:16:37 cat /etc/hosts.deny
+ 1335  14 10 13 16:16:43 service denyhosts restart
+ 1336  14 10 13 16:16:45 cat /etc/hosts.deny
+ 1337  14 10 13 16:16:55 watch cat /etc/hosts.deny
+ 1338  14 10 13 16:17:59 cd /var/lib/denyhosts/
+ 1339  14 10 13 16:18:00 ls
+ 1340  14 10 13 16:18:06 vim allowed-hosts 
+ 1341  14 10 13 16:18:14 grep 10.2.59.8 *
+ 1342  14 10 13 16:18:36 rm -f *
+ 1343  14 10 13 16:18:42 service denyhosts restart
+ 1344  14 10 13 16:18:44 ls
+ 1345  14 10 13 16:18:49 vim allowed-hosts
+ 1346  14 10 13 16:19:15 pwd
+ 1347  14 10 13 16:19:18 vim allowed-hosts
+ 1348  14 10 13 16:19:21 w
+ 1349  14 10 13 16:19:32 vim allowed-hosts
+ 1350  14 10 13 16:19:58 cat *
+ 1351  14 10 13 16:20:13 vim /etc/hosts.deny
+ 1352  14 10 13 16:20:19 ls
+ 1353  14 10 13 16:20:23 vim hosts
+ 1354  14 10 13 16:20:30 vim hosts-restricted 
+ 1355  14 10 13 16:20:36 vim hosts-r
+ 1356  14 10 13 16:20:38 vim hosts-root 
+ 1357  14 10 13 16:20:42 vim offset 
+ 1358  14 10 13 16:20:48 vim hosts-valid 
+ 1359  14 10 13 16:20:53 vim suspicious-logins 
+ 1360  14 10 13 16:20:57 vim users-
+ 1361  14 10 13 16:21:00 vim users-hosts 
+ 1362  14 10 13 16:21:05 vim users-invalid 
+ 1363  14 10 13 16:21:09 vim users-valid 
+ 1364  14 10 13 16:21:19 service denyhosts restart
+ 1365  14 10 13 16:21:22 ls
+ 1366  14 10 13 16:21:24 cat *
+ 1367  14 10 13 16:21:32 cat /etc/hosts.deny
+ 1368  14 10 13 16:21:41 watch /etc/hosts.deny
+ 1369  14 10 13 16:21:48 watch cat /etc/hosts.deny
+ 1370  14 10 13 16:23:27 exit
+ 1371  14 10 13 11:47:12 vim /etc/hosts.deny
+ 1372  14 10 13 12:15:36 vim /var/lib/denyhosts/
+ 1373  14 10 13 12:15:48 cd /var/lib/denyhosts/
+ 1374  14 10 13 12:15:50 ls
+ 1375  14 10 13 12:16:05 vim users-invalid 
+ 1376  14 10 13 12:16:37 vim users-valid 
+ 1377  14 10 13 12:16:58 vim hosts-restricted 
+ 1378  14 10 13 12:17:41 vim hosts-root 
+ 1379  14 10 13 16:10:28 cd 
+ 1380  14 10 13 16:10:32 vzlist
+ 1381  14 10 13 16:10:41 vzctl enter 14173
+ 1382  14 10 13 16:22:17 su -
+ 1383  14 10 13 16:22:44 vzlist -a | grep bind
+ 1384  14 10 13 16:22:49 vzctl enter 14173
+ 1385  14 10 13 17:25:44 vzlist -a
+ 1386  14 10 13 17:25:52 vzctl enter 14173
+ 1387  14 10 14 09:16:52 vzlist 
+ 1388  14 10 14 09:17:04 vzlist |grep ldap
+ 1389  14 10 14 09:17:17 vzctl ener 14155
+ 1390  14 10 14 09:17:24 vzctl enter 14155
+ 1391  14 10 14 10:06:32 vzlist 
+ 1392  14 10 14 10:06:45 getent  passwd
+ 1393  14 10 14 10:06:49 getent  passwd |grep zubair
+ 1394  14 10 14 10:07:05 vzctl enter 14155
+ 1395  14 10 14 10:09:59 vzlist |grep ldap
+ 1396  14 10 14 14:26:44 vzlist
+ 1397  14 10 14 14:26:54 vzctl enter 14155
+ 1398  14 10 14 14:27:05 vzctl enter 14173
+ 1399  14 10 14 14:41:58 ls
+ 1400  14 10 14 14:42:02 cd rekall/
+ 1401  14 10 14 14:42:03 ls
+ 1402  14 10 14 14:42:08 cd backup/
+ 1403  14 10 14 14:42:09 ls
+ 1404  14 10 14 14:42:12 vim files.txt 
+ 1405  14 10 14 14:42:17 cd 
+ 1406  14 10 14 14:42:21 vzlist -a
+ 1407  14 10 14 14:42:27 vzctl enter 14173
+ 1408  14 10 14 14:47:14 vzctl enter 14173
+ 1409  14 10 14 09:02:42 sudo su -
+ 1410  14 10 14 09:02:45 ls
+ 1411  14 10 14 09:02:55 vzlist -a
+ 1412  14 10 14 09:03:02 vzctl enter 14173
+ 1413  14 10 14 15:40:22 ls
+ 1414  14 10 14 15:40:42 less  /etc/host.deny
+ 1415  14 10 14 15:40:56 cd /etc/host.deny
+ 1416  14 10 14 15:41:03 less /etc/hosts.deny
+ 1417  14 10 14 15:55:56 vi /etc/denyhosts.conf 
+ 1418  14 10 14 15:57:23 vi /etc/host.deny
+ 1419  14 10 14 15:57:31 ls -l /etc/hosts.deny
+ 1420  14 10 14 15:57:35 vi /etc/hosts.deny
+ 1421  14 10 14 15:58:30 vi /etc/hosts.allow 
+ 1422  14 10 14 15:58:43 man hosts.allow
+ 1423  14 10 14 17:47:03 less /etc/denyhosts.conf 
+ 1424  14 10 14 17:47:21 less /etc/hosts.allow 
+ 1425  14 10 14 17:53:24 vi /etc/hosts.allow 
+ 1426  14 10 14 18:34:32 vzlist 
+ 1427  14 10 15 10:42:55 vzlist -a
+ 1428  14 10 15 11:36:26 ssh base2
+ 1429  14 10 15 11:36:36 ssh root@base2
+ 1430  14 10 13 15:32:11 vzlist -a | grep dns
+ 1431  14 10 13 15:32:20 vzlist -a | grep bind
+ 1432  14 10 13 15:32:26 vzctl enter 14173
+ 1433  14 10 19 14:20:30 yum update
+ 1434  14 10 19 14:30:34 export http_proxy="http://proxy.iiit.ac.in:8080"
+ 1435  14 10 19 14:30:38 export https_proxy="http://proxy.iiit.ac.in:8080"
+ 1436  14 10 19 14:30:44 yum update
+ 1437  14 10 19 14:31:14 ping proxy.iiit.ac.in
+ 1438  14 10 19 14:31:20 ping google.com
+ 1439  14 10 19 14:31:39 ping proxy.vlabs.ac.in
+ 1440  14 10 19 14:31:48 cat /etc/resolv.conf
+ 1441  14 10 19 14:20:26 su -
+ 1442  14 10 21 22:47:12 vzlist -a |grep 10.4.12.23
+ 1443  14 10 21 22:47:15 vzlist -a 
+ 1444  14 10 21 22:47:29 ifconfig -a
+ 1445  14 10 21 22:49:25 route -n
+ 1446  14 10 22 00:33:27 ssh base3
+ 1447  14 10 22 00:33:33 ssh root@base3
+ 1448  14 10 22 00:33:51 ssh soumya@10.4.12.23
+ 1449  14 10 30 16:06:49 exit
+ 1450  14 11 06 15:55:02 vzlist
+ 1451  14 11 06 15:58:18 ls
+ 1452  14 11 06 15:58:26 cd rekall/
+ 1453  14 11 06 15:58:27 ls
+ 1454  14 11 06 15:58:33 cd vlead/
+ 1455  14 11 06 15:58:34 ls
+ 1456  14 11 06 15:58:47 cd ..
+ 1457  14 11 06 15:58:48 ls
+ 1458  14 11 06 15:58:52 cd download/
+ 1459  14 11 06 15:58:53 ls
+ 1460  14 11 06 15:59:01 cd ..
+ 1461  14 11 06 15:59:02 ls
+ 1462  14 11 06 15:59:08 dc backup/
+ 1463  14 11 06 15:59:13 pwd
+ 1464  14 11 06 15:59:18 whoami
+ 1465  14 11 06 15:59:21 cd /
+ 1466  14 11 06 15:59:22 ls
+ 1467  14 11 06 15:59:28 cd /usr/
+ 1468  14 11 06 15:59:29 ls
+ 1469  14 11 06 15:59:37 cd /
+ 1470  14 11 06 15:59:39 cd home/
+ 1471  14 11 06 15:59:40 ls
+ 1472  14 11 06 15:59:43 cd dumb/
+ 1473  14 11 06 15:59:45 ls
+ 1474  14 11 06 15:59:49 ls -a
+ 1475  14 11 06 15:59:57 cd ..
+ 1476  14 11 06 15:59:59 ls
+ 1477  14 11 06 16:00:02 cd ..
+ 1478  14 11 06 16:00:04 ls
+ 1479  14 11 06 16:00:18 cd vz/
+ 1480  14 11 06 16:00:20 ls
+ 1481  14 11 06 16:00:24 cd private/
+ 1482  14 11 06 16:00:25 ls
+ 1483  14 11 06 16:00:36 vzlist
+ 1484  14 11 06 16:01:03 exit
+ 1485  14 11 10 16:42:03 sudo su -
+ 1486  14 11 10 16:42:10 vzlist -a 
+ 1487  14 11 10 16:42:22 vzctl enter 14173
+ 1488  14 11 11 10:42:30 sudo su -
+ 1489  14 11 11 15:40:02 vzctl enter 14173
+ 1490  14 11 17 15:55:39 vzlist |grep dns
+ 1491  14 11 17 15:55:43 vzlist |grep bind
+ 1492  14 11 17 15:55:52 vzctl enter 14173
+ 1493  14 11 27 10:23:13 vzlist |grep bind
+ 1494  14 11 27 10:23:23 vzctl enter 14173
+ 1495  14 11 27 12:57:11 ssh base3
+ 1496  14 11 27 12:57:18 ssh soumya@base3
+ 1497  14 12 01 17:20:41 vzlist -a
+ 1498  14 12 01 17:21:37 brctl
+ 1499  14 12 01 17:21:41 brctl showmacs
+ 1500  14 12 01 17:21:46 brctl show
+ 1501  14 12 01 17:21:52 brctl showmacs breth1
+ 1502  14 12 01 17:22:11 brctl showmacs breth1 | grep 00:18:51:71:9c:1d
+ 1503  14 12 01 17:22:57 ping 10.4.14.151
+ 1504  14 12 01 17:23:01 arp -a -n
+ 1505  14 12 01 17:23:46 grep veth14151.0 /etc/vz/conf/*
+ 1506  14 12 01 17:24:49 history
+ 1507  14 12 02 09:47:02 vzlist -a
+ 1508  14 12 02 09:47:11 history
+ 1509  14 12 02 09:47:25 date
+ 1510  14 12 02 09:49:06 vzlist -a
+ 1511  14 12 02 09:49:19 grep veth14151.0 /etc/vz/conf/*
+ 1512  14 12 02 09:49:38 vzctl enter 14151
+ 1513  14 12 02 09:46:59 su -
+ 1514  14 12 09 16:35:01 vzlist -a
+ 1515  14 12 09 16:35:07 vzctl enter 14155
+ 1516  14 12 09 16:48:13 exit
+ 1517  14 12 10 16:09:11 vzlist -a
+ 1518  14 12 10 16:09:20 vzctl enter 14155
+ 1519  14 12 11 13:48:55 vzlist -a
+ 1520  14 12 11 13:49:02 exit
+ 1521  14 12 19 15:06:15 su -
+ 1522  14 12 19 15:06:21 vzlist -a |grep p
+ 1523  14 12 23 14:17:45 exit
+ 1524  14 12 23 14:17:48 vzlist -
+ 1525  14 12 23 14:17:50 vzlist -a
+ 1526  14 12 23 14:20:48  free -m
+ 1527  14 12 23 14:20:50 df -h
+ 1528  14 12 23 15:09:28 exit
+ 1529  14 12 26 15:41:34 vzlist -a | grep 10.4.12
+ 1530  14 12 26 15:41:38 vzlist -a 
+ 1531  15 01 06 15:05:06 vzlist -a
+ 1532  15 01 06 15:05:23 vzlist -a | grep -nir "10.4.14.151"
+ 1533  15 01 06 15:05:50 vzctl enter 14155
+ 1534  15 01 06 15:08:28 vzlist -a
+ 1535  15 01 06 15:08:35 vzctl enter 14151
+ 1536  15 01 06 15:05:02 sudo su -
+ 1537  15 01 07 15:51:34 su -
+ 1538  15 01 07 15:51:48 vzlist -a | grep 10.4.14.151
+ 1539  15 01 07 15:51:52 vzlist -a
+ 1540  15 01 07 15:52:15 ping 10.4.14.151
+ 1541  15 01 07 15:52:26 traceroute 10.4.14.151
+ 1542  15 01 07 15:52:53 ifconfig -a
+ 1543  15 01 07 15:53:06 nslookup 10.4.14.151
+ 1544  15 01 07 15:54:47 vzlist -a
+ 1545  15 01 07 15:55:08 vzctl enter 14151
+ 1546  15 01 09 11:19:06 vzlist -a | grep 10.4.12.201
+ 1547  15 01 10 16:22:42 exit
+ 1548  15 01 09 11:19:01 sudo su -
+ 1549  15 01 10 16:22:44 exit
+ 1550  15 01 13 15:00:44 vzlist -a
+ 1551  15 01 13 15:00:52 ping 10.4.14.174
+ 1552  15 01 13 15:01:15 vzctl create 14174 --ipadd 10.4.14.174 --hostname speedtest --ostemplate centos-6-x86_64
+ 1553  15 01 13 15:01:47 vzctl set 14174 --nameserver 10.4.20.204 --save
+ 1554  15 01 13 15:01:52 vzctl start 14174
+ 1555  15 01 13 15:01:55 su -
+ 1556  15 01 13 15:02:05 vzctl enter 14174
+ 1557  15 01 13 15:34:33 exit
+ 1558  15 01 13 15:03:37 vzctl enter 14174
+ 1559  15 01 22 16:54:30 vzlist
+ 1560  15 01 22 16:54:39 ssh base3
+ 1561  15 01 22 18:54:57 vzlist -
+ 1562  15 01 22 18:55:00 ls
+ 1563  15 01 22 18:55:03 cd rekall/vlead/
+ 1564  15 01 22 18:55:03 ls
+ 1565  15 01 22 18:55:04 erl
+ 1566  15 01 22 18:59:34 exit
+ 1567  15 01 28 10:59:53 vim /etc/hosts.deny 
+ 1568  15 01 28 11:01:14 is
+ 1569  15 01 28 11:01:18 id zubair
+ 1570  15 01 28 11:01:25 vzlist 
+ 1571  15 01 28 11:01:27 vzlist -a
+ 1572  15 01 28 11:01:51 yum update -y
+ 1573  15 01 29 23:12:35 vzlist -a
+ 1574  15 01 29 23:12:51 who
+ 1575  15 02 03 14:10:08 killall yum
+ 1576  15 02 03 14:12:42 ki
+ 1577  15 02 03 14:12:43 killall yum
+ 1578  15 02 03 14:14:34 clear
+ 1579  15 02 03 14:15:21 killall yum
+ 1580  15 02 03 15:16:00 exit
+ 1581  15 02 03 14:08:24 ifconfig 
+ 1582  15 02 03 14:08:29 brctl show
+ 1583  15 02 03 14:08:33 vzlist -a
+ 1584  15 02 03 14:08:42 ls
+ 1585  15 02 03 14:08:47 cd rekall/vlead/
+ 1586  15 02 03 14:08:47 ls
+ 1587  15 02 03 14:08:48 erl
+ 1588  15 02 03 14:09:28 vzlist -a
+ 1589  15 02 03 14:09:29 cd ..
+ 1590  15 02 03 14:09:30 ls
+ 1591  15 02 03 14:09:31 cd ..
+ 1592  15 02 03 14:09:31 ls
+ 1593  15 02 03 14:09:38 virt-manager &
+ 1594  15 02 03 14:09:52 uname -a
+ 1595  15 02 03 14:09:57 yum -y update 
+ 1596  15 02 03 14:10:13 yum -y update vzkernel
+ 1597  15 02 03 14:12:47 vim /etc/yum.conf 
+ 1598  15 02 03 14:13:01 yum -y update vzkernel
+ 1599  15 02 03 14:15:25 vim /etc/yum.conf 
+ 1600  15 02 03 14:15:32 vim /etc/resolv.conf
+ 1601  15 02 03 14:15:53 ping proxy.iiit.ac.in
+ 1602  15 02 03 14:15:55 yum -y update vzkernel
+ 1603  15 02 03 15:15:31 vzlist -a
+ 1604  15 02 03 15:15:37 uname -a
+ 1605  15 02 03 15:15:46 vim /etc/grub.conf
+ 1606  15 02 03 15:15:55 ifconfig 
+ 1607  15 02 03 15:16:03 shutdown -r now
+ 1608  15 02 03 18:43:48 exit
+ 1609  15 02 03 19:38:15 vim /etc/ssh/sshd_config 
+ 1610  15 02 03 19:38:29 service sshd restart
+ 1611  15 02 03 19:38:30 exit
+ 1612  15 02 03 19:38:45 clear
+ 1613  15 02 03 19:38:45 ls
+ 1614  15 02 03 19:38:48 ls test/
+ 1615  15 02 03 19:38:53 rm -rf test/
+ 1616  15 02 03 19:38:54 ls
+ 1617  15 02 03 19:38:56 cd /mnt/das1/
+ 1618  15 02 03 19:38:57 ls
+ 1619  15 02 03 19:39:04 cd operating_systems/
+ 1620  15 02 03 19:39:04 ls
+ 1621  15 02 03 19:39:05 cd centos/
+ 1622  15 02 03 19:39:06 ls
+ 1623  15 02 03 19:39:09 virt-manager &
+ 1624  15 02 03 19:39:13 cd ..
+ 1625  15 02 03 19:39:13 ls
+ 1626  15 02 03 19:39:14 cd ..
+ 1627  15 02 03 19:39:15 ls
+ 1628  15 02 03 19:39:17 cd vms/
+ 1629  15 02 03 19:39:17 ls
+ 1630  15 02 03 19:39:19 cd centos65/
+ 1631  15 02 03 19:39:21 virsh list --all
+ 1632  15 02 03 19:39:24 ls
+ 1633  15 02 03 19:39:26 ls -lh
+ 1634  15 02 03 19:39:29 rm centos65.img 
+ 1635  15 02 03 19:39:47 qemu-img create -f qcow2 centos65_ads_test.iso 30G
+ 1636  15 02 03 19:39:48 cd ..
+ 1637  15 02 03 19:39:56 mv centos65 centos65_ads_test
+ 1638  15 02 03 19:39:56 ls
+ 1639  15 02 03 19:39:58 cd centos65_ads_test/
+ 1640  15 02 03 19:39:58 ls
+ 1641  15 02 05 14:33:13 exit
+ 1642  15 02 05 14:33:29 virsh list --all
+ 1643  15 02 05 14:34:58 exit
+ 1644  15 02 05 14:35:21 virt-viewer centos66_ads_test &
+ 1645  15 02 05 14:35:33 exit
+ 1646  15 02 05 16:05:50 vzlist -a
+ 1647  15 02 05 16:05:59 ping 10.4.14.156
+ 1648  15 02 05 16:06:20 vzctl create 14156 --hostname test-deleteme --ostemplate centos-6-x86_64 --ipadd 10.4.14.156
+ 1649  15 02 05 16:06:36 yum -y install python-simplejson
+ 1650  15 02 05 16:07:52 vim /etc/sysconfig/network-scripts/ifcfg-breth1 

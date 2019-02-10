@@ -1,0 +1,457 @@
+* Analytics-db
+root@ip-10-100-2-162:/var/www/html# history
+    1  cat /etc/sudoers
+    2  last
+    3  reboot
+    4  ps -ef | grep zabbix
+    5  cat /etc/cron.d/iostat 
+    6  init 1
+    7  ps -ef | grep zabbix
+    8  init 1
+    9  cat /etc/zabbix/zabbix_agentd.conf
+   10  less /var/log/zabbix-agent/zabbix_agentd.log
+   11  ls
+   12  ls /tmp/
+   13  ls /tmp
+   14  ps -ef | grep zabbix
+   15  ls
+   16  pwd
+   17  vi zabbix_agent.sh
+   18  chmod 755 zabbix_agent.sh 
+   19  bash zabbix_agent.sh 
+   20  vi zabbix_agent.sh
+   21  shutdown -h
+   22  shutdown --help
+   23  shutdown -h
+   24  shutdown -h now
+   25  sh /home/ubuntu/scrip.sh 
+   26  vim .ssh/authorized_keys 
+   27  vim /etc/cloud/cloud.cfg
+   28  poweroff 
+   29  tail -f vmmgr.log 
+   30  curl http://127.0.0.1
+   31  service nginx status
+   32  emacs /etc/nginx/sites-enabled/elasticsearch 
+   33  curl http://localhost:9200
+   34  curl http://127.0.0.1:9200
+   35  emacs /etc/elasticsearch/elasticsearch.yml 
+   36  service elasticsearch restart
+   37  service nginx restart
+   38  curl http://127.0.0.1
+   39  tail -f /var/log/nginx/error.log 
+   40  netstat -tunlp
+   41  iptables -nL
+   42  iptables -F
+   43  curl http://127.0.0.1
+   44  ls
+   45  exit
+   46  cd /root/labs/
+   47  ls
+   48  cd analytics-db/
+   49  ls
+   50  make
+   51  ls
+   52  cd build/code/deployment/
+   53  ls
+   54  emacs migrate_analytcs_db.py 
+   55  ls
+   56  wget http://files.vlabs.ac.in/analytics/v0.0.1-alpha.tar.gz
+   57  wget http://files.vlabs.ac.in/analytics/v0.0.1-alpha.tar.gz .
+   58  nslookup files.vlabs.ac.in
+   59  ls
+   60  exit
+   61  curl http://lds.vlabs.ac.in/institues
+   62  curl http://lds.vlabs.ac.in/institutes
+   63  ping lds.vlabs.ac.in
+   64  telnet 10.100.0.7
+   65  telnet 10.100.0.7 80
+   66  ls
+   67  mv v0.0.1-alpha.tar.gz labs/analytics-db/build/code/deployment/
+   68  cd labs/analytics-db/build/code/deployment/
+   69  ls
+   70  emacs migrate_analytcs_db.py
+   71  curl http://lds.vlabs.ac.in/institutes
+   72  nslookup lds.vlabs.ac.in
+   73  curl http://10.100.0.7/institutes
+   74  ping google.com
+   75  ls
+   76  python migrate_analytcs_db.py v0.0.1-alpha.tar.gz 
+   77  nslookup lds.vlabs.ac.in
+   78  curl http://10.100.0.7/institutes
+   79  ls
+   80  curl http://localhost/_cat/indices
+   81  ls
+   82  python migrate_analytcs_db.py v0.0.1-alpha.tar.gz 
+   83  tail -f /var/log/nginx/error.log 
+   84  ls
+   85  emacs migrate_analytcs_db.py
+   86  emca /etc/nginx/sites-enabled/elasticsearch 
+   87  emacs /etc/nginx/sites-enabled/elasticsearch 
+   88  service nginx reload
+   89  service nginx restart
+   90  python migrate_analytcs_db.py v0.0.1-alpha.tar.gz 
+   91  exit
+   92  ls
+   93  du -h v0.0.1-alpha.tar.gz 
+   94  mv v0.0.1-alpha.tar.gz labs/analytics-db/build/code/deployment/
+   95  cd labs/analytics-db/build/code/deployment/
+   96  ls
+   97  rm -rf *.json
+   98  ls
+   99  rm -rf *~
+  100  ls
+  101  du -h v0.0.1-alpha.tar.gz 
+  102  curl http://localhost/_cat/indices
+  103  curl -XDELETE "http://localhost/vlabs"
+  104  curl -XDELETE "http://localhost/college_cloud"
+  105  curl http://localhost/_cat/indices
+  106  ls
+  107  python migrate_analytcs_db.py v0.0.1-alpha.tar.gz 
+  108  ls
+  109  emacs /etc/nginx/sites-enabled/elasticsearch
+  110  service nginx restart
+  111  curl  https://localhost/_cat/indices
+  112  curl  http://localhost/_cat/indices
+  113  curl http://localhost/vlabs/feedback/_cout
+  114  curl http://localhost/vlabs/feedback/_count
+  115  curl http://localhost/vlabs/feedbacks/_count
+  116  curl http://localhost/vlabs/_count
+  117  curl http://localhost/vlabs/_count?pretty
+  118  tail -f /var/log/elasticsearch/elasticsearch.log 
+  119  ls
+  120  emacs /etc/nginx/sites-enabled/elasticsearch
+  121  service nginx reload
+  122  service nginx restart
+  123  ifconfig 
+  124  htpasswd -c /etc/nginx/.htpasswd analytics-db-service
+  125  apt-get install apache2utils
+  126  apt-get install apache2-utils
+  127  htpasswd -c /etc/nginx/.htpasswd analytics-db-service
+  128  service nginx restart
+  129  ls
+  130  exit
+  131  emacs /etc/nginx/sites-enabled/elasticsearch
+  132  reboot
+  133  service nginx restatus
+  134  service nginx status
+  135  service elasticsearch status
+  136  route delete default gw 10.100.0.1
+  137  route add default gw 10.100.1.1
+  138  ping google.com
+  139  curl http://localhost
+  140  curl http://analytics-db.vlabs.ac.in
+  141  tail -f /var/log/nginx/error.log 
+  142  curl http://127.0.0.1:9200
+  143  curl http://analytics-db.vlabs.ac.in:9200
+  144  iptables -L
+  145  iptables -F
+  146  curl http://analytics-db.vlabs.ac.in:9200
+  147  iptables -L
+  148  iptables -nL
+  149  iptables -A INPUT -p tcp --dport 9200 -j ACCEPT
+  150  curl http://analytics-db.vlabs.ac.in:9200
+  151  iptables -nL
+  152  curl http://127.0.0.1:9200
+  153  ping google.com
+  154  cat /etc/nginx/sites-enabled/elasticsearch
+  155  elasticdump --input=http://analytics-db.vlabs.ac.in/vlabs --output=http://analytics-db.base1.vlabs.ac.in/vlabs --type=analyzer
+  156  ping analytics-db.base1.vlabs.ac.in
+  157  nslookup analytics-db.base1.vlabs.ac.in
+  158  elasticdump --input=http://analytics-db.vlabs.ac.in/vlabs --output=http://analytics-db.base1.vlabs.ac.in/vlabs --type=analyzer
+  159  ls
+  160  elasticdump --input=http://anlytics-db.vlabs.ac.in/vlabs --output=vlabs_analyzer_05-02-2018.json --type=analyzer
+  161  curl http://localhost
+  162  elasticdump --input=http://localhost/vlabs --output=vlabs_analyzer_05-02-2018.json --type=analyzer
+  163  ls
+  164  elasticdump --input=http://localhost/vlabs --output=vlabs_mapping_05-02-2018.json --type=mapping
+  165  elasticdump --input=http://localhost/vlabs --output=vlabs_data_05-02-2018.json --type=data
+  166  ls
+  167  ping analytics-db.base1.vlabs.ac.in
+  168  pwd
+  169  exit
+  170  vim /etc/resolv.conf 
+  171  df -h
+  172  ls
+  173  mkdir vlabs-db
+  174  cp vlabs_* vlabs-db/
+  175  ls
+  176  cd vlabs-db/
+  177  ls
+  178  cd ..
+  179  ls
+  180  rm -rf vlabs_*
+  181  ls
+  182  pwd
+  183  cd labs/
+  184  ls
+  185  cd ..
+  186  ls
+  187  cd /var/www/html/
+  188  ls
+  189  service apache2 restart
+  190  history
+root@ip-10-100-2-162:/var/www/html# 
+
+
+* Analytics
+root@ip-10-100-1-173:/var/www/html# history
+    1  cat /etc/sudoers
+    2  last
+    3  reboot
+    4  ps -ef | grep zabbix
+    5  cat /etc/cron.d/iostat 
+    6  init 1
+    7  ps -ef | grep zabbix
+    8  init 1
+    9  cat /etc/zabbix/zabbix_agentd.conf
+   10  less /var/log/zabbix-agent/zabbix_agentd.log
+   11  ls
+   12  ls /tmp/
+   13  ls /tmp
+   14  ps -ef | grep zabbix
+   15  ls
+   16  pwd
+   17  vi zabbix_agent.sh
+   18  chmod 755 zabbix_agent.sh 
+   19  bash zabbix_agent.sh 
+   20  vi zabbix_agent.sh
+   21  shutdown -h
+   22  shutdown --help
+   23  shutdown -h
+   24  shutdown -h now
+   25  sh /home/ubuntu/scrip.sh 
+   26  vim .ssh/authorized_keys 
+   27  vim /etc/cloud/cloud.cfg
+   28  poweroff 
+   29  ls
+   30  crontab -l
+   31  vim /usr/share/nginx/html/runtime/config/system_config.py
+   32  vim .ssh/authorized_keys 
+   33  iptables -nL
+   34  iptables -F
+   35  vim .ssh/authorized_keys 
+   36  ls labs/vlabs-analytics-service/
+   37  crontab -e
+   38  ssh-keygen 
+   39  cat .ssh/id_rsa.pub 
+   40  ssh root@10.100.1.12
+   41  crontab -l
+   42  rsync -avz root@10.100.1.12:/var/www/html/analytics/output.txt /root/nonopenedx-usage.txt
+   43  ls
+   44  curl -X POST http://localhost/nonopenedx/add_usage
+   45  crontab -l
+   46  crontab -e
+   47  crontab -l
+   48  curl -X POST http://localhost/nonopenedx/add_usage
+   49  ping stats.vlabs.ac.in
+   50  rsync -avz root@stats.vlabs.ac.in:/var/www/html/analytics/output.txt /root/nonopenedx-usage.txt
+   51  ls
+   52  vim /usr/share/nginx/html/runtime/config/system_config.py
+   53  ping analytics-db.vlabs.ac.in
+   54  ping analytics.vlabs.ac.in
+   55  ls
+   56  cd /root/
+   57  ls
+   58  ls -lrt nonopenedx-usage.txt 
+   59  exit
+   60  crontab -l
+   61  rsync -avz  root@stats.vlabs.ac.in:/var/www/html/analytics/output.txt /root/nonopenedx-usage.txt
+   62  ls
+   63  ls -lrt nonopenedx-usage.txt 
+   64  crontab -e
+   65  crontab -l
+   66  curl -X POST http://localhost/nonopenedx/add_usage
+   67  curl http://localhost
+   68  curl http://localhost/analytics/vlabs
+   69  cd /usr/share/nginx/html/
+   70  ls
+   71  emacs runtime/config/
+   72  reboot
+   73  ping google.com
+   74  route delete default gw 10.100.0.1
+   75  route add default gw 10.100.0.1
+   76  ping google.com
+   77  route delete default gw 10.100.0.1
+   78  route add default gw 10.100.1.1
+   79  ping google.com
+   80  cd /usr/share/nginx/
+   81  ls
+   82  cd html/runtime/
+   83  emacs config/
+   84  curl http://lds.vlabs.ac.in
+   85  curl http://lds.vlabs.ac.in/institutes
+   86  curl http://analytics-db.vlabs.ac.in
+   87  reboot
+   88  curl http://localhost
+   89  curl http://analytics.vlabs.ac.in
+   90  cd /usr/share/nginx/html/runtime/
+   91  ls
+   92  emacs config/
+   93  cd /root/
+   94  ls
+   95  crontab -e
+   96  tail -f /var/log/nginx/error.log 
+   97  tail -f /var/log/nginx/access.log 
+   98  emacs /usr/share/nginx/html/runtime/rest/api.py
+   99  tail -f /var/log/nginx/access.log 
+  100  curl http://lds.vlabs.ac.in/institutes
+  101  curl http://analytics-db.vlabs.ac.in
+  102  ls
+  103  emacs /usr/share/nginx/html/runtime/rest/api.py
+  104  tail -f /var/log/nginx/access.log 
+  105  ls
+  106  cd /usr/share/nginx/
+  107  ls
+  108  cd html/
+  109  ls
+  110  cd runtime/
+  111  ls
+  112  cd rest/
+  113  ls
+  114  emacs test_api.py 
+  115  l
+  116  semacs api.py
+  117  emacs api.py
+  118  /etc/init.d/nginx restart
+  119  tail -f ../../logs/vlabs-analytics-service.log 
+  120  emacs api.py
+  121  reboot
+  122  ls
+  123  curl http://anlytics-db.vlabs.ac.in
+  124  curl http://analytics-db.vlabs.ac.in
+  125  ls
+  126  crontab -l
+  127  curl http://localhost
+  128  curl http://analytics.vlabs.ac.in
+  129  rsync -avz  root@stats.vlabs.ac.in:/var/www/html/analytics/output.txt /root/nonopenedx-usage.txt
+  130  crontab -e
+  131  crontab -l
+  132  curl -X POST http://analytics.vlabs.ac.in/nonopenedx/add_usage
+  133  ls -lrt /root/nonopenedx-usage.txt 
+  134  crontab -e
+  135  ls -lrt /root/nonopenedx-usage.txt 
+  136  ls -l /root/nonopenedx-usage.txt 
+  137  crontab 
+  138  crontab -e
+  139  ls
+  140  crontab -l
+  141  ping stats.vlabs.ac.in
+  142  ssh root@stats.vlabs.ac.in
+  143  ls
+  144  locate *.java
+  145  crontab -e
+  146  ls
+  147  ls /root/
+  148  ls
+  149  crontab -;
+  150  crontab -
+  151  crontab -l
+  152  ls
+  153  rsync -avz root@stats.vlabs.ac.in:/var/www/html/analytics/output.txt /root/nonopenedx-usage.java
+  154  ls
+  155  rm -rf nonopenedx-usage.java 
+  156  ls
+  157  emacs /etc/crontab 
+  158  crontab -e 
+  159  emacs /etc/crontab
+  160  ls
+  161  rm -rf *.java
+  162  ls
+  163  emacs /usr/share/nginx/html/
+  164  route delete default gw 10.100.0.1
+  165  route add default gw 10.100.1.1
+  166  ping google.com
+  167  /etc/init.d/nginx status
+  168  tail -f /var/log/nginx/error.log 
+  169  tail -f /usr/share/nginx/html/logs/vlabs-analytics-service.log 
+  170  ls
+  171  exit
+  172  ls
+  173  crontab -l
+  174  ls -al
+  175  vim /etc/crontab
+  176  crontab -e
+  177  ls
+  178  mv nonopenedx-usage.txt nonopenedx-usage.txt-bkp 
+  179  ls
+  180  crontab -e
+  181  ls
+  182  crontab -e
+  183  ls
+  184  crontab -e
+  185  ls
+  186  crontab -l
+  187  crontab -l\e
+  188  crontab -e
+  189  crontab -l
+  190  crontab -e
+  191  ls
+  192  vim /etc/crontab
+  193  crontab -l
+  194  ls
+  195  s
+  196  ls -alt
+  197  crontab -l
+  198  date
+  199  crontab -e
+  200  ls -lat
+  201  crontab -e
+  202  ls
+  203  ls -alt
+  204  date
+  205  crontab -e
+  206  ls -alt
+  207  ls
+  208  ls -alt
+  209  date
+  210  ls -alt
+  211  date
+  212  crontab -ll
+  213  crontab -l
+  214  ls -lt
+  215  date
+  216  crontab -e
+  217  ls -lt
+  218  date
+  219  ls -lt
+  220  date
+  221  ls -lt
+  222  date
+  223  ls -lt
+  224  date
+  225  ls -lt
+  226  date
+  227  ls -lt
+  228  crontab -e
+  229  crontab -l
+  230  crontab -e
+  231  iptables -nL
+  232  vim /etc/resolv.conf 
+  233  df -h
+  234  ls
+  235  ls labs/
+  236  cd /var/www/html/
+  237  ;s
+  238  ls
+  239  cd
+  240  ls
+  241  df -h
+  242  ls
+  243  mkdir non-openedx
+  244  cp nonopenedx-usage.txt* non-openedx/
+  245  ls
+  246  ls non-openedx/
+  247  rm -rf nonopenedx-usage.txt*
+  248  ls
+  249  la labs/
+  250  pwd
+  251  ls
+  252  cd /var/www/html/
+  253  ls
+  254  vim index.html 
+  255  history
+root@ip-10-100-1-173:/var/www/html# 
+
+
+
+

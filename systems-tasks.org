@@ -754,7 +754,7 @@
     accessible only via port 22.
   - The Configuration server accepts incoming connections on port 22
     only from IIIT IP range or management ip machines.
-** osse-server
+** ossec-server
    - Container ID 1003
 ** public-dns
    - Container ID 1006
@@ -900,10 +900,6 @@ ansible pub-ip - 52.4.150.142   pvt ip - 10.100.1.2
 ansible pub-ip - 13.232.165.229
 router pub-ip  - 35.154.150.192
 * Networking
-* Ansible
-  - Ansible is simple open source IT engine which automates
-    application deployment, intra service orchestration, cloud
-    provisioning and many other IT tools.
 * Firewall
   - Follow the below step to install iptables-persistent in Ubuntu-16.04 LTS OS
     | $ sudo apt-get install -y iptables-persistent |
@@ -1041,3 +1037,23 @@ kamal.das@locuz.com
      #+BEGIN_EXAMPLE
      service apache2 start
      #+END_EXAMPLE
+* OS in Aws VM's
+  - Ubuntu command to check OS version 
+    #+BEGIN_EXAMPLE
+    lsb_release -d
+    #+END_EXAMPLE
+  - OS in AWS VM's is Ubuntu 12.04.5 LTS
+  - CentOS
+    #+BEGIN_EXAMPLE
+     rpm -q centos-release
+    #+END_EXAMPLE
+* Permission to a user on AWS via terminal
+  - copy pem key for a from one user to other.
+    #+BEGIN_EXAMPLE
+    cp -rf /hom/<user>/aa1.pem /home/<user>/ 
+    #+END_EXAMPLE
+  - Give permissions for the newly created user. 
+    #+BEGIN_EXAMPLE
+    chown -R sravanthi:engg /home/sravanthi/aa1.pem
+    #+END_EXAMPLE
+  

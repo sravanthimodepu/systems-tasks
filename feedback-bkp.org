@@ -1,0 +1,232 @@
+root@ip-10-100-3-144:~# history
+    1  cat /etc/sudoers
+    2  last
+    3  reboot
+    4  ps -ef | grep zabbix
+    5  cat /etc/cron.d/iostat 
+    6  init 1
+    7  ps -ef | grep zabbix
+    8  init 1
+    9  cat /etc/zabbix/zabbix_agentd.conf
+   10  less /var/log/zabbix-agent/zabbix_agentd.log
+   11  ls
+   12  ls /tmp/
+   13  ls /tmp
+   14  ps -ef | grep zabbix
+   15  ls
+   16  pwd
+   17  vi zabbix_agent.sh
+   18  chmod 755 zabbix_agent.sh 
+   19  bash zabbix_agent.sh 
+   20  vi zabbix_agent.sh
+   21  shutdown -h
+   22  shutdown --help
+   23  shutdown -h
+   24  shutdown -h now
+   25  sh /home/ubuntu/scrip.sh 
+   26  vim .ssh/authorized_keys 
+   27  vim /etc/cloud/cloud.cfg
+   28  poweroff 
+   29  ls
+   30  rsync -avz root@feedback.vlabs.ac.in:~/feedback-dump-2018-01-25.sql .
+   31  ls
+   32  rsync -avz --progress root@feedback.vlabs.ac.in:~/feedback-dump-2018-01-25.sql .
+   33  rsync -avz --progress raghupathi@196.12.53.133:~/feedback-dump-2018-01-25.sql .
+   34  ls
+   35  du -h feedback-dump-2018-01-25.sql 
+   36  mysql -uroot -proot feedback < feedback-dump-2018-01-25.sql 
+   37  mysql -uroot -proot
+   38  ls
+   39  cd /var/www/
+   40  ls
+   41  vim config.py 
+   42  vim runtime/config/flask_app_config.py
+   43  service apache2 restart
+   44  service mysql status
+   45  ls
+   46  vim .ssh/authorized_keys 
+   47  ls
+   48  crontab -l
+   49  vim labs/feedback-portal/scripts/backup.sh 
+   50  ls
+   51  cd labs/feedback-portal/
+   52  ls
+   53  cd build/code/runtime/config/
+   54  ls
+   55  cd ..
+   56  ls
+   57  cd scripts/
+   58  ls
+   59  sh backup.sh 
+   60  ls
+   61  sh backup.sh 
+   62  ls
+   63  du -ch feedbackbackup-V2.3.0.tar 
+   64  sh backup.sh 
+   65  du -ch feedbackbackup-V2.3.0.tar 
+   66  sh backup.sh 
+   67  du -ch feedbackbackup-V2.3.0.tar 
+   68  ls
+   69  crontab -e
+   70  cd ~
+   71  ls
+   72  crontab -e 
+   73  ls
+   74  crontab -l
+   75  python feedback_elastic_search.py
+   76  python historic_feedback.py
+   77  curl http://127.0.0.1/feedback_dump?date=02-02-2018&key=defaultkey
+   78  cd /var/www/html/
+   79  ls
+   80  cd ..
+   81  ls
+   82  cd deployment/
+   83  ls
+   84  cd ..
+   85  ls
+   86  emacs config.py
+   87  crontab -e
+   88  crontab -l
+   89  cat /etc/crontab 
+   90  cd /var/www/deployment/
+   91  ls
+   92  ls /var/www/
+   93  ls /var/www/feedback_elastic_search.py
+   94  ls
+   95  cd /var/www/
+   96  ls
+   97  python historic_feedback.py 
+   98  pip install dateutil.rrule
+   99  pip install dateutil
+  100  pip install python-dateutil
+  101  python historic_feedback.py 
+  102  ls
+  103  emacs feedback_elastic_search.py
+  104  python historic_feedback.py 
+  105  emacs historic_feedback.py
+  106  python historic_feedback.py 
+  107  emacs historic_feedback.py
+  108  python historic_feedback.py 
+  109  emacs feedback_elastic_search.py
+  110  ls
+  111  ping 10.100.2.162
+  112  tail -f /var/www/logs/feedback.log 
+  113  ls
+  114  python historic_feedback.py 
+  115  emacs historic_feedback.py
+  116  python historic_feedback.py 
+  117  emacs historic_feedback.py
+  118  python historic_feedback.py 
+  119  emacs historic_feedback.py
+  120  curl http://localhost/feedback_dump?date=02-02-2018&key=defaultkey
+  121  service apache2 status
+  122  curl http://localhost
+  123  curl http://feedback.vlabs.ac.in
+  124  cat /etc/hosts
+  125  iptables -nL
+  126  curl localhost
+  127  netstat -tunlp
+  128  iptables -F
+  129  curl localhost
+  130  /etc/init.d/iptables-persistent restart
+  131  iptables -nl
+  132  iptables -nL
+  133  cd /var/www/runtime/config/
+  134  ls
+  135  emacs system_config.py
+  136  tail -f /var/www/logs/feedback.log 
+  137  exit
+  138  ls
+  139  cd /root/labs/feedback-portal/
+  140  ls
+  141  make
+  142  ls
+  143  cd build/code/
+  144  ls
+  145  cd deployment/
+  146  ls
+  147  cd ..
+  148  ls
+  149  emacs config.py 
+  150  ls
+  151  rm -rf config.py~ 
+  152  ls
+  153  emacs feedback_elastic_search.py 
+  154  emacs historic_feedback.py 
+  155  ls
+  156  curl http://analytics-db.vlabs.ac.in
+  157  ls
+  158  cd /var/www/
+  159  ls
+  160  cd -
+  161  ls
+  162  python historic_feedback.py 
+  163  emacs historic_feedback.py
+  164  python historic_feedback.py 
+  165  emacs historic_feedback.py 
+  166  curl http://localhost
+  167  curl http://feedback.vlabs.ac.in
+  168  curl http://127.0.0.1
+  169  ls
+  170  emacs config.py
+  171  python historic_feedback.py
+  172  emacs /var/www/runtime/config/flask_app_config.py
+  173  ls
+  174  crontab -l
+  175  cat /etc/crontab 
+  176  cd /var/www/
+  177  sl
+  178  ls
+  179  emacs config.py
+  180  ls
+  181  emacs runtime/config/
+  182  reboot
+  183  mysql -u root -proot
+  184  exit
+  185  ping google.com
+  186  route add default gw 10.100.1.1
+  187  route delete default gw 10.100.0.1
+  188  ls
+  189  cd /root/labs/feedback-portal/
+  190  cd build/
+  191  ls
+  192  cd code/
+  193  ls
+  194  rm -rf *~
+  195  ls
+  196  python historic_feedback.py 
+  197  cd /var/www/runtime/
+  198  ls
+  199  cd rest/static/
+  200  ls
+  201  cd img/
+  202  ls
+  203  ping google.com
+  204  route -n
+  205  history | grep route
+  206  netstat -tunlp
+  207  service mysqld status
+  208  service mysql status
+  209  service mysql start
+  210  ls
+  211  ls -alt
+  212  hostname
+  213  exit
+  214  vim /etc/resolv.conf 
+  215  exit
+  216  route -n
+  217  ping google.com
+  218  route -n
+  219  route add default gw 10.100.1.1
+  220  route del default gw 10.100.0.1
+  221  ls
+  222  df -h
+  223  cd /var/www/html/
+  224  ls
+  225  vim index.html 
+  226  yes
+  227  ls
+  228  route -n
+  229  service apache2 restart
+  230  history
+root@ip-10-100-3-144:~# service apache2 restart

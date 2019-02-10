@@ -1,0 +1,273 @@
+* Deploy outreach portal
+- Create AWS instance
+- login to instance through ansible
+- install apache2, git, emacs, python, pip, python-pip, flask, mysql-server, pep8, pycodestyle, php, python-django.
+- run make
+- copy build/code
+* Linux commands:
+ 
+736  18 12 21 13:49:51 hostname
+  737  18 12 21 13:49:56 ip a
+  738  18 12 21 13:51:22 ping outreach.vlabs.ac.in
+  739  18 12 21 13:51:27 vim /etc/apache2/apache2.conf 
+  740  18 12 21 13:56:29 vim /etc/apache2/sites-available/default
+  741  18 12 21 13:56:58 cat /var/www/outreach.wsgi
+  742  18 12 21 13:57:29 curl loclahost
+  743  18 12 21 13:57:33 curl localhost
+  744  18 12 21 13:57:44 curl outreach.vlabs.ac.in
+  745  18 12 21 13:57:54 ping outreach.vlabs.ac.in
+  746  18 12 21 13:57:56 ip a
+  747  18 12 21 13:58:10 ping outreach.vlabs.ac.in
+  748  18 12 21 13:58:21 cd /var/www
+  749  18 12 21 13:58:21 ls
+  750  18 12 21 13:58:22 ll
+  751  18 12 21 13:58:24 ls -alh
+  752  18 12 21 13:58:37 service apache2 restart
+  753  18 12 21 13:58:44 curl outreach.vlabs.ac.in
+  754  18 12 21 13:59:02 ss -ltnp
+  755  18 12 21 13:59:12 cd /etc/apache2/
+  756  18 12 21 13:59:12 ls
+  757  18 12 21 13:59:15 grep -nr "302" .
+  758  18 12 21 13:59:23 grep -nr "virtual-labs" .
+  759  18 12 21 13:59:25 ll
+  760  18 12 21 13:59:29 vim httpd.conf 
+  761  18 12 21 13:59:31 vim apache2.conf 
+  762  18 12 21 13:59:48 curl outreach.vlabs.ac.in -v
+  763  18 12 21 13:59:57 ls
+  764  18 12 21 14:00:03 vim sites-enabled/000-default 
+  765  18 12 21 14:00:10 cd sites-enabled/
+  766  18 12 21 14:00:10 ls
+  767  18 12 21 14:00:13 ll
+  768  18 12 21 14:00:15 cat 000-default 
+  769  18 12 21 14:00:32 cd /var/www
+  770  18 12 21 14:00:32 ls
+  771  18 12 21 14:00:33 ll
+  772  18 12 21 14:00:39 telnet localhost 80
+  773  18 12 21 14:00:52 grep -nr "redirected" .
+  774  18 12 21 14:00:57 df -h
+  775  18 12 21 14:01:02 du -sh *
+  776  18 12 21 14:01:19 ls
+  777  18 12 21 14:01:25 cat outreach.wsgi 
+  778  18 12 21 14:01:30 vim configure.sh 
+  779  18 12 21 14:01:56 ll
+  780  18 12 21 14:02:05 cat configure.sh 
+  781  18 12 21 14:02:07 ls
+  782  18 12 21 14:02:11 vim src/config.py
+  783  18 12 21 14:02:25 cd src/
+  784  18 12 21 14:02:25 ls
+  785  18 12 21 14:02:26 ll
+  786  18 12 21 14:02:27 du -sh *
+  787  18 12 21 14:02:42 cat *.py | grep -i redirect
+  788  18 12 21 14:02:53 cat *.py | grep -i virtual-labs
+  789  18 12 21 14:02:59 ll
+  790  18 12 21 14:03:04 vim config.py
+  791  18 12 21 14:03:12 ss -lntp
+  792  18 12 21 14:03:20 cd ..
+  793  18 12 21 14:03:20 l
+  794  18 12 21 14:03:32 cat outreach.wsgi 
+  795  18 12 21 14:04:03 service apache2 stop
+  796  18 12 21 14:04:18 service apache2 start
+  797  18 12 21 14:04:25 curl outreach.vlabs.ac.in -v
+  798  18 12 21 14:04:50 ss -ltnp
+  799  18 12 21 14:05:01 cd /var/www
+  800  18 12 21 14:05:01 ls
+  801  18 12 21 14:05:03 ll
+  802  18 12 21 14:05:10 ps uax | grep uwsgi
+  803  18 12 21 14:05:14 ps uax | grep wsgi
+  804  18 12 21 14:05:16 ps uax 
+  805  18 12 21 14:05:45 ss -ltnp
+  806  18 12 21 14:05:50 ls
+  807  18 12 21 14:06:06 cat /etc/apache2/sites-enabled/000-default 
+  808  18 12 21 14:06:42 curl localhsot
+  809  18 12 21 14:06:45 curl localhost
+  810  18 12 21 14:06:55 curl outreach.virtual-labs.ac.in
+  811  18 12 21 14:21:00 htop
+  812  18 12 21 14:21:05 free -m
+  813  18 12 21 14:21:10 ls
+  814  18 12 21 14:21:17 ss -ltnp
+  815  18 12 21 14:21:17 top
+  816  18 12 21 14:21:47 df -h
+  817  18 12 21 14:59:23 telnet localhost 80
+  818  18 12 21 14:59:27 curl localhost
+  819  18 12 21 14:59:32 curl outreach.vlabs.ac.in
+  820  18 12 21 14:59:43 curl outreach.virtual-labs.ac.in
+  821  18 12 21 14:59:45 l
+  822  18 12 21 14:59:46 ls
+  823  18 12 21 14:59:49 cd /var/www
+  824  18 12 21 14:59:49 ls
+  825  18 12 21 14:59:51 cd src/
+  826  18 12 21 14:59:52 ls
+  827  18 12 21 14:59:54 vim api.py
+  828  18 12 21 14:59:56 vim app.py
+  829  18 12 21 15:00:19 vim config.py
+  830  18 12 21 15:00:38 service apache2 restart
+  831  18 12 21 15:00:40 ls
+  832  18 12 21 15:00:42 curl outreach.virtual-labs.ac.in
+  833  18 12 21 15:00:45 curl outreach.vlabs.ac.in
+  834  18 12 21 15:00:46 ls
+  835  18 12 21 15:00:50 ls -alh
+  836  18 12 21 15:00:51 cd ..
+  837  18 12 21 15:00:52 ls -alh
+  838  18 12 21 15:00:56 cd ..
+  839  18 12 21 15:00:58 ls -alh
+  840  18 12 21 15:01:00 ll
+  841  18 12 21 15:01:01 cd -
+  842  18 12 21 15:01:02 ls
+  843  18 12 21 15:01:09 ll
+  844  18 12 21 15:01:18 cd /etc/apache2/
+  845  18 12 21 15:01:18 ls
+  846  18 12 21 15:01:21 vim apache2.conf 
+  847  18 12 21 15:01:33 cat apache2.conf |grep -v #
+  848  18 12 21 15:01:36 cat apache2.conf |grep -v '#'
+  849  18 12 21 15:01:58 cd conf.d/
+  850  18 12 21 15:01:58 ls
+  851  18 12 21 15:01:59 ll
+  852  18 12 21 15:02:00 cat other-vhosts-access-log 
+  853  18 12 21 15:02:03 cat security 
+  854  18 12 21 15:02:07 cat security  | grep -v '#'
+  855  18 12 21 15:02:11 ls
+  856  18 12 21 15:02:13 cat charset 
+  857  18 12 21 15:02:15 cat localized-error-pages 
+  858  18 12 21 15:02:18 cat localized-error-pages  | grep -v '#'
+  859  18 12 21 15:02:20 ll
+  860  18 12 21 15:02:25 grep -nr "virtual-labs".
+  861  18 12 21 15:02:27 grep -nr "virtual-labs" .
+  862  18 12 21 15:02:28 ll
+  863  18 12 21 15:02:30 cat security 
+  864  18 12 21 15:02:32 vim security 
+  865  18 12 21 15:02:36 hostname
+  866  18 12 21 15:02:37 ll
+  867  18 12 21 15:02:39 vim other-vhosts-access-log 
+  868  18 12 21 15:02:42 vim localized-error-pages 
+  869  18 12 21 15:02:51 vim charset 
+  870  18 12 21 15:02:53 cd ../
+  871  18 12 21 15:02:54 ls
+  872  18 12 21 15:02:54 ll
+  873  18 12 21 15:02:55 vim envvars 
+  874  18 12 21 15:03:04 ll
+  875  18 12 21 15:03:07 vim ports.conf 
+  876  18 12 21 15:03:12 cd mods-enabled/
+  877  18 12 21 15:03:12 ls
+  878  18 12 21 15:03:13 ll
+  879  18 12 21 15:03:19 grep -nr "virtual" .
+  880  18 12 21 15:03:21 cd ..
+  881  18 12 21 15:03:22 ls
+  882  18 12 21 15:03:26 cd sites-enabled/
+  883  18 12 21 15:03:26 ls
+  884  18 12 21 15:03:27 ll
+  885  18 12 21 15:03:28 cat 000-default 
+  886  18 12 21 15:03:54 cd /var/www
+  887  18 12 21 15:03:55 ll
+  888  18 12 21 15:04:11 tailf /var/log/apache2/other_vhosts_access.log 
+  889  18 12 21 15:04:15 cd  /var/log/apache2/
+  890  18 12 21 15:04:16 ls
+  891  18 12 21 15:04:17 ll
+  892  18 12 21 15:04:30 tailf error.log
+  893  18 12 21 15:04:34 tail -n 100 error.log
+  894  18 12 21 15:04:42 tail -n 100 access.log
+  895  18 12 21 15:04:46 ls
+  896  18 12 21 15:04:52 cd /etc/apache2/
+  897  18 12 21 15:04:52 ls
+  898  18 12 21 15:04:56 grep -nr "other" .
+  899  18 12 21 15:05:06 vim conf.d/other-vhosts-access-log 
+  900  18 12 21 15:05:15 cd sites-enabled/
+  901  18 12 21 15:05:15 ls
+  902  18 12 21 15:05:17 vim 000-default 
+  903  18 12 21 15:06:03 cd /usr/lib/cgi-bin/
+  904  18 12 21 15:06:03 ll
+  905  18 12 21 15:06:06 cd /var/
+  906  18 12 21 15:06:06 l
+  907  18 12 21 15:06:07 lll
+  908  18 12 21 15:06:09 ls -alh
+  909  18 12 21 15:06:12 cd www
+  910  18 12 21 15:06:13 ls -alh
+  911  18 12 21 15:06:21 cat dead.letter 
+  912  18 12 21 15:07:22 ls
+  913  18 12 21 15:07:23 ll
+  914  18 12 21 15:07:26 ls -alh
+  915  18 12 21 15:07:32 vim migrate_old_to_new_data.py 
+  916  18 12 21 15:08:06 grep -nr "virtual-labs" .
+  917  18 12 21 15:08:09 grep -n "virtual-labs" .
+  918  18 12 21 15:08:11 ll
+  919  18 12 21 15:08:14 grep -n "virtual-labs" .
+  920  18 12 21 15:08:15 ll
+  921  18 12 21 15:08:21 cat outreach.wsgi 
+  922  18 12 21 15:08:37 cd src/
+  923  18 12 21 15:08:38 ls
+  924  18 12 21 15:08:41 vim app.py
+  925  18 12 21 15:08:44 vim __init__.py
+  926  18 12 21 15:08:47 vim app.py
+  927  18 12 21 15:09:08 vim utils.py
+  928  18 12 21 15:09:17 grep -n route .
+  929  18 12 21 15:09:20 vim api.py
+  930  18 12 21 15:09:29 grep -n "route" .
+  931  18 12 21 15:09:31 grep -n "route" *.py
+  932  18 12 21 15:09:41 ls
+  933  18 12 21 15:09:43 vim api.py
+  934  18 12 21 15:10:41 service apache2 restart
+  935  18 12 21 15:12:06 vim api.py
+  936  18 12 21 15:12:16 curl outreach.vlabs.ac.in
+  937  18 12 21 15:13:36 cd /var/www
+  938  18 12 21 15:13:37 l
+  939  18 12 21 15:13:40 vim api.p
+  940  18 12 21 15:13:45 vim api.py
+  941  18 12 21 15:13:51 cd src/
+  942  18 12 21 15:13:53 vim api.py
+  943  18 12 21 14:29:27 route -n
+  944  18 12 21 14:29:36 route add default gw 10.100.1.1
+  945  18 12 21 14:29:42 route del default gw 10.100.0.1
+  946  18 12 21 14:29:47 service mysql status
+  947  18 12 21 14:29:55 service apache2 status
+  948  18 12 21 14:31:57 service apache2 restart
+  949  18 12 21 14:33:15 cd /var/www/src/
+  950  18 12 21 14:33:18 vim config.py
+  951  18 12 21 14:33:31 service apache2 restart
+  952  18 12 21 14:37:42 vim config.py
+  953  18 12 21 14:38:40 service apache2 restart
+  954  18 12 21 14:39:46 vim config.py
+  955  18 12 21 14:39:55 service apache2 restart
+  956  18 12 21 14:41:03 vim config.py
+  957  18 12 21 14:45:44 ls
+  958  18 12 21 14:45:48 ll
+  959  18 12 21 14:46:05 cat *.py | grep -i persona
+  960  18 12 21 14:46:18 ll
+  961  18 12 21 14:46:19 ls
+  962  18 12 21 14:46:22 cd templates/
+  963  18 12 21 14:46:22 ls
+  964  18 12 21 14:46:29 grep -nr "PERSONA_VERIFIER_URL" .
+  965  18 12 21 14:46:31 cd ..
+  966  18 12 21 14:46:32 ls
+  967  18 12 21 14:46:36 grep -nr "persona" .
+  968  18 12 21 14:46:41 cat *.py | grep persona
+  969  18 12 21 14:46:57 cd ..
+  970  18 12 21 14:46:58 ll
+  971  18 12 21 14:47:04 cat configure.sh 
+  972  18 12 21 14:47:06 ls
+  973  18 12 21 14:47:07 cd -
+  974  18 12 21 14:47:07 ls
+  975  18 12 21 14:47:40 vim app.py
+  976  18 12 21 14:47:52 grep -n "login" .
+  977  18 12 21 14:47:54 grep -in "login" .
+  978  18 12 21 14:47:55 ll
+  979  18 12 21 14:47:56 pwd
+  980  18 12 21 14:47:57 ll
+  981  18 12 21 14:48:02 cd templates/
+  982  18 12 21 14:48:02 ls
+  983  18 12 21 14:48:07 cat index.html 
+  984  18 12 21 14:48:10 cat index.html  | less
+  985  18 12 21 14:48:22 cat layout.html  | less
+  986  18 12 21 14:48:59 ls
+  987  18 12 21 14:49:00 cd ..
+  988  18 12 21 14:49:00 ls
+  989  18 12 21 14:49:03 vim api.py
+  990  18 12 21 14:52:56 ls
+  991  18 12 21 14:52:57 vim config.py
+  992  18 12 21 14:53:34 service apache2 restart
+  993  18 12 21 14:54:15 vim config.py
+  994  18 12 21 14:54:21 vim  api.py
+  995  18 12 21 14:56:39 vim config.py
+  996  18 12 21 14:56:53 service apache2 restart
+  997  18 12 21 14:56:55 vim config.py
+  998  18 12 21 15:07:15 ps aux
+  999  18 12 21 15:07:18 ps aux | grep cat
+

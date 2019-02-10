@@ -1,0 +1,750 @@
+root@ip-10-100-0-180:~# history
+    1  19 01 28 08:47:40 apt-get update
+    2  19 01 28 08:47:40 apt-get upgrade
+    3  19 01 28 08:47:40 apt-get install php5 apache2 emacs23-nox vim bind9utils sendmail rsync rsyslog openssh-server openssh-client curl
+    4  19 01 28 08:47:40 iptables -nL
+    5  19 01 28 08:47:40 netstat -tunpl
+    6  19 01 28 08:47:40 iptables-save 
+    7  19 01 28 08:47:40 iptables-save >> /etc/firewall.rules
+    8  19 01 28 08:47:40 vim /etc/firewall.rules 
+    9  19 01 28 08:47:40 ls /etc/firewall.rules 
+   10  19 01 28 08:47:40 ls /etc/firewall.rules  -al
+   11  19 01 28 08:47:40 vim /etc/firewall.rules 
+   12  19 01 28 08:47:40 service iptables restart
+   13  19 01 28 08:47:40 apt-get install iptables-persistance
+   14  19 01 28 08:47:40 apt-cache search iptables | grep persi
+   15  19 01 28 08:47:40 apt-get install iptables-persistent
+   16  19 01 28 08:47:40 vim /etc/iptables/rules.v4 
+   17  19 01 28 08:47:40 service iptables-persistent restart
+   18  19 01 28 08:47:40 iptables -nL
+   19  19 01 28 08:47:40 rm  /etc/firewall.rules -f
+   20  19 01 28 08:47:40 vim /etc/iptables/rules.v4
+   21  19 01 28 08:47:40 /etc/init.d/iptables-persistent status
+   22  19 01 28 08:47:40 /etc/init.d/iptables-persistent reload
+   23  19 01 28 08:47:40 iptables -nL
+   24  19 01 28 08:47:40 vim /etc/iptables/rules.v4
+   25  19 01 28 08:47:40 /etc/init.d/iptables-persistent reload
+   26  19 01 28 08:47:40 iptables -nL
+   27  19 01 28 08:47:40 vim /etc/iptables/rules.v4
+   28  19 01 28 08:47:40 /etc/init.d/iptables-persistent reload
+   29  19 01 28 08:47:40 iptables -nL
+   30  19 01 28 08:47:40 vim /etc/iptables/rules.v4
+   31  19 01 28 08:47:40 apt-get install logwatch fail2ban
+   32  19 01 28 08:47:40 apt-cache search logwatch
+   33  19 01 28 08:47:40 apt-get install logwatch fail2ban
+   34  19 01 28 08:47:40 vim /etc/aliases 
+   35  19 01 28 08:47:40 apt-get install chkconfig
+   36  19 01 28 08:47:40 chkconfig --list | grep mail
+   37  19 01 28 08:47:40 chkconfig --list | grep 
+   38  19 01 28 08:47:40 vim /etc/aliases 
+   39  19 01 28 08:47:40 service sendmail restart
+   40  19 01 28 08:47:40 mailq
+   41  19 01 28 08:47:40 mail
+   42  19 01 28 08:47:40 sendmail alerts@vlabs.ac.in hello
+   43  19 01 28 08:47:40 .
+   44  19 01 28 08:47:40 mailq
+   45  19 01 28 08:47:40 vim /etc/mail/sendmail.mc 
+   46  19 01 28 08:47:40 iptables -nL
+   47  19 01 28 08:47:40 vim /etc/iptables/rules.v4
+   48  19 01 28 08:47:40 /etc/init.d/iptables-persistent rreload
+   49  19 01 28 08:47:40 /etc/init.d/iptables-persistent reload
+   50  19 01 28 08:47:40 iptables -nL
+   51  19 01 28 08:47:40 vim /etc/iptables/rules.v4
+   52  19 01 28 08:47:40 /etc/init.d/iptables-persistent reload
+   53  19 01 28 08:47:40 telnet localhost 25
+   54  19 01 28 08:47:40 /etc/init.d/iptables-persistent stop
+   55  19 01 28 08:47:40 /etc/init.d/iptables-persistent sto
+   56  19 01 28 08:47:40 /etc/init.d/iptables-persistent flush
+   57  19 01 28 08:47:40 telnet localhost 25
+   58  19 01 28 08:47:40 mailq
+   59  19 01 28 08:47:40 sendmail alerts@vlabs.ac.in
+   60  19 01 28 08:47:40 mailq
+   61  19 01 28 08:47:40 iptables -nL
+   62  19 01 28 08:47:40 /etc/init.d/iptables-persistent restart
+   63  19 01 28 08:47:40 iptables -nL
+   64  19 01 28 08:47:40 vim /etc/iptables/rules.v4
+   65  19 01 28 08:47:40 /etc/init.d/iptables-persistent restart
+   66  19 01 28 08:47:40 iptables -nL
+   67  19 01 28 08:47:40 sendmail alerts@vlabs.ac.in
+   68  19 01 28 08:47:40 .
+   69  19 01 28 08:47:40 mailq
+   70  19 01 28 08:47:40 vim /etc/iptables/rules.v4
+   71  19 01 28 08:47:40 /etc/init.d/iptables-persistent restart
+   72  19 01 28 08:47:40 /etc/init.d/sendmail restart
+   73  19 01 28 08:47:40 mailq
+   74  19 01 28 08:47:40 vim /etc/iptables/rules.v4
+   75  19 01 28 08:47:40 /etc/init.d/iptables-persistent restart
+   76  19 01 28 08:47:40 /etc/init.d/sendmail restart
+   77  19 01 28 08:47:40 telnet localhost 25
+   78  19 01 28 08:47:40 mailq
+   79  19 01 28 08:47:40 sendmail alerts@vlabs.ac.in
+   80  19 01 28 08:47:40 hostory
+   81  19 01 28 08:47:40 history
+   82  19 01 28 08:47:40 history | grep install
+   83  19 01 28 08:47:40 apt-get install python-devel python-pip mongodb
+   84  19 01 28 08:47:40 apt-cache search python | grep dvel
+   85  19 01 28 08:47:40 apt-cache search python | grep devel 
+   86  19 01 28 08:47:40 apt-cache search python-dev
+   87  19 01 28 08:47:40 apt-get install python-dev python-pip mongodb
+   88  19 01 28 08:47:40 apt-cache search mongodb
+   89  19 01 28 08:47:40 mongodb -v
+   90  19 01 28 08:47:40 mongodb --version
+   91  19 01 28 08:47:40 dpkg -l | grep mongodb
+   92  19 01 28 08:47:40 apt-get --purge remove mongodb
+   93  19 01 28 08:47:40 apt-get --purge remove mongodb*
+   94  19 01 28 08:47:40 rm /var/lib/mongodb* -rf
+   95  19 01 28 08:47:40 pt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+   96  19 01 28 08:47:40 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+   97  19 01 28 08:47:40 touch /etc/apt/sources.list.d/mongodb-org-3.0.list
+   98  19 01 28 08:47:40 echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+   99  19 01 28 08:47:40 apt-get update
+  100  19 01 28 08:47:40 apt-get install -y mongodb-org
+  101  19 01 28 08:47:40 dpkg -l | grep mongodb
+  102  19 01 28 08:47:40 history | grep install
+  103  19 01 28 08:47:40 apt-cache search nagios | grep nrpe
+  104  19 01 28 08:47:40 apt-cache search nagios | grep client
+  105  19 01 28 08:47:40 apt-get install nagios-nrpe-plugin nsca-client 
+  106  19 01 28 08:47:40 apt-cache search nagios | grep plugins
+  107  19 01 28 08:47:40 apt-get install nagios-nrpe-plugin nsca-client 
+  108  19 01 28 08:47:40 apt-cache search nagios 
+  109  19 01 28 08:47:40 apt-get install nagios-nrpe-plugin nsca-client
+  110  19 01 28 08:47:40 apt-get --purge  remove nagios*
+  111  19 01 28 08:47:40 apt-get autoremove
+  112  19 01 28 08:47:40 apt-get update
+  113  19 01 28 08:47:40 apt-get uppgrade
+  114  19 01 28 08:47:40 apt-get upgrade
+  115  19 01 28 08:47:40 apt-get install wget
+  116  19 01 28 08:47:40 apt-get install curl
+  117  19 01 28 08:47:40 cat /etc/iptables/rules.v4 
+  118  19 01 28 08:47:40 git clone https://github.com/vlead/ovpl
+  119  19 01 28 08:47:40 apt-get install git
+  120  19 01 28 08:47:40 dpkg -l | grep git
+  121  19 01 28 08:47:40 git version
+  122  19 01 28 08:47:40 git clone https://github.com/vlead/ovpl
+  123  19 01 28 08:47:40 cd ovpl/
+  124  19 01 28 08:47:40 ls
+  125  19 01 28 08:47:40 python setup.py install
+  126  19 01 28 08:47:40 ls
+  127  19 01 28 08:47:40 iptables -nL
+  128  19 01 28 08:47:40 vim /etc/iptables/rules.v4
+  129  19 01 28 08:47:40 /etc/init.d/iptables-persistent reload
+  130  19 01 28 08:47:40 iptables -nL
+  131  19 01 28 08:47:40 sendmail alerts@vlabs.ac.in
+  132  19 01 28 08:47:40 mailq
+  133  19 01 28 08:47:40 vim /etc/mail/sendmail.mc
+  134  19 01 28 08:47:40 cd src/
+  135  19 01 28 08:47:40 ls
+  136  19 01 28 08:47:40 service mongodb status
+  137  19 01 28 08:47:40 service mongod status
+  138  19 01 28 08:47:40 make stop-server 
+  139  19 01 28 08:47:40 ls
+  140  19 01 28 08:47:40 cd ..
+  141  19 01 28 08:47:40 git branch -a
+  142  19 01 28 08:47:40 git checkout develop
+  143  19 01 28 08:47:40 cd ./src/
+  144  19 01 28 08:47:40 make
+  145  19 01 28 08:47:40 make stop-server 
+  146  19 01 28 08:47:40 make
+  147  19 01 28 08:47:40 service mongod status
+  148  19 01 28 08:47:40 git branch -a
+  149  19 01 28 08:47:40 iptables -F
+  150  19 01 28 08:47:40 make stop-server 
+  151  19 01 28 08:47:40 make 
+  152  19 01 28 08:47:40 apt-get install git
+  153  19 01 28 08:47:40 iptables -nL
+  154  19 01 28 08:47:40 /etc/init.d/iptables-persistent restart
+  155  19 01 28 08:47:40 iptables -nL
+  156  19 01 28 08:47:40 mailq
+  157  19 01 28 08:47:40 ssh-keygen -t rsa
+  158  19 01 28 08:47:40 cp /home/ubuntu/.ssh/authorized_keys .ssh/authorized_keys 
+  159  19 01 28 08:47:40 cat .ssh/authorized_keys 
+  160  19 01 28 08:47:40 vim .ssh/authorized_keys 
+  161  19 01 28 08:47:40 tail -f /var/log/syslog 
+  162  15 04 22 07:14:42 service ssh status
+  163  15 04 22 07:15:06 getent passwd 
+  164  15 04 22 07:15:17 :
+  165  15 04 22 07:15:24 iptables -nL
+  166  15 04 22 07:15:55 cat /etc/resolv.conf 
+  167  15 04 22 07:16:45 route -n
+  168  15 04 22 07:22:05 iptables -nL
+  169  15 04 22 07:22:12 ufw desable
+  170  15 04 22 07:22:21 ufw disable
+  171  15 04 22 07:22:40 iptables -nL
+  172  15 04 22 07:23:10 cat .ssh/authorized_keys 
+  173  15 04 22 07:23:19 :q
+  174  15 04 22 07:23:42 /etc/init.d/iptables-persistent restart
+  175  15 04 22 07:24:06 getent user
+  176  15 04 22 07:24:10 getent passwd
+  177  15 04 22 07:24:23 getent passwd | grep ubuntu
+  178  15 04 22 07:24:50 /etc/init.d/ssh status
+  179  15 04 22 07:24:54 /etc/init.d/ssh restart
+  180  15 04 22 07:25:07 iptables -F
+  181  15 04 22 07:25:45 tail -f /var/log/syslog 
+  182  15 04 22 07:25:54 tail -f /var/log/dmesg
+  183  15 04 22 07:26:58 cat /home/ubuntu/.ssh/authorized_keys 
+  184  15 04 22 07:27:01 :q
+  185  15 04 22 07:27:11 /etc/init.d/iptables-persistent restart
+  186  15 04 22 07:27:18 iptables -nL
+  187  15 04 22 07:27:37 getent group
+  188  15 04 22 07:27:56 getent passwd
+  189  15 04 22 07:29:30 #getent passwd
+  190  15 04 22 07:32:51 ufw
+  191  15 04 22 07:33:01 ufw status
+  192  15 04 22 07:33:11 iptables -nL
+  193  15 04 22 07:35:05 vim .ssh/authorized_keys 
+  194  15 04 22 07:37:20 ping 52.4.60.41
+  195  15 04 22 07:37:41 ping google.com
+  196  15 04 22 07:37:56 ping gnu.org
+  197  15 04 22 07:38:21 netstat -tunlp
+  198  15 04 22 07:38:55 iptables -F
+  199  15 04 22 07:39:00 iptables -nL
+  200  15 04 22 07:47:21 df -h
+  201  15 04 22 07:47:45 ls
+  202  15 04 22 07:47:51 du logs/ -h
+  203  15 04 22 07:47:59 du ovpl/ -h
+  204  15 04 22 07:48:16 df -h
+  205  15 04 22 07:49:34 du -h
+  206  15 04 22 07:49:42 du -h /
+  207  15 04 22 07:50:00 du -h / | grep MB
+  208  15 04 22 07:50:22 du / -h | grep MB
+  209  15 04 22 07:50:28 du / -h 
+  210  15 04 22 07:50:54 grep MB du -h /
+  211  15 04 22 07:51:24 du -h / | less
+  212  15 04 22 07:53:30 du -h / | less | grep MB
+  213  15 04 22 07:53:36 du -h / | less | grep k
+  214  15 04 22 07:53:43 du -h / | less | grep mb
+  215  15 04 22 07:54:57 man du
+  216  15 04 22 07:55:36 du -m
+  217  15 04 22 07:55:41 du -m /
+  218  15 04 22 08:43:34 chkconfig 
+  219  15 04 22 08:44:22 vim /etc/iptables/rules.v4
+  220  15 04 22 08:52:13 iptables -nL
+  221  15 04 22 08:52:39 /etc/init.d/iptables-persistent restart
+  222  15 04 22 08:52:42 iptables -nL
+  223  15 04 22 08:59:51 netstat -tunlp
+  224  15 04 22 09:00:41 iptables -nLv
+  225  15 04 22 09:00:46 iptables -nL -v
+  226  15 04 22 09:11:28 deluser ubuntu
+  227  15 04 22 09:11:56 userdel ubuntu
+  228  15 04 22 09:13:03 userdel -rf ubuntu
+  229  15 04 22 09:13:22 rm -rf /home/ubuntu/
+  230  15 04 22 09:13:23 ls
+  231  15 04 22 09:14:14 sendmail alerts@vlabs.ac.in
+  232  15 04 22 09:14:28 mailq
+  233  15 04 22 09:15:17 vim /etc/iptables/rules.v4
+  234  15 04 22 09:16:14 /etc/init.d/iptables-persistent restart
+  235  15 04 22 09:16:17 mailq
+  236  15 04 22 09:21:01 telnet localhost 25
+  237  15 04 22 09:22:59 tail -f /var/log/mail.
+  238  15 04 22 09:23:04 tail -f /var/log/mail.log 
+  239  15 04 22 09:24:00 telnet localhost 25
+  240  15 04 22 09:25:43 vim /etc/iptables/rules.v4
+  241  15 04 22 09:26:00 /etc/init.d/iptables-persistent restart
+  242  15 04 22 09:26:09 telnet localhost 25
+  243  15 04 22 09:26:29 mailq
+  244  15 04 22 09:26:44 /etc/init.d/sendmail restart
+  245  15 04 22 09:26:51 mailq
+  246  15 04 22 09:27:26 traceroute6 gmail.com 25
+  247  15 04 22 09:27:32 traceroute6 gmail.com 
+  248  15 04 22 09:27:44 traceroute6 google.com 25
+  249  15 04 22 09:27:50 ping google.com
+  250  15 04 22 09:28:10 traceroute6 google.com
+  251  15 04 22 09:28:22 apt-get install traceroute
+  252  15 04 22 09:28:35 traceroute google.com
+  253  15 04 22 09:29:14 traceroute gmail.com 25
+  254  15 04 22 09:29:31 traceroute 8.8.8.8 25
+  255  15 04 22 09:30:27 traceroute -p 25 googe.com 
+  256  15 04 22 09:31:17 vim /etc/iptables/rules.v4
+  257  15 04 22 09:32:20 vim /etc/aliases 
+  258  15 04 22 09:33:21 less /var/log/mail.err 
+  259  15 04 22 09:33:46 mailq
+  260  15 04 22 09:34:00 less /var/spool/mqueue
+  261  15 04 22 09:43:37 vim /etc/aliases 
+  262  15 04 22 09:44:00 sendmail alerts@vlabs.ac.in
+  263  15 04 22 09:44:47 vim /etc/logwatch/conf/logwatch.conf 
+  264  15 04 22 09:45:54 mkdir /var/cache/logwatch
+  265  15 04 22 09:47:16 cat /usr/share/logwatch/default.conf/logwatch.conf 
+  266  15 04 22 09:47:24 cp /usr/share/logwatch/default.conf/logwatch.conf /etc/logwatch/conf/
+  267  15 04 22 09:47:51 vim /etc/logwatch/conf/logwatch.conf 
+  268  15 04 22 09:49:36 cat /usr/share/logwatch/default.conf/logfiles/http.conf 
+  269  15 04 22 09:50:07 vim /etc/logwatch/conf/logwatch.conf 
+  270  15 04 22 09:53:06 logwatch 
+  271  15 04 22 09:56:13 mailq
+  272  15 04 22 09:56:24 vim /etc/logwatch/conf/logwatch.conf 
+  273  15 04 22 09:58:47 vim /etc/aliases 
+  274  15 04 22 09:59:00 logwatch 
+  275  15 04 22 10:00:45 vim /etc/aliases 
+  276  15 04 22 10:00:55 logwatch 
+  277  15 04 22 10:01:43 vim /etc/logwatch/conf/logwatch.conf 
+  278  15 04 22 10:02:49 iptables -nL
+  279  15 04 22 10:05:19 vim /etc/iptables/rules.v4
+  280  15 04 22 10:05:41 /etc/init.d/iptables-persistent restart
+  281  15 04 22 10:05:44 iptables -nL
+  282  15 04 22 10:05:50 vim /etc/iptables/rules.v4
+  283  15 04 22 10:06:13 /etc/init.d/iptables-persistent restart
+  284  15 04 22 10:06:16 iptables -nL
+  285  15 04 22 10:06:29 logwatch 
+  286  15 04 22 10:07:27 ls
+  287  15 04 22 10:37:54 iptables -nL
+  288  15 04 22 10:38:30 lsb_release -a
+  289  15 04 22 10:53:44 vi /etc/logwatch/conf/logwatch.conf 
+  290  15 04 22 12:07:22 mail
+  291  15 04 22 12:07:36 mailq
+  292  15 04 22 12:08:55 logwatch --detail Low --mailto alerts@vlabs.ac.in --service ssh --range today​
+  293  15 04 22 12:09:02 logwatch --detail Low --mailto alerts@vlabs.ac.in --service sshd --range today​
+  294  15 04 22 12:09:27 #logwatch --detail Low --mailto alerts@vlabs.ac.in --service sshd --range today​
+  295  15 04 22 12:11:06 logwatch  --detail High --mailto alerts@vlabs.ac.in --service sshd --range today
+  296  15 04 22 12:11:37 mailq
+  297  15 04 22 12:12:04 /etc/init.d/sendmail restart
+  298  15 04 22 12:12:10 mailq
+  299  15 04 22 12:12:36 iptables -F
+  300  15 04 22 12:12:41 /etc/init.d/sendmail restart
+  301  15 04 22 12:12:48 mailq
+  302  15 04 22 12:13:35 vim /etc/iptables/rules.v4
+  303  15 04 22 12:15:30 route -n
+  304  15 04 22 12:17:05 ls /root/
+  305  15 04 22 12:17:09 cd /root/
+  306  15 04 22 12:17:10 ls
+  307  15 04 22 12:18:02 vim /etc/iptables/rules.v4
+  308  15 04 22 12:36:47 iptables -nL
+  309  15 04 22 12:37:08 sendmail zubair@vlabs.ac.in
+  310  15 04 22 12:37:27 mailq
+  311  15 04 22 12:37:47 vi /etc/mail/sendmail.mc 
+  312  15 04 22 12:40:55 sendmail
+  313  15 04 22 12:41:02 netstat -altnp
+  314  15 04 22 12:41:08 netstat -altnp | grep sendmail
+  315  15 04 22 12:42:58 ping gnu.org
+  316  15 04 22 12:44:49 sendmailconfig 
+  317  15 04 22 12:45:24 mailq 
+  318  15 04 22 12:46:02 ls -l /*/mail
+  319  15 04 22 12:47:28 vi /etc/mail/sendmail.mc 
+  320  15 04 22 12:47:40 mailq
+  321  15 04 22 12:47:57 iptables -nL
+  322  15 04 22 12:48:06 w
+  323  15 04 22 12:21:16 /etc/init.d/iptables-persistent start
+  324  15 04 22 12:21:25 service iptables-persistent start
+  325  15 04 22 12:21:30 iptables -nL
+  326  15 04 22 12:22:04 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  327  15 04 22 12:22:13 mailq
+  328  15 04 22 12:23:05 /etc/init.d/sendmail restart
+  329  15 04 22 12:23:12 mailq
+  330  15 04 22 12:23:31 vim /etc/iptables/rules.v4
+  331  15 04 22 12:24:27 mailq
+  332  15 04 22 12:25:00 /etc/init.d/iptables-persistent restart
+  333  15 04 22 12:25:03 mailq
+  334  15 04 22 12:25:15 netstat -nr
+  335  15 04 22 12:25:28 iptables -nL
+  336  15 04 22 12:25:47 /etc/init.d/sendmail restart
+  337  15 04 22 12:25:54 mailq
+  338  15 04 22 12:26:16 telnet 10.100.1.1 25
+  339  15 04 22 12:26:31 ping 10.100.1.1
+  340  15 04 22 12:29:19 mailq
+  341  15 04 22 12:29:32 /etc/init.d/sendmail restart
+  342  15 04 22 12:29:38 mailq
+  343  15 04 22 12:29:55 iptables -F
+  344  15 04 22 12:29:58 /etc/init.d/sendmail restart
+  345  15 04 22 12:30:05 mailq
+  346  15 04 22 12:31:23 vim /etc/iptables/rules.v
+  347  15 04 22 12:31:27 vim /etc/iptables/rules.v4
+  348  15 04 22 12:32:54 service iptables-persistent restart
+  349  15 04 22 12:32:58 iptables -nL
+  350  15 04 22 12:33:09 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  351  15 04 22 12:33:14 mailq
+  352  15 04 22 12:33:33 /etc/init.d/sendmail restart
+  353  15 04 22 12:33:40 mailq
+  354  15 04 22 12:33:49 vim /etc/iptables/rules.v4
+  355  15 04 22 12:34:07 service iptables-persistent restart
+  356  15 04 22 12:34:11 mailq
+  357  15 04 22 12:34:16 /etc/init.d/sendmail restart
+  358  15 04 22 12:34:24 mailq
+  359  15 04 22 12:35:28 iptables -nL
+  360  15 04 22 12:36:17 vim /etc/iptables/rules.v4
+  361  15 04 22 12:37:44 service iptables-persistent restart
+  362  15 04 22 12:37:52 iptables -nL
+  363  15 04 22 12:37:56 mailq
+  364  15 04 22 12:38:20 /etc/init.d/sendmail restart
+  365  15 04 22 12:38:28 mailq
+  366  15 04 22 12:38:38 iptables -nL
+  367  15 04 22 12:38:52 vim /etc/iptables/rules.v4
+  368  15 04 22 12:39:23 service iptables-persistent restart
+  369  15 04 22 12:39:30 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  370  15 04 22 12:39:33 mailq
+  371  15 04 22 12:39:44 vim /etc/iptables/rules.v4
+  372  15 04 22 12:39:58 service iptables-persistent restart
+  373  15 04 22 12:40:02 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  374  15 04 22 12:40:05 mailq
+  375  15 04 22 12:40:22 /etc/init.d/sendmail restart
+  376  15 04 22 12:40:31 mailq
+  377  15 04 22 12:40:36 vim /etc/iptables/rules.v4
+  378  15 04 22 12:41:08 service iptables-persistent restart
+  379  15 04 22 12:41:11 mailq
+  380  15 04 22 12:41:15 vim /etc/iptables/rules.v4
+  381  15 04 22 12:41:44 service iptables-persistent restart
+  382  15 04 22 12:41:46 mailq
+  383  15 04 22 12:41:58 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  384  15 04 22 12:42:03 mailq
+  385  15 04 22 12:42:07 mailw
+  386  15 04 22 12:42:09 mailq
+  387  15 04 22 12:42:19 /etc/init.d/sendmail restart
+  388  15 04 22 12:42:25 mailq
+  389  15 04 22 12:42:33 iptables -nL
+  390  15 04 22 12:43:01 vim /etc/iptables/rules.v4
+  391  15 04 22 12:43:18 service iptables-persistent restart
+  392  15 04 22 12:43:22 mailq
+  393  15 04 22 12:43:35 /etc/init.d/sendmail restart
+  394  15 04 22 12:43:47 mailq
+  395  15 04 22 12:44:22 vim /etc/iptables/rules.v4
+  396  15 04 22 12:44:47 service iptables-persistent restart
+  397  15 04 22 12:44:49 mailq
+  398  15 04 22 12:44:56 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  399  15 04 22 12:45:00 mailq
+  400  15 04 22 12:45:22 /etc/init.d/sendmail resatrt
+  401  15 04 22 12:45:26 /etc/init.d/sendmail restart
+  402  15 04 22 12:45:33 mailq
+  403  15 04 22 12:45:44 service iptables-persistent restart
+  404  15 04 22 12:45:46 mailq
+  405  15 04 22 12:46:20 /etc/init.d/sendmail restart
+  406  15 04 22 12:46:26 mailq
+  407  15 04 22 12:46:39 vim /etc/iptables/rules.v4
+  408  15 04 22 12:47:03 mailq
+  409  15 04 22 12:47:20 service iptables-persistent restart
+  410  15 04 22 12:47:29 mailq
+  411  15 04 22 12:48:04 vim /etc/logwatch/conf/logwatch.conf 
+  412  15 04 22 12:48:23 iptables -F
+  413  15 04 22 12:48:27 mailq
+  414  15 04 22 12:48:42 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  415  15 04 22 12:48:45 mailq
+  416  15 04 22 12:49:38 iptables -nL
+  417  15 04 22 12:49:42 iptables -F
+  418  15 04 22 12:49:45 mailq
+  419  15 04 22 12:50:15 iptables -F
+  420  15 04 22 12:50:20 mailq
+  421  15 04 22 12:51:00 #logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  422  15 04 22 12:51:05 logwatch
+  423  15 04 22 12:51:10 mailq
+  424  15 04 22 12:51:36 service iptables-persistent restart
+  425  15 04 22 12:51:40 iptables -nL
+  426  15 04 22 12:51:52 logwatch
+  427  15 04 22 12:52:02 mailq
+  428  15 04 22 12:52:11 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  429  15 04 22 12:52:14 mailq
+  430  15 04 22 12:53:18 logwatch
+  431  15 04 22 12:53:23 mailq
+  432  15 04 22 12:53:43 vim /etc/logwatch/conf/logwatch.conf 
+  433  15 04 22 12:54:32 mailq
+  434  15 04 22 12:55:16 sendmailconfig 
+  435  15 04 22 12:55:53 iptables -nL
+  436  15 04 22 12:56:16 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  437  15 04 22 12:56:19 mailq
+  438  15 04 22 12:57:22 apt-get purge sendmail
+  439  15 04 22 12:57:37 #sendmailconfig 
+  440  15 04 22 12:58:07 apt-get install sendmail
+  441  15 04 22 12:58:29 #logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  442  15 04 22 12:58:30 mailq
+  443  15 04 22 12:58:33 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  444  15 04 22 12:58:37 mailq
+  445  15 04 22 12:59:49 iptables -nL
+  446  15 04 22 13:00:02 mailq
+  447  15 04 23 04:47:08 route -n
+  448  15 04 23 04:47:31 route add default gw 10.100.1.1
+  449  15 04 23 04:47:37 route -n
+  450  15 04 23 04:47:47 route del default gw 10.100.1.1
+  451  15 04 23 04:47:50 route -n
+  452  15 04 23 04:47:55 route add default gw 10.100.1.1
+  453  15 04 23 04:48:02 route del default gw 10.100.0.1
+  454  15 04 23 04:48:05 route -n
+  455  15 04 23 04:48:11 ping google.com
+  456  15 04 23 05:04:35 exit
+  457  15 04 23 05:11:26 iptables -nL
+  458  15 04 23 05:11:38 less /etc/iptables/rules.v6 
+  459  15 04 23 05:16:54 exit
+  460  15 04 23 06:17:45 cat /etc/resolv.conf 
+  461  15 04 23 06:18:54 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  462  15 04 23 06:19:05 iptables -nL
+  463  15 04 23 06:19:31 vim /etc/resolv.conf 
+  464  15 04 23 06:19:59 logwatch  --detail High --mailto shankar@vlabs.ac.in --service sshd --range today
+  465  15 04 23 06:20:02 mailq
+  466  15 04 23 06:20:17 cat /etc/resolv.conf 
+  467  15 04 23 06:20:40 vim /etc/logwatch/conf/logwatch.conf 
+  468  15 04 23 06:21:34 logwatch
+  469  15 04 23 06:21:43 mailq
+  470  15 04 23 06:24:54 vim /etc/logwatch/conf/logwatch.conf 
+  471  15 04 23 06:27:58 logwatch 
+  472  15 04 23 06:28:03 mailq
+  473  15 04 23 06:30:50 iptables -nL
+  474  15 04 23 06:33:08 mailq
+  475  15 04 23 06:38:17 logwatch
+  476  15 04 23 06:38:52 cat /etc/cron.daily/sendmail 
+  477  15 04 23 06:41:34 cat /etc/crontab 
+  478  15 04 23 06:46:19 cat /etc/hosts
+  479  15 04 23 06:48:26 getent hosts
+  480  15 04 23 06:59:38 nslookup localhost
+  481  15 04 23 06:59:54 nslookup ip-10-100-1-118
+  482  15 04 23 07:11:06 exit
+  483  15 04 23 07:15:07 iptables -F
+  484  15 04 23 07:15:10 logwatch 
+  485  15 04 23 07:15:55 route -n
+  486  15 04 23 07:16:05 cat /etc/resolv.conf 
+  487  15 04 23 07:17:19 iptables -nL
+  488  15 04 23 07:17:24 logwatch 
+  489  15 04 23 07:17:58 cat /etc/hosts
+  490  15 04 23 07:18:26 mailq
+  491  15 04 23 07:19:41 vim /etc/logwatch/conf/logwatch.conf 
+  492  15 04 23 07:20:25 logwatch 
+  493  15 04 23 07:20:43 service iptables-persistent start
+  494  15 04 23 07:20:49 iptables -nL
+  495  15 04 23 07:20:52 logwatch 
+  496  15 04 23 07:20:56 mailq
+  497  15 04 23 07:22:27 iptables -nL
+  498  15 04 23 07:23:30 date
+  499  15 04 23 07:23:55 12:55
+  500  15 04 23 08:46:29 vim /etc/resolv.conf 
+  501  15 04 23 08:46:57 /etc/init.d/sendmail resatrt
+  502  15 04 23 08:47:02 /etc/init.d/sendmail restart
+  503  15 04 23 08:47:10 mailq
+  504  15 04 23 08:47:16 iptables -nL
+  505  15 04 23 08:47:50 logwatch
+  506  15 04 23 08:49:19 vim /etc/mail/sendmail.conf 
+  507  15 04 23 08:50:18 vim /etc/mail/sendmail.mc 
+  508  15 04 23 08:53:04 /etc/init.d/sendmail restart
+  509  15 04 23 08:53:16 netstat  -tunlp
+  510  15 04 23 08:53:27 mailq
+  511  15 04 23 08:53:44 logwatch 
+  512  15 04 23 08:54:27 cp /usr/share/logwatch/default.conf/logfiles/http.conf /etc/logwatch/conf/logfiles/
+  513  15 04 23 08:54:47 vim /etc/logwatch/conf/logfiles/http.conf 
+  514  15 04 23 08:56:01 tail -f /var/log/mail.log 
+  515  15 04 23 08:57:11 date
+  516  15 04 23 09:00:15 vim /etc/cron.hourly/logwatch
+  517  15 04 23 09:03:24 cat /etc/cron.daily/00logwatch 
+  518  15 04 23 09:03:38 which logwatch
+  519  15 04 23 09:05:32 #logwatch --output mail
+  520  15 04 23 09:05:42 cat /etc/cron.daily/00logwatch 
+  521  15 04 23 09:05:51 logwatch --output maill
+  522  15 04 23 09:05:56 logwatch --output mail
+  523  15 04 23 09:06:23 vim /etc/logwatch/conf/logfiles/http.conf 
+  524  15 04 23 09:06:35 logwatch --output mail
+  525  15 04 23 09:09:48 iptables -nL
+  526  15 04 23 09:12:30 vim /etc/iptables/rules.v4
+  527  15 04 23 09:13:13 service iptables-persistent restart
+  528  15 04 23 09:31:37 vim /etc/iptables/rules.v4
+  529  15 04 23 09:32:16 service iptables-persistent restart
+  530  15 04 23 09:32:25 logwatch --output mail
+  531  15 04 23 09:32:46 mail
+  532  15 04 23 09:32:50 mailq
+  533  15 04 23 09:33:41 logwatch --output mail
+  534  15 04 23 09:34:34 vim /etc/iptables/rules.v4
+  535  15 04 23 09:35:05 service iptables-persistent restart
+  536  15 04 23 09:35:41 vim /etc/iptables/rules.v4
+  537  15 04 23 09:37:43 service iptables-persistent restart
+  538  15 04 23 09:38:03 cat /etc/resolv.conf 
+  539  15 04 23 09:38:39 route -n
+  540  15 04 23 09:39:01 route add default gw 10.100.1.1
+  541  15 04 23 09:39:14 route del default gw 10.100.0.1
+  542  15 04 23 09:39:19 route -n
+  543  15 04 23 09:39:49 cat /etc/resolv.conf 
+  544  15 04 23 09:39:56 vim /etc/resolv.conf 
+  545  15 04 23 09:41:02 vim /etc/iptables/rules.v4
+  546  15 04 23 09:45:15 service iptables-persistent restart
+  547  15 04 23 09:45:52 route -n
+  548  15 04 23 09:47:54 cat /etc/resolv.conf 
+  549  15 04 23 09:28:47 iptables -nL
+  550  15 04 23 09:30:54 apt-get update
+  551  15 04 23 09:32:36 apt-get upgrade
+  552  15 04 23 09:34:08 apt-get -f install
+  553  15 04 23 09:34:18 apt-get upgrade
+  554  15 04 23 09:39:31 apt-get update
+  555  15 04 23 09:46:40 apt-get upgare
+  556  15 04 23 09:46:44 apt-get upgrade
+  557  15 04 23 09:46:58 apt-get upgare
+  558  15 04 23 09:47:02 apt-get update
+  559  15 04 23 09:49:51 apt-get upgrade
+  560  15 04 23 09:50:25 apt-get install elinks
+  561  15 04 23 09:59:34 ls 
+  562  15 04 23 09:59:38 cd ovpl/
+  563  15 04 23 09:59:40 ls
+  564  15 04 23 09:59:46 cd src/
+  565  15 04 23 09:59:48 make
+  566  15 04 23 10:00:10 make server-stop
+  567  15 04 23 10:00:15 ls
+  568  15 04 23 10:00:56 make stop-server
+  569  15 04 23 10:01:01 make 
+  570  15 04 23 10:02:37 cd ../../
+  571  15 04 23 10:04:04 rm -rf ovpl/
+  572  15 04 23 10:04:09 rm -rf logs/
+  573  15 04 23 10:04:19 apt-get --purge remove git
+  574  15 04 23 10:04:30 apt-get autoremove
+  575  15 04 23 10:04:54 apt-get update
+  576  15 04 23 10:06:06 cat /etc/resolv.conf 
+  577  15 04 23 10:06:15 vim /etc/resolv.conf 
+  578  15 04 23 10:06:37 vim /etc/logwatch/conf/logwatch.conf 
+  579  15 04 23 10:07:38 df -h
+  580  15 04 23 10:07:53 chkconfig --list
+  581  15 04 23 10:18:52 chkconfig ssh on
+  582  15 04 23 10:18:57 chkconfig sshd on
+  583  15 04 23 10:19:12 chkconfig ssh on
+  584  15 04 23 10:20:11 chkconfig 
+  585  15 04 23 10:20:18 man chkconfig 
+  586  15 04 23 10:25:13 chkconfig ssh
+  587  15 04 23 10:25:17 chkconfig ssh on
+  588  15 04 23 10:25:56 vim .ssh/authorized_keys 
+  589  15 04 23 10:40:48 iptables -nL
+  590  15 04 23 10:50:37 cat /etc/resolv.conf 
+  591  15 04 23 10:50:47 ping google.com
+  592  15 04 23 10:50:57 route -n 
+  593  15 04 23 10:52:15 vim /etc/networks
+  594  15 04 23 10:52:28 vim /etc/network/interfaces
+  595  15 04 23 10:52:42 vim /etc/network/interfaces.d/eth0.cfg 
+  596  15 04 23 10:53:05 cat /etc/resolv.conf 
+  597  15 04 23 11:05:24 vim /etc/network/interfaces
+  598  15 04 23 11:05:37 vim /etc/networks
+  599  15 04 23 11:05:45 vim /etc/network/interfaces
+  600  15 04 23 11:06:17 vim /etc/network/interfaces.d/eth0.cfg 
+  601  15 04 23 11:06:53 /etc/init.d/networking restart
+  602  15 04 23 11:07:00 route -n
+  603  15 04 23 11:07:05 /etc/init.d/networking restart
+  604  15 04 23 11:07:09 route -n
+  605  15 04 23 11:07:16 vim /etc/network/interfaces.d/eth0.cfg 
+  606  15 04 23 11:09:19 vim /etc/network/if-up.d/scripts
+  607  15 04 23 11:10:28 /etc/init.d/networking restart
+  608  15 04 23 11:10:32 route -n
+  609  15 04 23 11:11:44 vim /etc/rc.local 
+  610  15 04 23 11:13:25 reboot
+  611  15 04 23 11:14:46 route -n
+  612  15 04 23 11:14:53 ping google.com
+  613  15 04 23 11:56:07 vim /etc/rc.local 
+  614  15 04 23 11:56:30 vim /etc/network/if-up.d/scripts
+  615  15 04 23 11:56:39 rm -f /etc/network/if-up.d/scripts
+  616  15 04 23 11:57:02 vim /etc/cron.hourly/logwatch 
+  617  15 04 23 11:57:12 rm -f /etc/cron.hourly/logwatch 
+  618  15 04 23 11:58:17 iptables -nL
+  619  15 04 23 11:59:12 apt-get autoremove
+  620  15 04 23 11:59:53 chkconfig mongodb
+  621  15 04 23 11:59:55 chkconfig mongod
+  622  15 04 23 11:59:58 chkconfig mongod 
+  623  15 04 23 12:00:48 service mongod
+  624  15 04 23 12:03:02 service mongod status
+  625  15 04 23 12:04:03 shutdown -h now
+  626  15 04 24 10:57:19 vim /etc/host
+  627  15 04 24 10:57:23 vim /etc/hosts
+  628  15 04 24 11:22:11 vim /etc/logwatch/conf/logwatch.conf 
+  629  15 04 24 11:29:34 vim /usr/share/logwatch/scripts/services/
+  630  15 04 24 11:30:55 logwatch 
+  631  15 10 14 05:33:33 ls
+  632  15 10 14 05:33:36 cd labs/
+  633  15 10 14 05:33:38 ls
+  634  15 10 14 05:33:55 mv structural-dynamics-iiith structural-dynamics-iiith.old
+  635  15 10 14 05:33:56 ls
+  636  15 10 14 05:34:27 git clone https://github.com/Virtual-Labs/structural-dynamics-iiith.git
+  637  15 10 14 05:34:38 apt-get install git
+  638  15 10 14 05:36:42 ls
+  639  15 10 14 05:36:52 apt-get install git
+  640  15 10 14 05:40:57 mv structural-dynamics-iiith.old structural-dynamics-iiith
+  641  15 10 14 05:40:59 ls
+  642  15 10 14 05:41:05 cd structural-dynamics-iiith/
+  643  15 10 14 05:41:07 ls
+  644  15 10 14 05:41:11 cd src/
+  645  15 10 14 05:41:12 ls
+  646  15 10 14 05:41:27 cd /var/www/
+  647  15 10 14 05:41:29 ls
+  648  15 10 14 05:41:40 cd -
+  649  15 10 14 05:41:43 pwd
+  650  15 10 14 05:41:47 ls
+  651  15 10 14 05:41:50 cd ..
+  652  15 10 14 05:41:55 ls
+  653  15 10 14 05:42:17 apt-get install git
+  654  15 10 14 05:50:47 ls
+  655  15 10 14 05:50:53 cd structural-dynamics-iiith
+  656  15 10 14 05:50:54 ls
+  657  15 10 14 05:50:58 cd src/
+  658  15 10 14 05:50:59 ls
+  659  15 10 14 05:51:02 make
+  660  15 10 14 05:51:17 ls
+  661  15 10 14 05:51:26 cd ..
+  662  15 10 14 05:51:28 ls
+  663  15 10 14 05:51:32 cd build/
+  664  15 10 14 05:51:34 ls
+  665  15 10 14 05:51:48 cd /var/www/
+  666  15 10 14 05:51:54 rm -rf *
+  667  15 10 14 05:51:59 cd -
+  668  15 10 14 05:52:16 cp -r * /var/www/
+  669  15 10 14 05:53:20 cd ..
+  670  15 10 14 05:53:24 ls
+  671  15 10 14 05:54:50 git clone https://github.com/vlead/feedback-portal.git
+  672  15 10 14 05:55:05 apt-get install git
+  673  15 10 14 06:19:58 ping google.com
+  674  15 10 14 06:21:09 nslookup sd-iiith.vlabs.ac.in
+  675  15 10 14 06:25:02 ping google.com
+  676  15 10 14 06:25:59 cd ..
+  677  15 10 14 06:26:00 ls
+  678  15 10 14 06:26:07 ping google.com
+  679  15 10 14 06:26:36 cat /etc/resolv.conf 
+  680  15 10 14 07:12:00 ls
+  681  15 10 14 07:12:04 cd labs/
+  682  15 10 14 07:12:05 ls
+  683  15 10 14 07:12:16 ping google.com
+  684  15 10 14 07:12:52 apt-get install git
+  685  15 10 15 05:33:01 ls
+  686  15 10 15 05:33:04 cd labs/
+  687  15 10 15 05:33:05 ls
+  688  15 10 15 05:33:17 apt-get install git
+  689  15 10 15 05:53:15 cd ..
+  690  15 10 15 05:53:20 ping google.com
+  691  16 07 11 11:26:27 cd labs/
+  692  16 07 11 11:26:27 ls
+  693  16 07 11 11:26:30 ls -ltr
+  694  16 07 11 11:26:55 ls
+  695  16 07 11 11:27:04 mv structural-dynamics-iiith/ structural-dynamics-iiith-20160711/
+  696  16 07 11 11:27:05 ls
+  697  16 07 11 11:27:08 git clone https://github.com/Virtual-Labs/structural-dynamics-iiith.git
+  698  16 07 11 11:27:15 uname -a 
+  699  16 07 11 11:27:19 ping google.com
+  700  16 07 11 11:27:25 route
+  701  16 07 11 11:27:48 exit
+  702  16 07 11 11:43:40 cd labs/
+  703  16 07 11 11:44:55 git clone https://github.com/Virtual-Labs/structural-dynamics-iiith.git
+  704  16 07 11 11:45:12 apt-get install git
+  705  16 07 11 11:45:48 ping google.com
+  706  16 07 11 11:45:54 route -n
+  707  16 07 11 11:46:46 ping sd-iith.vlabs.ac.in
+  708  16 07 11 11:47:29 route add default gw 10.100.1.1
+  709  16 07 11 11:47:35 git clone https://github.com/Virtual-Labs/structural-dynamics-iiith.git
+  710  16 07 11 11:47:42 apt-get install git -y
+  711  16 07 11 11:48:03 apt-get install -y git 
+  712  16 07 11 11:48:13 apt-get install git
+  713  16 07 11 11:48:25 ping google.com
+  714  16 07 11 11:48:31 apt-get update
+  715  16 07 11 11:48:46 apt-get install git
+  716  16 07 11 11:49:05 git clone https://github.com/Virtual-Labs/structural-dynamics-iiith.git
+  717  16 07 11 11:49:14 ls
+  718  16 07 11 11:49:21 cd labs/
+  719  16 07 11 11:49:23 ls
+  720  16 07 11 11:49:30 cd ../
+  721  16 07 11 11:49:37 mv structural-dynamics-iiith/ labs/
+  722  16 07 11 11:49:52 cd labs/structural-dynamics-iiith
+  723  16 07 11 11:49:54 ls
+  724  16 07 11 11:50:00 cd src/
+  725  16 07 11 11:50:01 make
+  726  16 07 11 11:50:47 #cp /var/www 
+  727  16 07 11 11:51:15 mv /var/www  /var/www.bkp
+  728  16 07 11 11:51:24 mkdir /var/www
+  729  16 07 11 11:51:40 cp -R  ../build/* /var/www/
+  730  16 07 11 11:52:01 chmod -R 755 /var/www/
+  731  16 07 11 11:53:07 #chmod -R 755 /var/www/
+  732  16 09 07 05:17:13 sudo apt-get install htop
+  733  16 09 07 05:17:46 htop
+  734  16 09 07 05:20:27 exit
+  735  18 09 03 09:00:03 vim /etc/resolv.conf 
+  736  18 09 03 09:00:21 route -n
+  737  18 09 09 04:50:15 exit
+  738  18 12 10 07:08:37 df -h
+  739  19 01 28 08:44:01 ls
+  740  19 01 28 08:44:04 cd labs/
+  741  19 01 28 08:44:04 ls
+  742  19 01 28 08:44:26 passwd
+  743  19 01 28 08:47:41 ls
+  744  19 01 28 08:47:43 df -h
+  745  19 01 28 08:47:59 cd /var/logs/
+  746  19 01 28 08:48:00 ls
+  747  19 01 28 08:48:07 history
+root@ip-10-100-0-180:~# vim /etc/logwatch/conf/logwatch.conf
+root@ip-10-100-0-180:~# 

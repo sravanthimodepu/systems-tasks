@@ -1,0 +1,22 @@
+
+- loovapro stores vlabs as AWS
+- Brief discussion on virtual labs 
+- 1000+ exps, 12 institutes 
+- engineer.ai company
+- trade engines - 64% discount on demand
+- courses in educate
+- Training at educate on aws cloud computing per student 75$ credits
+  for free
+- use credits for doing practicals & theory
+- student needs to create an account, unlimited students.
+- Just for authentication $200 credits AWS
+- what happens to gpx when it is down - maintains data centres at
+  different location in maharashtra
+- cpc - overview of basics $100
+- linux academy - download course
+- cloud99
+- udemy 
+- cloudguru 
+
+
+- Create a locuz repository
